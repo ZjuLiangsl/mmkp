@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.platform.modules.pmkb.mapper.MetadataTablesMapper">
+
+    <select id="pageTables" resultType="org.platform.modules.pmkb.vo.MetadataTablesVO">
+        select
+        t.id,t.ds_code,s.name as ds_name,t.db_name,t.table_name,t.table_comment,
+        e.table_remark,
+        (case when e.is_paging is null then '1' else e.is_paging end) as is_paging,
+        (case when e.form_width is null then 650 else e.form_width end) as form_width,
+        e.ext_field1,e.ext_field2,e.ext_field3,t.data_state
+        from pmkb_metadata_tables t left join pmkb_metadata_tables_ext e
+        on t.ds_code=e.ds_code and t.db_name=e.db_name and t.table_name=e.table_name
+        left join sys_data_source s
+        on t.ds_code = s.code
+        <where>
+            <if test="map.dsCode!=null and map.dsCode!=''">
+                and t.ds_code = #{map.dsCode}
+            </if>
+            <if test="map.dbName!=null and map.dbName!=''">
+                and t.db_name = #{map.dbName}
+            </if>
+            <if test="map.dataState!=null and map.dataState!=''">
+                and t.data_state = #{map.dataState}
+            </if>
+            <if test="map.tableName!=null and map.tableName!=''">
+                and t.table_name like concat('%',#{map.tableName},'%')
+            </if>
+            <if test="map.tableRemark!=null and map.tableRemark!=''">
+                and (t.table_name like concat('%',#{map.tableRemark},'%') or e.table_remark like concat('%',#{map.tableRemark},'%'))
+            </if>
+        </where>
+        ORDER BY t.ds_code,t.db_name,t.table_name
+    </select>
+
+    <select id="getMetadataTablesVO" resultType="org.platform.modules.pmkb.vo.MetadataTablesVO">
+        select
+        t.id,t.ds_code,s.name as ds_name,t.db_name,t.table_name,
+        (case when ext.table_remark is not null and ext.TABLE_REMARK!='' then ext.TABLE_REMARK else  t.TABLE_COMMENT end) table_comment,
+        (case when ext.IS_PAGING is not null and ext.IS_PAGING!='' then ext.IS_PAGING else  '1' end) is_paging,
+        (case when ext.form_width is not null and ext.form_width!='' then ext.form_width else  650 end) form_width,t.data_state
+        from pmkb_metadata_tables t
+        left join pmkb_metadata_tables_ext ext
+        on t.DS_CODE=ext.DS_CODE and t.DB_NAME=ext.DB_NAME and t.TABLE_NAME=ext.TABLE_NAME
+        left join sys_data_source s
+        on t.ds_code = s.code
+        <where>
+            <if test="po.dsCode!=null and po.dsCode!=''">
+                and t.ds_code = #{po.dsCode}
+            </if>
+            <if test="po.dbName!=null and po.dbName!=''">
+                and t.db_name = #{po.dbName}
+            </if>
+            <if test="po.tableName!=null and po.tableName!=''">
+                and t.table_name =#{po.tableName}
+            </if>
+        </where>
+    </select>
+
+    <select id="listTables" resultType="org.platform.modules.pmkb.vo.MetadataTablesVO">
+        select
+        t.id,t.ds_code,s.name as ds_name,t.db_name,t.table_name,t.table_comment,
+        e.table_remark,
+        (case when e.is_paging is null then '1' else e.is_paging end) as is_paging,
+        (case when e.form_width is null then 650 else e.form_width end) as form_width,
+        e.ext_field1,e.ext_field2,e.ext_field3,t.data_state
+        from pmkb_metadata_tables t left join pmkb_metadata_tables_ext e
+        on t.ds_code=e.ds_code and t.db_name=e.db_name and t.table_name=e.table_name
+        left join sys_data_source s
+        on t.ds_code = s.code
+        <where>
+            <if test="map.dsCode!=null and map.dsCode!=''">
+                and t.ds_code = #{map.dsCode}
+            </if>
+            <if test="map.dbCode!=null and map.dbCode!=''">
+                and t.db_name = #{map.dbCode}
+            </if>
+            <if test="map.searchText!=null and map.searchText!=''">
+                and (t.table_name like concat('%',#{map.searchText},'%') or t.table_comment like concat('%',#{map.searchText},'%')  or e.table_remark like concat('%',#{map.searchText},'%'))
+            </if>
+        </where>
+        ORDER BY t.ds_code,t.db_name,t.table_name
+    </select>
+</mapper>

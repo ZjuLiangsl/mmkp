@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.platform.modules.pmkb.mapper.MetadataFieldsMapper">
+
+    <select id="listMetadataFieldsVO" resultType="org.platform.modules.pmkb.vo.MetadataFieldsVO">
+        select
+        (case when ext.id is not null then ext.id else t.id end) id,
+        t.DS_CODE,t.DB_NAME,t.TABLE_NAME,t.field_name,t.FIELD_TYPE_FULL,t.field_type,t.field_length,t.field_digit,t.is_nullable,t.default_value,t.IS_PK,t.IS_UNIQUE,
+        (case when ext.field_remark is not null and ext.field_remark!='' then ext.field_remark else  t.field_COMMENT end) field_comment,
+        t.fk_db_name,t.fk_table_name,t.fk_field_name,
+        (case when ext.IS_TABLE_DISPLAY is not null and ext.IS_TABLE_DISPLAY!='' then ext.IS_TABLE_DISPLAY else  '1' end) IS_TABLE_DISPLAY,
+        (case when ext.IS_FORM_DISPLAY is not null and ext.IS_FORM_DISPLAY!='' then ext.IS_FORM_DISPLAY else  '1' end) IS_FORM_DISPLAY,
+        (case when ext.IS_SEARCH_FIELD is not null and ext.IS_SEARCH_FIELD!='' then ext.IS_SEARCH_FIELD else  '0' end) IS_SEARCH_FIELD,
+        (case when ext.FIELD_COMP_TYPE is not null and ext.FIELD_COMP_TYPE!='' then ext.FIELD_COMP_TYPE else  null end) FIELD_COMP_TYPE,
+        (case when ext.COMP_DICT_CODE is not null and ext.COMP_DICT_CODE!='' then ext.COMP_DICT_CODE else  null end) COMP_DICT_CODE,
+        (case when ext.COMP_RULE_CODES is not null and ext.COMP_RULE_CODES!='' then ext.COMP_RULE_CODES else  null end) COMP_RULE_CODES,
+        ext.EXT_FIELD1,ext.EXT_FIELD2,
+        (case when ext.EXT_FIELD3 is not null and ext.EXT_FIELD3!='' then ext.EXT_FIELD3 when t.IS_PK='1' then '0' else  t.is_nullable end) ext_field3,
+        ext.EXT_FIELD4,ext.EXT_FIELD5,
+        t.data_state
+        from pmkb_metadata_fields t
+        left join pmkb_metadata_fields_ext ext
+        on t.DS_CODE=ext.DS_CODE and t.DB_NAME=ext.DB_NAME and t.TABLE_NAME=ext.TABLE_NAME and t.field_name=ext.FIELD_NAME and t.FIELD_TYPE_FULL=ext.FIELD_TYPE_FULL
+        <where>
+            <if test="po.dsCode!=null and po.dsCode!=''">
+                and t.ds_code = #{po.dsCode}
+            </if>
+            <if test="po.dbName!=null and po.dbName!=''">
+                and t.db_name = #{po.dbName}
+            </if>
+            <if test="po.tableName!=null and po.tableName!=''">
+                and t.table_name =#{po.tableName}
+            </if>
+        </where>
+        order by is_pk desc,field_name
+    </select>
+
+</mapper>

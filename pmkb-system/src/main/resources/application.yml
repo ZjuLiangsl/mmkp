@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: pmkb-system
+  profiles:
+    active: prod
+
+# 采集元数据时排除的数据库,英文逗号分隔
+md:
+  exclude-schemas: mysql,sys,information_schema,performance_schema

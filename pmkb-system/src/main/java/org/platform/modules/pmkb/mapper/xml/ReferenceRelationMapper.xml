@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.platform.modules.pmkb.mapper.ReferenceRelationMapper">
+
+    <select id="listByParam" resultType="org.platform.modules.pmkb.entity.ReferenceRelation">
+        SELECT
+            r.id,r.ds_code,r.db_name,r.table_name,
+            (case when f.FIELD_COMMENT is not null and f.FIELD_COMMENT!='' then f.FIELD_COMMENT else r.FIELD_NAME end) field_name,
+            r.REF_TABLE_NAME,r.REF_FIELD_NAME
+        FROM pmkb_reference_relation r
+        left join pmkb_metadata_fields f
+        on r.DS_CODE=f.DS_CODE and r.DB_NAME=f.DB_NAME and r.TABLE_NAME = f.TABLE_NAME and r.FIELD_NAME=f.FIELD_NAME
+        where r.DS_CODE=#{param1,jdbcType=VARCHAR} and r.DB_NAME=#{param2,jdbcType=VARCHAR} and r.TABLE_NAME=#{param3,jdbcType=VARCHAR}
+    </select>
+</mapper>
