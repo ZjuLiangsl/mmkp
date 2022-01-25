@@ -84,6 +84,8 @@ export default {
           console.error(res)
         }
       })
+      
+      this.$refs.mEditorRef.loadDictFieldDataType()
     },
     handleDsChange(selectedItem) {
       if (selectedItem) {
@@ -124,6 +126,7 @@ export default {
       this.$nextTick(() => {
         if (this.$refs.mEditorRef) {
           this.$refs.mEditorRef.updateCode(this.dsCode, this.dbCode)
+          this.$refs.mEditorRef.loadDictFieldDataType()
         }
         if (this.$refs.dEditorRef) {
           this.$refs.dEditorRef.updateCode(this.dsCode, this.dbCode)
