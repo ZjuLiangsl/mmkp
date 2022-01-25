@@ -1332,6 +1332,19 @@ export default {
         this.dbCode = undefined
       }
     },
+    loadDictFieldDataType(){
+      //优先从缓存中读取字典配置
+      if (getDictItemsFromCache('field_data_type')) {
+        this.dataTypes = getDictItemsFromCache('field_data_type')
+        return
+      }
+      //根据字典Code, 初始化字典数组
+      ajaxGetDictItems('field_data_type', null).then((res) => {
+        if (res.success) {
+          this.dataTypes = res.result
+        }
+      })
+    },
     updateCode(dsCode, dbCode) {
       if (this.dsCode != dsCode || this.dbCode != dbCode) {
         this.dsCode = dsCode
