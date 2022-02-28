@@ -1,16 +1,16 @@
 # mmkp
 A Mind Mapping Knowledgebase Prototyping Tool for Precision Medicine
 
-## 安装nodejs
+## Install nodejs
 
-## 下载依赖
+## Download dependencies
 
 yarn install
 
-## 启动
+## Run
 
 yarn run serve
 
-## 编译项目
+## Compile
 
 yarn run build
