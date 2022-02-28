@@ -4,22 +4,22 @@ A Mind Mapping Knowledgebase Prototyping Tool for Precision Medicine
 ## Interface : mmkp-web
 ### Tools
   vs code or webstorm
-### Install nodejs
+### 1.Install nodejs
 
-### Download dependencies
+### 2.Download dependencies
   yarn install
-### Run
+### 3.Run
 
   yarn run serve
-### Compile
+### 4.Compile
 
   yarn run build
 
 ## Server : mmkp-init
 ### Tools
   eclipse or IDEA
-### Install maven, mysql, redis
-### Initiate database
+### 1.Install maven, mysql, redis
+### 2.Initiate database
   database script: db/mmkp-db.sql
-### Refresh pom.xml dependencies
-### Start PmkbSystemApplication
+### 3.Refresh pom.xml dependencies
+### 4.Start PmkbSystemApplication
