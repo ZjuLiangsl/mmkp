@@ -1,16 +1,17 @@
 # mmkp
 A Mind Mapping Knowledgebase Prototyping Tool for Precision Medicine
 
-## Install nodejs
+## Interface : mmkp-web
+#### Install nodejs
 
-## Download dependencies
+#### Download dependencies
 
-yarn install
+  yarn install
 
-## Run
+#### Run
 
-yarn run serve
+  yarn run serve
 
-## Compile
+#### Compile
 
-yarn run build
+  yarn run build
