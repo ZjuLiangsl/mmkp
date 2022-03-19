@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 /**
  * 
- * @Author  张代浩
+ * @Author
  *
  */
 @Slf4j
@@ -200,7 +200,7 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 转义成Unicode编码
+	 *    Unicode
 	 * @param s
 	 * @return
 	 */
@@ -247,7 +247,7 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 获取本机IP
+	 *     IP
 	 */
 	public static String getIp() {
 		String ip = null;
@@ -262,11 +262,11 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 判断一个类是否为基本数据类型。
+	 *               。
 	 * 
 	 * @param clazz
-	 *            要判断的类。
-	 * @return true 表示为基本数据类型。
+	 *                 。
+	 * @return true          。
 	 */
 	private static boolean isBaseDataType(Class clazz) throws Exception {
 		return (clazz.equals(String.class) || clazz.equals(Integer.class) || clazz.equals(Byte.class) || clazz.equals(Long.class) || clazz.equals(Double.class) || clazz.equals(Float.class) || clazz.equals(Character.class) || clazz.equals(Short.class) || clazz.equals(BigDecimal.class) || clazz.equals(BigInteger.class) || clazz.equals(Boolean.class) || clazz.equals(Date.class) || clazz.isPrimitive());
@@ -292,26 +292,26 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * @return 本机IP
+	 * @return   IP
 	 * @throws SocketException
 	 */
 	public static String getRealIp() throws SocketException {
-		String localip = null;// 本地IP，如果没有配置外网IP则返回它
-		String netip = null;// 外网IP
+		String localip = null;//   IP，        IP
+		String netip = null;//   IP
 
 		Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
 		InetAddress ip = null;
-		boolean finded = false;// 是否找到外网IP
+		boolean finded = false;//       IP
 		while (netInterfaces.hasMoreElements() && !finded) {
 			NetworkInterface ni = netInterfaces.nextElement();
 			Enumeration<InetAddress> address = ni.getInetAddresses();
 			while (address.hasMoreElements()) {
 				ip = address.nextElement();
-				if (!ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {// 外网IP
+				if (!ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {//   IP
 					netip = ip.getHostAddress();
 					finded = true;
 					break;
-				} else if (ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {// 内网IP
+				} else if (ip.isSiteLocalAddress() && !ip.isLoopbackAddress() && ip.getHostAddress().indexOf(":") == -1) {//   IP
 					localip = ip.getHostAddress();
 				}
 			}
@@ -325,7 +325,7 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * java去除字符串中的空格、回车、换行符、制表符
+	 * java         、  、   、
 	 * 
 	 * @param str
 	 * @return
@@ -342,7 +342,7 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 判断元素是否在数组内
+	 *           
 	 * 
 	 * @param substring
 	 * @param source
@@ -362,14 +362,14 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 获取Map对象
+	 *   Map  
 	 */
 	public static Map<Object, Object> getHashMap() {
 		return new HashMap<Object, Object>();
 	}
 
 	/**
-	 * SET转换MAP
+	 * SET  MAP
 	 * 
 	 * @param str
 	 * @return
@@ -388,7 +388,7 @@ public class oConvertUtils {
 		boolean isInnerIp = false;
 		long ipNum = getIpNum(ipAddress);
 		/**
-		 * 私有IP：A类 10.0.0.0-10.255.255.255 B类 172.16.0.0-172.31.255.255 C类 192.168.0.0-192.168.255.255 当然，还有127这个网段是环回地址
+		 *   IP：A  10.0.0.0-10.255.255.255 B  172.16.0.0-172.31.255.255 C  192.168.0.0-192.168.255.255   ，  127         
 		 **/
 		long aBegin = getIpNum("10.0.0.0");
 		long aEnd = getIpNum("10.255.255.255");
@@ -416,40 +416,40 @@ public class oConvertUtils {
 	}
 	
 	/**
-	 * 将下划线大写方式命名的字符串转换为驼峰式。
-	 * 如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。</br>
-	 * 例如：hello_world->helloWorld
+	 *                     。
+	 *                      ，       。</br>
+	 *   ：hello_world->helloWorld
 	 * 
 	 * @param name
-	 *            转换前的下划线大写方式命名的字符串
-	 * @return 转换后的驼峰式命名的字符串
+	 *                             
+	 * @return              
 	 */
 	public static String camelName(String name) {
 		StringBuilder result = new StringBuilder();
-		// 快速检查
+		//     
 		if (name == null || name.isEmpty()) {
-			// 没必要转换
+			//      
 			return "";
 		} else if (!name.contains("_")) {
-			// 不含下划线，仅将首字母小写
-			//update-begin--Author:zhoujf  Date:20180503 for：TASK #2500 【代码生成器】代码生成器开发一通用模板生成功能
-			//update-begin--Author:zhoujf  Date:20180503 for：TASK #2500 【代码生成器】代码生成器开发一通用模板生成功能
+			//      ，       
+			//update-begin--Author:zhoujf  Date:20180503 for：TASK #2500 【     】                
+			//update-begin--Author:zhoujf  Date:20180503 for：TASK #2500 【     】                
 			return name.substring(0, 1).toLowerCase() + name.substring(1).toLowerCase();
-			//update-end--Author:zhoujf  Date:20180503 for：TASK #2500 【代码生成器】代码生成器开发一通用模板生成功能
+			//update-end--Author:zhoujf  Date:20180503 for：TASK #2500 【     】                
 		}
-		// 用下划线将原始字符串分割
+		//             
 		String camels[] = name.split("_");
 		for (String camel : camels) {
-			// 跳过原始字符串中开头、结尾的下换线或双重下划线
+			//           、            
 			if (camel.isEmpty()) {
 				continue;
 			}
-			// 处理真正的驼峰片段
+			//          
 			if (result.length() == 0) {
-				// 第一个驼峰片段，全部字母都小写
+				//        ，       
 				result.append(camel.toLowerCase());
 			} else {
-				// 其他的驼峰片段，首字母大写
+				//        ，     
 				result.append(camel.substring(0, 1).toUpperCase());
 				result.append(camel.substring(1).toLowerCase());
 			}
@@ -458,13 +458,13 @@ public class oConvertUtils {
 	}
 	
 	/**
-	 * 将下划线大写方式命名的字符串转换为驼峰式。
-	 * 如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。</br>
-	 * 例如：hello_world,test_id->helloWorld,testId
+	 *                     。
+	 *                      ，       。</br>
+	 *   ：hello_world,test_id->helloWorld,testId
 	 * 
 	 * @param name
-	 *            转换前的下划线大写方式命名的字符串
-	 * @return 转换后的驼峰式命名的字符串
+	 *                             
+	 * @return              
 	 */
 	public static String camelNames(String names) {
 		if(names==null||names.equals("")){
@@ -480,43 +480,43 @@ public class oConvertUtils {
 		return result.substring(0, result.length() - 1);
 	}
 	
-	//update-begin--Author:zhoujf  Date:20180503 for：TASK #2500 【代码生成器】代码生成器开发一通用模板生成功能
+	//update-begin--Author:zhoujf  Date:20180503 for：TASK #2500 【     】                
 	/**
-	 * 将下划线大写方式命名的字符串转换为驼峰式。(首字母写)
-	 * 如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。</br>
-	 * 例如：hello_world->HelloWorld
+	 *                     。(    )
+	 *                      ，       。</br>
+	 *   ：hello_world->HelloWorld
 	 * 
 	 * @param name
-	 *            转换前的下划线大写方式命名的字符串
-	 * @return 转换后的驼峰式命名的字符串
+	 *                             
+	 * @return              
 	 */
 	public static String camelNameCapFirst(String name) {
 		StringBuilder result = new StringBuilder();
-		// 快速检查
+		//     
 		if (name == null || name.isEmpty()) {
-			// 没必要转换
+			//      
 			return "";
 		} else if (!name.contains("_")) {
-			// 不含下划线，仅将首字母小写
+			//      ，       
 			return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
 		}
-		// 用下划线将原始字符串分割
+		//             
 		String camels[] = name.split("_");
 		for (String camel : camels) {
-			// 跳过原始字符串中开头、结尾的下换线或双重下划线
+			//           、            
 			if (camel.isEmpty()) {
 				continue;
 			}
-			// 其他的驼峰片段，首字母大写
+			//        ，     
 			result.append(camel.substring(0, 1).toUpperCase());
 			result.append(camel.substring(1).toLowerCase());
 		}
 		return result.toString();
 	}
-	//update-end--Author:zhoujf  Date:20180503 for：TASK #2500 【代码生成器】代码生成器开发一通用模板生成功能
+	//update-end--Author:zhoujf  Date:20180503 for：TASK #2500 【     】                
 	
 	/**
-	 * 将驼峰命名转化成下划线
+	 *            
 	 * @param para
 	 * @return
 	 */
@@ -525,8 +525,8 @@ public class oConvertUtils {
         	return para.toLowerCase(); 
         }
         StringBuilder sb=new StringBuilder(para);
-        int temp=0;//定位
-        //从第三个字符开始 避免命名不规范 
+        int temp=0;//  
+        //                 
         for(int i=2;i<para.length();i++){
             if(Character.isUpperCase(para.charAt(i))){
                 sb.insert(i+temp, "_");
@@ -537,8 +537,8 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 随机数
-	 * @param place 定义随机数的位数
+	 *    
+	 * @param place         
 	 */
 	public static String randomGen(int place) {
 		String base = "qwertyuioplkjhgfdsazxcvbnmQAZWSXEDCRFVTGBYHNUJMIKLOP0123456789";
@@ -551,7 +551,7 @@ public class oConvertUtils {
 	}
 	
 	/**
-	 * 获取类的所有属性，包括父类
+	 *         ，    
 	 * 
 	 * @param object
 	 * @return
@@ -569,7 +569,7 @@ public class oConvertUtils {
 	}
 	
 	/**
-	  * 将map的key全部转成小写
+	  *  map key      
 	 * @param list
 	 * @return
 	 */
@@ -588,7 +588,7 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 将entityList转换成modelList
+	 *  entityList   modelList
 	 * @param fromList
 	 * @param tClass
 	 * @param <F>
@@ -608,7 +608,7 @@ public class oConvertUtils {
 	}
 
 	public static<F,T> T entityToModel(F entity, Class<T> modelClass) {
-		log.debug("entityToModel : Entity属性的值赋值到Model");
+		log.debug("entityToModel : Entity       Model");
 		Object model = null;
 		if (entity == null || modelClass ==null) {
 			return null;
@@ -617,16 +617,16 @@ public class oConvertUtils {
 		try {
 			model = modelClass.newInstance();
 		} catch (InstantiationException e) {
-			log.error("entityToModel : 实例化异常", e);
+			log.error("entityToModel :      ", e);
 		} catch (IllegalAccessException e) {
-			log.error("entityToModel : 安全权限异常", e);
+			log.error("entityToModel :       ", e);
 		}
 		BeanUtils.copyProperties(entity, model);
 		return (T)model;
 	}
 
 	/**
-	 * 判断 list 是否为空
+	 *    list     
 	 *
 	 * @param list
 	 * @return true or false
@@ -638,7 +638,7 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 判断 list 是否不为空
+	 *    list      
 	 *
 	 * @param list
 	 * @return true or false
@@ -650,14 +650,14 @@ public class oConvertUtils {
 	}
 
 	/**
-	 * 读取静态文本内容
+	 *         
 	 * @param url
 	 * @return
 	 */
 	public static String readStatic(String url) {
 		String json = "";
 		try {
-			//换个写法，解决springboot读取jar包中文件的问题
+			//    ，  springboot  jar       
 			InputStream stream = oConvertUtils.class.getClassLoader().getResourceAsStream(url.replace("classpath:", ""));
 			json = IOUtils.toString(stream,"UTF-8");
 		} catch (IOException e) {

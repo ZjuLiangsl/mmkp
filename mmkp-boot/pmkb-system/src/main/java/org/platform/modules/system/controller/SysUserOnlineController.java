@@ -29,7 +29,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @Description: 在线用户
  * @Author: chenli
  * @Date: 2020-06-07
  * @Version: V1.0
@@ -80,7 +79,6 @@ public class SysUserOnlineController {
         Page<SysUserOnlineVO> page = new Page<SysUserOnlineVO>(pageNo, pageSize);
         int count = onlineList.size();
         List<SysUserOnlineVO> pages = new ArrayList<>();
-        //计算当前页第一条数据的下标
         int currId = pageNo>1 ? (pageNo-1)*pageSize:0;
         for (int i=0; i<pageSize && i<count - currId;i++){
             pages.add(onlineList.get(currId+i));

@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
- * @Description: 定时任务在线管理
  * @Author: jeecg-boot
  * @Date:  2019-01-02
  * @Version: V1.0
@@ -28,34 +27,24 @@ public class QuartzJob implements Serializable {
 	/**id*/
 	@TableId(type = IdType.ASSIGN_ID)
 	private String id;
-	/**创建人*/
 	private String createBy;
-	/**创建时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private java.util.Date createTime;
-	/**删除状态*/
 	private Integer delFlag;
-	/**修改人*/
 	private String updateBy;
-	/**修改时间*/
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private java.util.Date updateTime;
-	/**任务类名*/
-	@Excel(name="任务类名",width=40)
+	@Excel(name="jobClassName",width=40)
 	private String jobClassName;
-	/**cron表达式*/
-	@Excel(name="cron表达式",width=30)
+	@Excel(name="cronExpression",width=30)
 	private String cronExpression;
-	/**参数*/
-	@Excel(name="参数",width=15)
+	@Excel(name="parameter",width=15)
 	private String parameter;
-	/**描述*/
-	@Excel(name="描述",width=40)
+	@Excel(name="description",width=40)
 	private String description;
-	/**状态 0正常 -1停止*/
-	@Excel(name="状态",width=15,dicCode="quartz_status")
+	@Excel(name="status",width=15,dicCode="quartz_status")
 	@Dict(dicCode = "quartz_status")
 	private Integer status;
 

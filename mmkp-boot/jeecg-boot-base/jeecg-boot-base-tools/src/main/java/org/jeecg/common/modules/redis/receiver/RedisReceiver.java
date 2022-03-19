@@ -18,7 +18,6 @@ public class RedisReceiver {
 
 
     /**
-     * 接受消息并调用业务逻辑处理器
      *
      * @param params
      */

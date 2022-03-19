@@ -20,7 +20,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * 该类参照 DefaultRedisCacheWriter 重写了 remove 方法实现通配符*删除
+ *  DefaultRedisCacheWriter  remove
  */
 @Slf4j
 public class JeecgRedisCacheWriter implements RedisCacheWriter {
@@ -104,7 +104,6 @@ public class JeecgRedisCacheWriter implements RedisCacheWriter {
         log.info("redis remove key:" + keyString);
         if(keyString!=null && keyString.endsWith("*")){
             execute(name, connection -> {
-                // 获取某个前缀所拥有的所有的键，某个前缀开头，后面肯定是*
                 Set<byte[]> keys = connection.keys(key);
                 int delNum = 0;
                 for (byte[] keyByte : keys) {

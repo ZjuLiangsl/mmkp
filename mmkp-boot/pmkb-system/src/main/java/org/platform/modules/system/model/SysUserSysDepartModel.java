@@ -5,7 +5,6 @@ import org.platform.modules.system.entity.SysDepart;
 import org.platform.modules.system.entity.SysUser;
 
 /**
- * 包含 SysUser 和 SysDepart 的 Model
  *
  * @author sunjianlei
  */

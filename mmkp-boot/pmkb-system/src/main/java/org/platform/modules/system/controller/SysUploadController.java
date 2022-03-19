@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * minio文件上传示例
  */
 @Slf4j
 @RestController
@@ -23,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 public class SysUploadController {
 
     /**
-     * 上传
      * @param request
      */
     @PostMapping(value = "/uploadMinio")
@@ -34,8 +32,8 @@ public class SysUploadController {
             bizPath = "";
         }
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        MultipartFile file = multipartRequest.getFile("file");// 获取上传文件对象
-        String orgName = file.getOriginalFilename();// 获取文件名
+        MultipartFile file = multipartRequest.getFile("file");
+        String orgName = file.getOriginalFilename();
         orgName = CommonUtils.getFileName(orgName);
         result.setSuccess(true);
         return result;

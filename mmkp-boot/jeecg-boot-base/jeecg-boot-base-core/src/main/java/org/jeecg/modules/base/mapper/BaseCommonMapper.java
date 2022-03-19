@@ -7,7 +7,7 @@ import org.jeecg.common.api.dto.LogDTO;
 public interface BaseCommonMapper {
 
     /**
-     * 保存日志
+     *     
      * @param dto
      */
     //@SqlParser(filter=true)

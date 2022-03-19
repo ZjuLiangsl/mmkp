@@ -18,7 +18,7 @@
             <groupId>org.jeecgframework.boot</groupId>
             <artifactId>jeecg-boot-base-tools</artifactId>
         </dependency>
-        <!--集成springmvc框架并实现自动配置 -->
+        <!--springmvc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -40,7 +40,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!--springboot2.3+ 需引入validation对应的包-->
+        <!--springboot2.3+ -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -77,7 +77,6 @@
             <version>${druid.version}</version>
         </dependency>
 
-        <!-- 动态数据源 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
@@ -94,7 +93,6 @@
             </exclusions>
         </dependency>
 
-        <!-- 数据库驱动 -->
         <!--mysql-->
         <dependency>
             <groupId>mysql</groupId>
@@ -109,14 +107,14 @@
             <version>${sqljdbc4.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- oracle驱动 -->
+        <!-- oracle -->
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>${ojdbc6.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!-- postgresql驱动 -->
+        <!-- postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -124,7 +122,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Quartz定时任务 -->
+        <!-- Quartz -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-quartz</artifactId>
@@ -163,7 +161,7 @@
             <version>${knife4j-spring-boot-starter.version}</version>
         </dependency>
 
-        <!-- AutoPoi Excel工具类-->
+        <!-- AutoPoi Excel-->
         <dependency>
             <groupId>org.jeecgframework</groupId>
             <artifactId>autopoi-web</artifactId>

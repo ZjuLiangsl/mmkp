@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description: 定时任务在线管理
  * @Author: jeecg-boot
  * @Date: 2019-01-02
  * @Version:V1.0
@@ -43,7 +42,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/sys/quartzJob")
 @Slf4j
-@Api(tags = "定时任务接口")
+@Api(tags = "QuartzJobController")
 public class QuartzJobController {
 	@Autowired
 	private IQuartzJobService quartzJobService;
@@ -51,8 +50,7 @@ public class QuartzJobController {
 	private Scheduler scheduler;
 
 	/**
-	 * 分页列表查询
-	 * 
+	 *
 	 * @param quartzJob
 	 * @param pageNo
 	 * @param pageSize
@@ -70,8 +68,7 @@ public class QuartzJobController {
 	}
 
 	/**
-	 * 添加定时任务
-	 * 
+	 *
 	 * @param quartzJob
 	 * @return
 	 */
@@ -79,12 +76,11 @@ public class QuartzJobController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Result<?> add(@RequestBody QuartzJob quartzJob) {
 		quartzJobService.saveAndScheduleJob(quartzJob);
-		return Result.ok("创建定时任务成功");
+		return Result.ok("success");
 	}
 
 	/**
-	 * 更新定时任务
-	 * 
+	 *
 	 * @param quartzJob
 	 * @return
 	 */
@@ -95,14 +91,13 @@ public class QuartzJobController {
 			quartzJobService.editAndScheduleJob(quartzJob);
 		} catch (SchedulerException e) {
 			log.error(e.getMessage(),e);
-			return Result.error("更新定时任务失败!");
+			return Result.error("Exception!");
 		}
-	    return Result.ok("更新定时任务成功!");
+	    return Result.ok("success!");
 	}
 
 	/**
-	 * 通过id删除
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -111,16 +106,15 @@ public class QuartzJobController {
 	public Result<?> delete(@RequestParam(name = "id", required = true) String id) {
 		QuartzJob quartzJob = quartzJobService.getById(id);
 		if (quartzJob == null) {
-			return Result.error("未找到对应实体");
+			return Result.error("No corresponding entity found");
 		}
 		quartzJobService.deleteAndStopJob(quartzJob);
-        return Result.ok("删除成功!");
+        return Result.ok("success!");
 
 	}
 
 	/**
-	 * 批量删除
-	 * 
+	 *
 	 * @param ids
 	 * @return
 	 */
@@ -128,55 +122,50 @@ public class QuartzJobController {
 	@RequestMapping(value = "/deleteBatch", method = RequestMethod.DELETE)
 	public Result<?> deleteBatch(@RequestParam(name = "ids", required = true) String ids) {
 		if (ids == null || "".equals(ids.trim())) {
-			return Result.error("参数不识别！");
+			return Result.error("Parameter nonidentification！");
 		}
 		for (String id : Arrays.asList(ids.split(","))) {
 			QuartzJob job = quartzJobService.getById(id);
 			quartzJobService.deleteAndStopJob(job);
 		}
-        return Result.ok("删除定时任务成功!");
+        return Result.ok("success!");
 	}
 
 	/**
-	 * 暂停定时任务
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
 	//@RequiresRoles("admin")
 	@GetMapping(value = "/pause")
-	@ApiOperation(value = "暂停定时任务")
 	public Result<Object> pauseJob(@RequestParam(name = "id") String id) {
 		QuartzJob job = quartzJobService.getById(id);
 		if (job == null) {
-			return Result.error("定时任务不存在！");
+			return Result.error("The scheduled task does not exist！");
 		}
 		quartzJobService.pause(job);
-		return Result.ok("暂停定时任务成功");
+		return Result.ok("success");
 	}
 
 	/**
-	 * 启动定时任务
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
 	//@RequiresRoles("admin")
 	@GetMapping(value = "/resume")
-	@ApiOperation(value = "恢复定时任务")
 	public Result<Object> resumeJob(@RequestParam(name = "id") String id) {
 		QuartzJob job = quartzJobService.getById(id);
 		if (job == null) {
-			return Result.error("定时任务不存在！");
+			return Result.error("The scheduled task does not exist！");
 		}
 		quartzJobService.resumeJob(job);
 		//scheduler.resumeJob(JobKey.jobKey(job.getJobClassName().trim()));
-		return Result.ok("恢复定时任务成功");
+		return Result.ok("success");
 	}
 
 	/**
-	 * 通过id查询
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -187,29 +176,24 @@ public class QuartzJobController {
 	}
 
 	/**
-	 * 导出excel
-	 * 
+	 *
 	 * @param request
 	 * @param quartzJob
 	 */
 	@RequestMapping(value = "/exportXls")
 	public ModelAndView exportXls(HttpServletRequest request, QuartzJob quartzJob) {
-		// Step.1 组装查询条件
 		QueryWrapper<QuartzJob> queryWrapper = QueryGenerator.initQueryWrapper(quartzJob, request.getParameterMap());
-		// Step.2 AutoPoi 导出Excel
 		ModelAndView mv = new ModelAndView(new JeecgEntityExcelView());
 		List<QuartzJob> pageList = quartzJobService.list(queryWrapper);
-		// 导出文件名称
-		mv.addObject(NormalExcelConstants.FILE_NAME, "定时任务列表");
+		mv.addObject(NormalExcelConstants.FILE_NAME, "Scheduled Task List");
 		mv.addObject(NormalExcelConstants.CLASS, QuartzJob.class);
-		mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("定时任务列表数据", "导出人:Jeecg", "导出信息"));
+		mv.addObject(NormalExcelConstants.PARAMS, new ExportParams("Scheduled Task List", "Jeecg", "export"));
 		mv.addObject(NormalExcelConstants.DATA_LIST, pageList);
 		return mv;
 	}
 
 	/**
-	 * 通过excel导入数据
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @return
@@ -218,11 +202,10 @@ public class QuartzJobController {
 	public Result<?> importExcel(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-		// 错误信息
 		List<String> errorMessage = new ArrayList<>();
 		int successLines = 0, errorLines = 0;
 		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-			MultipartFile file = entity.getValue();// 获取上传文件对象
+			MultipartFile file = entity.getValue();
 			ImportParams params = new ImportParams();
 			params.setTitleRows(2);
 			params.setHeadRows(1);
@@ -234,7 +217,7 @@ public class QuartzJobController {
 				successLines+=(listQuartzJobs.size()-errorLines);
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);
-				return Result.error("文件导入失败！");
+				return Result.error("failure！");
 			} finally {
 				try {
 					file.getInputStream().close();
@@ -247,7 +230,6 @@ public class QuartzJobController {
 	}
 
 	/**
-	 * 立即执行
 	 * @param id
 	 * @return
 	 */
@@ -256,15 +238,15 @@ public class QuartzJobController {
 	public Result<?> execute(@RequestParam(name = "id", required = true) String id) {
 		QuartzJob quartzJob = quartzJobService.getById(id);
 		if (quartzJob == null) {
-			return Result.error("未找到对应实体");
+			return Result.error("No corresponding entity found");
 		}
 		try {
 			quartzJobService.execute(quartzJob);
 		} catch (Exception e) {
 			//e.printStackTrace();
-			log.info("定时任务 立即执行失败>>"+e.getMessage());
-			return Result.error("执行失败!");
+			log.info("failure >>"+e.getMessage());
+			return Result.error("failure!");
 		}
-		return Result.ok("执行成功!");
+		return Result.ok("success!");
 	}
 }

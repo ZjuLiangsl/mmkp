@@ -2,21 +2,10 @@ package org.jeecg.common.util.superSearch;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-/**
- *   判断类型，追加查询规则
- * 
- * @Author Scott
- * @Date 2019年02月14日
- */
+
 public class ObjectParseUtil {
 
-	/**
-	 * 
-	 * @param queryWrapper QueryWrapper
-	 * @param name         字段名字
-	 * @param rule         查询规则
-	 * @param value        查询条件值
-	 */
+
 	public static void addCriteria(QueryWrapper<?> queryWrapper, String name, QueryRuleEnum rule, Object value) {
 		if (value == null || rule == null) {
 			return;

@@ -6,8 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.Serializable;
 
 /**
- * 文件上传
- * cloud api 用到的接口传输对象
+ *
+ * cloud api
  */
 @Data
 public class FileUploadDTO implements Serializable {
@@ -27,7 +27,6 @@ public class FileUploadDTO implements Serializable {
     }
 
     /**
-     * 简单上传 构造器1
      * @param file
      * @param bizPath
      * @param uploadType
@@ -39,7 +38,6 @@ public class FileUploadDTO implements Serializable {
     }
 
     /**
-     * 申明桶 文件上传 构造器2
      * @param file
      * @param bizPath
      * @param uploadType

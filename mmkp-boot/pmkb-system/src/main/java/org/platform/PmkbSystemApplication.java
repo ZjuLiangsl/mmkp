@@ -14,7 +14,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
-* 单体启动类（采用此类启动为单体模式）
 */
 @Slf4j
 @MapperScan(value = {"org.platform.**.mapper","org.jeecg.**.mapper"})
@@ -36,7 +35,7 @@ public class PmkbSystemApplication extends SpringBootServletInitializer {
                 "Application Jeecg-Boot is running! Access URLs:\n\t" +
                 "Local: \t\thttp://localhost:" + port + path + "/\n\t" +
                 "External: \thttp://" + ip + ":" + port + path + "/\n\t" +
-                "Swagger文档: \thttp://" + ip + ":" + port + path + "/doc.html\n" +
+                "Swagger: \thttp://" + ip + ":" + port + path + "/doc.html\n" +
                 "----------------------------------------------------------");
 
     }

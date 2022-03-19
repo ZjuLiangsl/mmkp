@@ -7,21 +7,21 @@ public enum DySmsEnum {
 	LOGIN_TEMPLATE_CODE("SMS_175435174","JEECG","code"),
 	FORGET_PASSWORD_TEMPLATE_CODE("SMS_175435174","JEECG","code"),
 	REGISTER_TEMPLATE_CODE("SMS_175430166","JEECG","code"),
-	/**会议通知*/
-	MEET_NOTICE_TEMPLATE_CODE("SMS_201480469","H5活动之家","username,title,minute,time"),
-	/**我的计划通知*/
-	PLAN_NOTICE_TEMPLATE_CODE("SMS_201470515","H5活动之家","username,title,time");
+	/**    */
+	MEET_NOTICE_TEMPLATE_CODE("SMS_201480469","H5    ","username,title,minute,time"),
+	/**      */
+	PLAN_NOTICE_TEMPLATE_CODE("SMS_201470515","H5    ","username,title,time");
 
 	/**
-	 * 短信模板编码
+	 *
 	 */
 	private String templateCode;
 	/**
-	 * 签名
+	 *
 	 */
 	private String signName;
 	/**
-	 * 短信模板必需的数据名称，多个key以逗号分隔，此处配置作为校验
+	 *            ，  key     ，
 	 */
 	private String keys;
 	

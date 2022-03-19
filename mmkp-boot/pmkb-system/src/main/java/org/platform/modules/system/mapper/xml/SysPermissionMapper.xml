@@ -11,9 +11,7 @@
 		<result column="leaf_flag" property="isLeaf" jdbcType="INTEGER"/>
 	</resultMap>
 	
-	<!-- 通过<resultMap>映射实体类属性名和表的字段名对应关系 -->
 	<resultMap id="SysPermission" type="org.platform.modules.system.entity.SysPermission">
-	   <!-- result属性映射非匹配字段 -->
 	    <result column="is_route" property="route"/>
 	    <result column="keep_alive" property="keepAlive"/>
 	    <result column="is_leaf" property="leaf"/>
@@ -39,7 +37,6 @@
 		    </choose>
 	</select>
 	
-	<!-- 获取登录用户拥有的权限 -->
 	<select id="queryByUser" parameterType="Object"  resultMap="SysPermission">
 		   SELECT * FROM (
 			   SELECT p.*
@@ -54,7 +51,6 @@
 					or (p.url like '%:code' and p.url like '/online%' and p.hidden = 1)
 					or p.url = '/online')
 			   and p.del_flag = 0
-			<!--update begin Author:lvdandan  Date:20200213 for：加入部门权限 -->
 			   UNION
 			   SELECT p.*
 			   FROM  sys_permission p
@@ -66,12 +62,10 @@
 					where p.id = a.permission_id AND d.username = #{username,jdbcType=VARCHAR}
 			   )
 			   and p.del_flag = 0
-			<!--update end Author:lvdandan  Date:20200213 for：加入部门权限 -->
 		   ) h order by h.sort_no ASC
 	</select>
 
 
-	<!-- 根据用户账号查询菜单权限 -->
 	<select id="queryCountByUsername" parameterType="Object" resultType="int">
 		select sum(cnt) from (
 		  select count(*) as cnt

@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * <p>
- * 部门 Mapper 接口
  * <p>
  * 
  * @Author: Steve
@@ -20,12 +19,10 @@ import java.util.List;
 public interface SysDepartMapper extends BaseMapper<SysDepart> {
 	
 	/**
-	 * 根据用户ID查询部门集合
 	 */
 	public List<SysDepart> queryUserDeparts(@Param("userId") String userId);
 
 	/**
-	 * 根据用户名查询部门
 	 *
 	 * @param username
 	 * @return
@@ -39,14 +36,12 @@ public interface SysDepartMapper extends BaseMapper<SysDepart> {
 	public SysDepart getParentDepartId(@Param("departId") String departId);
 
 	/**
-	 *  根据部门Id查询,当前和下级所有部门IDS
 	 * @param departId
 	 * @return
 	 */
 	List<String> getSubDepIdsByDepId(@Param("departId") String departId);
 
 	/**
-	 * 根据部门编码获取部门下所有IDS
 	 * @param orgCodes
 	 * @return
 	 */
@@ -54,20 +49,17 @@ public interface SysDepartMapper extends BaseMapper<SysDepart> {
 
     List<SysDepart> queryTreeListByPid(@Param("parentId") String parentId);
 	/**
-	 * 根据id下级部门数量
 	 * @param parentId
 	 * @return
 	 */
 	@Select("SELECT count(*) FROM sys_depart where del_flag ='0' AND parent_id = #{parentId,jdbcType=VARCHAR}")
     Integer queryCountByPid(@Param("parentId")String parentId);
 	/**
-	 * 根据OrgCod查询所属公司信息
 	 * @param orgCode
 	 * @return
 	 */
 	SysDepart queryCompByOrgCode(@Param("orgCode")String orgCode);
 	/**
-	 * 根据id下级部门
 	 * @param parentId
 	 * @return
 	 */

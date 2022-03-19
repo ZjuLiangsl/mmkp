@@ -24,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CommonUtils {
 
-   //中文正则
     private static Pattern ZHONGWEN_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
 
     public static String uploadOnlineImage(byte[] data,String basePath,String bizPath,String uploadType){
@@ -34,7 +33,7 @@ public class CommonUtils {
         try {
                 File file = new File(basePath + File.separator + bizPath + File.separator );
                 if (!file.exists()) {
-                    file.mkdirs();// 创建文件根目录
+                    file.mkdirs();
                 }
                 String savePath = file.getPath() + File.separator + fileName;
                 File savefile = new File(savePath);
@@ -48,12 +47,10 @@ public class CommonUtils {
     }
 
     /**
-     * 判断文件名是否带盘符，重新处理
      * @param fileName
      * @return
      */
     public static String getFileName(String fileName){
-        //判断是否带有盘符信息
         // Check for Unix-style path
         int unixSep = fileName.lastIndexOf('/');
         // Check for Windows-style path
@@ -64,15 +61,15 @@ public class CommonUtils {
             // Any sort of path separator found...
             fileName = fileName.substring(pos + 1);
         }
-        //替换上传文件名字的特殊字符
+        //
         fileName = fileName.replace("=","").replace(",","").replace("&","")
                 .replace("#", "").replace("“", "").replace("”", "");
-        //替换上传文件名字中的空格
+        //
         fileName=fileName.replaceAll("\\s","");
         return fileName;
     }
 
-    // java 判断字符串里是否包含中文字符
+    // java
     public static boolean ifContainChinese(String str) {
         if(str.getBytes().length == str.length()){
             return false;
@@ -87,22 +84,22 @@ public class CommonUtils {
 
 
     /**
-     * 本地文件上传
-     * @param mf 文件
-     * @param bizPath  自定义路径
+     *
+     * @param mf
+     * @param bizPath
      * @return
      */
     public static String uploadLocal(MultipartFile mf,String bizPath,String uploadpath){
         try {
-            //update-begin-author:liusq date:20210809 for: 过滤上传文件类型
+            //update-begin-author:liusq date:20210809 for:
             FileTypeFilter.fileTypeFilter(mf);
-            //update-end-author:liusq date:20210809 for: 过滤上传文件类型
+            //update-end-author:liusq date:20210809 for:
             String fileName = null;
             File file = new File(uploadpath + File.separator + bizPath + File.separator );
             if (!file.exists()) {
-                file.mkdirs();// 创建文件根目录
+                file.mkdirs();//
             }
-            String orgName = mf.getOriginalFilename();// 获取文件名
+            String orgName = mf.getOriginalFilename();//
             orgName = CommonUtils.getFileName(orgName);
             if(orgName.indexOf(".")!=-1){
                 fileName = orgName.substring(0, orgName.lastIndexOf(".")) + "_" + System.currentTimeMillis() + orgName.substring(orgName.lastIndexOf("."));
@@ -132,12 +129,12 @@ public class CommonUtils {
 
 
 
-    /** 当前系统数据库类型 */
+    /**           */
     private static String DB_TYPE = "";
     private static DbType dbTypeEnum = null;
 
     /**
-     * 全局获取平台数据库类型（作废了）
+     *            （   ）
      * @return
      */
     @Deprecated
@@ -156,7 +153,7 @@ public class CommonUtils {
     }
 
     /**
-     * 全局获取平台数据库类型（对应mybaisPlus枚举）
+     *            （  mybaisPlus  ）
      * @return
      */
     public static DbType getDatabaseTypeEnum() {
@@ -174,7 +171,7 @@ public class CommonUtils {
     }
 
     /**
-     * 获取数据库类型
+     *
      * @param dataSource
      * @return
      * @throws SQLException
@@ -196,8 +193,8 @@ public class CommonUtils {
                 }else if(dbType.indexOf("mariadb")>=0) {
                     DB_TYPE = DataBaseConstant.DB_TYPE_MARIADB;
                 }else {
-                    log.error("数据库类型:[" + dbType + "]不识别!");
-                    //throw new JeecgBootException("数据库类型:["+dbType+"]不识别!");
+                    log.error("     :[" + dbType + "]   !");
+                    //throw new JeecgBootException("     :["+dbType+"]   !");
                 }
             } catch (Exception e) {
                 log.error(e.getMessage(), e);

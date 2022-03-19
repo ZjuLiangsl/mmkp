@@ -9,9 +9,7 @@ import java.util.List;
 public class SysUserRoleVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	/**部门id*/
 	private String roleId;
-	/**对应的用户id集合*/
 	private List<String> userIdList;
 
 	public SysUserRoleVO() {

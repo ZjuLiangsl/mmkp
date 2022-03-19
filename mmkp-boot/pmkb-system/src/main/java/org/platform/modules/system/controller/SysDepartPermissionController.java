@@ -34,13 +34,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
  /**
- * @Description: 部门权限表
  * @Author: jeecg-boot
  * @Date:   2020-02-11
  * @Version: V1.0
  */
 @Slf4j
-@Api(tags="部门权限表")
 @RestController
 @RequestMapping("/sys/sysDepartPermission")
 public class SysDepartPermissionController extends JeecgController<SysDepartPermission, ISysDepartPermissionService> {
@@ -57,7 +55,6 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 	 private ISysDepartRolePermissionService sysDepartRolePermissionService;
 
 	/**
-	 * 分页列表查询
 	 *
 	 * @param sysDepartPermission
 	 * @param pageNo
@@ -65,7 +62,6 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 	 * @param req
 	 * @return
 	 */
-	@ApiOperation(value="部门权限表-分页列表查询", notes="部门权限表-分页列表查询")
 	@GetMapping(value = "/list")
 	public Result<?> queryPageList(SysDepartPermission sysDepartPermission,
 								   @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
@@ -78,64 +74,54 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 	}
 	
 	/**
-	 * 添加
 	 *
 	 * @param sysDepartPermission
 	 * @return
 	 */
-	@ApiOperation(value="部门权限表-添加", notes="部门权限表-添加")
 	@PostMapping(value = "/add")
 	public Result<?> add(@RequestBody SysDepartPermission sysDepartPermission) {
 		sysDepartPermissionService.save(sysDepartPermission);
-		return Result.ok("添加成功！");
+		return Result.ok("success！");
 	}
 	
 	/**
-	 * 编辑
 	 *
 	 * @param sysDepartPermission
 	 * @return
 	 */
-	@ApiOperation(value="部门权限表-编辑", notes="部门权限表-编辑")
 	@PutMapping(value = "/edit")
 	public Result<?> edit(@RequestBody SysDepartPermission sysDepartPermission) {
 		sysDepartPermissionService.updateById(sysDepartPermission);
-		return Result.ok("编辑成功!");
+		return Result.ok("success!");
 	}
 	
 	/**
-	 * 通过id删除
 	 *
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value="部门权限表-通过id删除", notes="部门权限表-通过id删除")
 	@DeleteMapping(value = "/delete")
 	public Result<?> delete(@RequestParam(name="id",required=true) String id) {
 		sysDepartPermissionService.removeById(id);
-		return Result.ok("删除成功!");
+		return Result.ok("success!");
 	}
 	
 	/**
-	 * 批量删除
 	 *
 	 * @param ids
 	 * @return
 	 */
-	@ApiOperation(value="部门权限表-批量删除", notes="部门权限表-批量删除")
 	@DeleteMapping(value = "/deleteBatch")
 	public Result<?> deleteBatch(@RequestParam(name="ids",required=true) String ids) {
 		this.sysDepartPermissionService.removeByIds(Arrays.asList(ids.split(",")));
-		return Result.ok("批量删除成功！");
+		return Result.ok("success！");
 	}
 	
 	/**
-	 * 通过id查询
 	 *
 	 * @param id
 	 * @return
 	 */
-	@ApiOperation(value="部门权限表-通过id查询", notes="部门权限表-通过id查询")
 	@GetMapping(value = "/queryById")
 	public Result<?> queryById(@RequestParam(name="id",required=true) String id) {
 		SysDepartPermission sysDepartPermission = sysDepartPermissionService.getById(id);
@@ -143,18 +129,16 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 	}
 
 	/**
-	* 导出excel
 	*
 	* @param request
 	* @param sysDepartPermission
 	*/
 	@RequestMapping(value = "/exportXls")
 	public ModelAndView exportXls(HttpServletRequest request, SysDepartPermission sysDepartPermission) {
-	  return super.exportXls(request, sysDepartPermission, SysDepartPermission.class, "部门权限表");
+	  return super.exportXls(request, sysDepartPermission, SysDepartPermission.class, "Department Permission table");
 	}
 
 	/**
-	* 通过excel导入数据
 	*
 	* @param request
 	* @param response
@@ -166,13 +150,12 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 	}
 
 	/**
-	* 部门管理授权查询数据规则数据
 	*/
 	@GetMapping(value = "/datarule/{permissionId}/{departId}")
 	public Result<?> loadDatarule(@PathVariable("permissionId") String permissionId,@PathVariable("departId") String departId) {
 		List<SysPermissionDataRule> list = sysPermissionDataRuleService.getPermRuleListByPermId(permissionId);
 		if(list==null || list.size()==0) {
-			return Result.error("未找到权限配置信息");
+			return Result.error("Permission configuration information was not found");
 		}else {
 			Map<String,Object> map = new HashMap<>();
 			map.put("datarule", list);
@@ -181,7 +164,6 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 				 .eq(SysDepartPermission::getDepartId,departId);
 			SysDepartPermission sysDepartPermission = sysDepartPermissionService.getOne(query);
 			if(sysDepartPermission==null) {
-			 //return Result.error("未找到角色菜单配置信息");
 			}else {
 				String drChecked = sysDepartPermission.getDataRuleIds();
 				if(oConvertUtils.isNotEmpty(drChecked)) {
@@ -189,12 +171,10 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 				}
 			}
 			return Result.ok(map);
-			//TODO 以后按钮权限的查询也走这个请求 无非在map中多加两个key
 		}
 	}
 
 	/**
-	* 保存数据规则至部门菜单关联表
 	*/
 	@PostMapping(value = "/datarule")
 	public Result<?> saveDatarule(@RequestBody JSONObject jsonObject) {
@@ -202,26 +182,23 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 			String permissionId = jsonObject.getString("permissionId");
 			String departId = jsonObject.getString("departId");
 			String dataRuleIds = jsonObject.getString("dataRuleIds");
-			log.info("保存数据规则>>"+"菜单ID:"+permissionId+"部门ID:"+ departId+"数据权限ID:"+dataRuleIds);
 			LambdaQueryWrapper<SysDepartPermission> query = new LambdaQueryWrapper<SysDepartPermission>()
 				 .eq(SysDepartPermission::getPermissionId, permissionId)
 				 .eq(SysDepartPermission::getDepartId,departId);
 			SysDepartPermission sysDepartPermission = sysDepartPermissionService.getOne(query);
 			if(sysDepartPermission==null) {
-				return Result.error("请先保存部门菜单权限!");
+				return Result.error("Please save the department menu permission first!");
 			}else {
 				sysDepartPermission.setDataRuleIds(dataRuleIds);
 			 	this.sysDepartPermissionService.updateById(sysDepartPermission);
 			}
 		} catch (Exception e) {
-		 	log.error("SysDepartPermissionController.saveDatarule()发生异常：" + e.getMessage(),e);
-		 	return Result.error("保存失败");
+		 	return Result.error("failure");
 		}
-		return Result.ok("保存成功!");
+		return Result.ok("success!");
 	}
 
 	 /**
-	  * 查询角色授权
 	  *
 	  * @return
 	  */
@@ -239,7 +216,6 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 	 }
 
 	 /**
-	  * 保存角色授权
 	  *
 	  * @return
 	  */
@@ -252,24 +228,21 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 			 String permissionIds = json.getString("permissionIds");
 			 String lastPermissionIds = json.getString("lastpermissionIds");
 			 this.sysDepartRolePermissionService.saveDeptRolePermission(roleId, permissionIds, lastPermissionIds);
-			 result.success("保存成功！");
-			 log.info("======部门角色授权成功=====耗时:" + (System.currentTimeMillis() - start) + "毫秒");
+			 result.success("success！");
 		 } catch (Exception e) {
-			 result.error500("授权失败！");
+			 result.error500("failure！");
 			 log.error(e.getMessage(), e);
 		 }
 		 return result;
 	 }
 
 	 /**
-	  * 用户角色授权功能，查询菜单权限树
 	  * @param request
 	  * @return
 	  */
 	 @RequestMapping(value = "/queryTreeListForDeptRole", method = RequestMethod.GET)
 	 public Result<Map<String,Object>> queryTreeListForDeptRole(@RequestParam(name="departId",required=true) String departId,HttpServletRequest request) {
 		 Result<Map<String,Object>> result = new Result<>();
-		 //全部权限ids
 		 List<String> ids = new ArrayList<>();
 		 try {
 			 LambdaQueryWrapper<SysPermission> query = new LambdaQueryWrapper<SysPermission>();
@@ -283,8 +256,8 @@ public class SysDepartPermissionController extends JeecgController<SysDepartPerm
 			 List<TreeModel> treeList = new ArrayList<>();
 			 getTreeModelList(treeList, list, null);
 			 Map<String,Object> resMap = new HashMap<String,Object>();
-			 resMap.put("treeList", treeList); //全部树节点数据
-			 resMap.put("ids", ids);//全部树ids
+			 resMap.put("treeList", treeList);
+			 resMap.put("ids", ids);
 			 result.setResult(resMap);
 			 result.setSuccess(true);
 		 } catch (Exception e) {

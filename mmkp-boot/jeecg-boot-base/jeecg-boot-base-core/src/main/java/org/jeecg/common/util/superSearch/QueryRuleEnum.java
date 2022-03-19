@@ -3,23 +3,23 @@ package org.jeecg.common.util.superSearch;
 import org.jeecg.common.util.oConvertUtils;
 
 /**
- * Query 规则 常量
+ * Query
  * @Author Scott
- * @Date 2019年02月14日
+ * @Date 2019 02 14
  */
 public enum QueryRuleEnum {
 
-    GT(">","大于"),
-    GE(">=","大于等于"),
-    LT("<","小于"),
-    LE("<=","小于等于"),
-    EQ("=","等于"),
-    NE("!=","不等于"),
-    IN("IN","包含"),
-    LIKE("LIKE","全模糊"),
-    LEFT_LIKE("LEFT_LIKE","左模糊"),
-    RIGHT_LIKE("RIGHT_LIKE","右模糊"),
-    SQL_RULES("EXTEND_SQL","自定义SQL片段");
+    GT(">","  "),
+    GE(">=","    "),
+    LT("<","  "),
+    LE("<=","    "),
+    EQ("=","  "),
+    NE("!=","   "),
+    IN("IN","  "),
+    LIKE("LIKE","   "),
+    LEFT_LIKE("LEFT_LIKE","   "),
+    RIGHT_LIKE("RIGHT_LIKE","   "),
+    SQL_RULES("EXTEND_SQL","   SQL  ");
 
     private String value;
 

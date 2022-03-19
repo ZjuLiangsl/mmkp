@@ -17,7 +17,6 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 
 /**
- * 单数据源配置（jeecg.datasource.open = false时生效）
  * @Author zhoujf
  *
  */

@@ -3,7 +3,7 @@ package org.jeecg.common.aspect.annotation;
 import java.lang.annotation.*;
 
 /**
- * online请求拦截专用注解
+ * online
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE,ElementType.METHOD})
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 public @interface OnlineAuth {
 
     /**
-     * 请求关键字，在xxx/code之前的字符串
+     *      ， xxx/code
      * @return
      */
     String value();

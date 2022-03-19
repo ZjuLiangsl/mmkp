@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class CommonConfig {
 
     /**
-     * Spring上下文工具配置
+     * Spring
      *
      * @return
      */

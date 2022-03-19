@@ -14,7 +14,7 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * @Description: 多数据源管理
+ * @Description:
  * @Author: jeecg-boot
  * @Date: 2019-12-25
  * @Version: V1.0
@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @TableName("sys_data_source")
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "sys_data_source对象", description = "多数据源管理")
+@ApiModel(value = "sys_data_source", description = "sys_data_source")
 public class SysDataSource {
 
     /**
@@ -33,88 +33,78 @@ public class SysDataSource {
     @ApiModelProperty(value = "id")
     private String id;
     /**
-     * 数据源编码
      */
-    @Excel(name = "数据源编码", width = 15)
-    @ApiModelProperty(value = "数据源编码")
+    @Excel(name = "code", width = 15)
+    @ApiModelProperty(value = "code")
     private String code;
     /**
-     * 数据源名称
      */
-    @Excel(name = "数据源名称", width = 15)
-    @ApiModelProperty(value = "数据源名称")
+    @Excel(name = "name", width = 15)
+    @ApiModelProperty(value = "name")
     private String name;
     /**
-     * 描述
      */
-    @Excel(name = "备注", width = 15)
-    @ApiModelProperty(value = "备注")
+    @Excel(name = "remark", width = 15)
+    @ApiModelProperty(value = "remark")
     private String remark;
     /**
-     * 数据库类型
      */
     @Dict(dicCode = "database_type")
-    @Excel(name = "数据库类型", width = 15, dicCode = "database_type")
-    @ApiModelProperty(value = "数据库类型")
+    @Excel(name = "dbType", width = 15, dicCode = "database_type")
+    @ApiModelProperty(value = "dbType")
     private String dbType;
     /**
-     * 驱动类
      */
-    @Excel(name = "驱动类", width = 15)
-    @ApiModelProperty(value = "驱动类")
+    @Excel(name = "dbDriver", width = 15)
+    @ApiModelProperty(value = "dbDriver")
     private String dbDriver;
     /**
-     * 数据源地址
      */
-    @Excel(name = "数据源地址", width = 15)
-    @ApiModelProperty(value = "数据源地址")
+    @Excel(name = "dbUrl", width = 15)
+    @ApiModelProperty(value = "dbUrl")
     private String dbUrl;
     /**
-     * 数据库名称
      */
-    @Excel(name = "数据库名称", width = 15)
-    @ApiModelProperty(value = "数据库名称")
+    @Excel(name = "dbName", width = 15)
+    @ApiModelProperty(value = "dbName")
     private String dbName;
     /**
-     * 用户名
      */
-    @Excel(name = "用户名", width = 15)
-    @ApiModelProperty(value = "用户名")
+    @Excel(name = "dbUsername", width = 15)
+    @ApiModelProperty(value = "dbUsername")
     private String dbUsername;
     /**
-     * 密码
      */
-    @Excel(name = "密码", width = 15)
-    @ApiModelProperty(value = "密码")
+    @Excel(name = "dbPassword", width = 15)
+    @ApiModelProperty(value = "dbPassword")
     private String dbPassword;
     /**
-     * 创建人
      */
-    @ApiModelProperty(value = "创建人")
+    @ApiModelProperty(value = "createBy")
     private String createBy;
     /**
-     * 创建日期
+     * createTime
      */
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建日期")
+    @ApiModelProperty(value = "createTime")
     private java.util.Date createTime;
     /**
-     * 更新人
+     * updateBy
      */
-    @ApiModelProperty(value = "更新人")
+    @ApiModelProperty(value = "updateBy")
     private String updateBy;
     /**
-     * 更新日期
+     * updateTime
      */
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "更新日期")
+    @ApiModelProperty(value = "updateTime")
     private java.util.Date updateTime;
     /**
-     * 所属部门
+     * sysOrgCode
      */
-    @Excel(name = "所属部门", width = 15)
-    @ApiModelProperty(value = "所属部门")
+    @Excel(name = "sysOrgCode", width = 15)
+    @ApiModelProperty(value = "sysOrgCode")
     private String sysOrgCode;
 }

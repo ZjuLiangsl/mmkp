@@ -14,41 +14,39 @@ import java.io.Serializable;
  * @author 
  */
 @TableName("pmkb_stage_data")
-@ApiModel(value="元数据表信息")
 @Data
 public class StageData implements Serializable {
     /**
-     * 主键ID
      */
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty(value="主键ID")
+    @ApiModelProperty(value="id")
     private String id;
 
     /**
-     * 数据源ID
+     * dsCode
      */
-    @ApiModelProperty(value="数据源ID")
+    @ApiModelProperty(value="dsCode")
     private String dsCode;
 
     /**
-     * 库名
+     * dbName
      */
-    @ApiModelProperty(value="库名")
+    @ApiModelProperty(value="dbName")
     private String dbName;
 
     /**
-     * 表名
+     * tableName
      */
-    @ApiModelProperty(value="表名")
+    @ApiModelProperty(value="tableName")
     private String tableName;
 
     private String pkFieldName;
 
     private String pkFieldValue;
     /**
-     * 表注释
+     * dataJsonStr
      */
-    @ApiModelProperty(value="表注释")
+    @ApiModelProperty(value="dataJsonStr")
     private String dataJsonStr;
 
     private String dataState;

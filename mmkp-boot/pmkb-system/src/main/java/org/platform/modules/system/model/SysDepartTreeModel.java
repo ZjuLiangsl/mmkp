@@ -10,7 +10,6 @@ import java.util.Objects;
 
 /**
  * <p>
- * 部门表 存储树结构数据的实体类
  * <p>
  * 
  * @Author Steve
@@ -20,19 +19,15 @@ public class SysDepartTreeModel implements Serializable{
 	
     private static final long serialVersionUID = 1L;
     
-    /** 对应SysDepart中的id字段,前端数据树中的key*/
     private String key;
 
-    /** 对应SysDepart中的id字段,前端数据树中的value*/
     private String value;
 
-    /** 对应depart_name字段,前端数据树中的title*/
     private String title;
 
 
     private boolean isLeaf;
-    // 以下所有字段均与SysDepart相同
-    
+
     private String id;
 
     private String parentId;
@@ -79,7 +74,6 @@ public class SysDepartTreeModel implements Serializable{
 
 
     /**
-     * 将SysDepart对象转换成SysDepartTreeModel对象
      * @param sysDepart
      */
 	public SysDepartTreeModel(SysDepart sysDepart) {
@@ -333,7 +327,6 @@ public class SysDepartTreeModel implements Serializable{
     public SysDepartTreeModel() { }
 
     /**
-     * 重写equals方法
      */
     @Override
     public boolean equals(Object o) {
@@ -369,7 +362,6 @@ public class SysDepartTreeModel implements Serializable{
     }
     
     /**
-     * 重写hashCode方法
      */
     @Override
     public int hashCode() {

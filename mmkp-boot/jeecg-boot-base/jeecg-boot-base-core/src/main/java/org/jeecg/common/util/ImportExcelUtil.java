@@ -11,21 +11,21 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 导出返回信息
+ *
  */
 @Slf4j
 public class ImportExcelUtil {
 
     public static Result<?> imporReturnRes(int errorLines,int successLines,List<String> errorMessage) throws IOException {
         if (errorLines == 0) {
-            return Result.ok("共" + successLines + "行数据全部导入成功！");
+            return Result.ok(" " + successLines + "         ！");
         } else {
             JSONObject result = new JSONObject(5);
             int totalCount = successLines + errorLines;
             result.put("totalCount", totalCount);
             result.put("errorCount", errorLines);
             result.put("successCount", successLines);
-            result.put("msg", "总上传行数：" + totalCount + "，已导入行数：" + successLines + "，错误行数：" + errorLines);
+            result.put("msg", "     ：" + totalCount + "，     ：" + successLines + "，    ：" + errorLines);
             String fileUrl = PmsUtil.saveErrorTxtByList(errorMessage, "userImportExcelErrorLog");
             int lastIndex = fileUrl.lastIndexOf(File.separator);
             String fileName = fileUrl.substring(lastIndex + 1);
@@ -33,7 +33,7 @@ public class ImportExcelUtil {
             result.put("fileName", fileName);
             Result res = Result.ok(result);
             res.setCode(201);
-            res.setMessage("文件导入成功，但有错误。");
+            res.setMessage("      ，    。");
             return res;
         }
     }
@@ -49,17 +49,17 @@ public class ImportExcelUtil {
             } catch (Exception e) {
                 String message = e.getMessage().toLowerCase();
                 int lineNumber = i + 1;
-                // 通过索引名判断出错信息
+                //
                 if (message.contains(CommonConstant.SQL_INDEX_UNIQ_SYS_ROLE_CODE)) {
-                    errorMessage.add("第 " + lineNumber + " 行：角色编码已经存在，忽略导入。");
+                    errorMessage.add("  " + lineNumber + "  ：        ，    。");
                 } else if (message.contains(CommonConstant.SQL_INDEX_UNIQ_JOB_CLASS_NAME)) {
-                    errorMessage.add("第 " + lineNumber + " 行：任务类名已经存在，忽略导入。");
+                    errorMessage.add("  " + lineNumber + "  ：        ，    。");
                 }else if (message.contains(CommonConstant.SQL_INDEX_UNIQ_CODE)) {
-                    errorMessage.add("第 " + lineNumber + " 行：职务编码已经存在，忽略导入。");
+                    errorMessage.add("  " + lineNumber + "  ：        ，    。");
                 }else if (message.contains(CommonConstant.SQL_INDEX_UNIQ_DEPART_ORG_CODE)) {
-                    errorMessage.add("第 " + lineNumber + " 行：部门编码已经存在，忽略导入。");
+                    errorMessage.add("  " + lineNumber + "  ：        ，    。");
                 }else {
-                    errorMessage.add("第 " + lineNumber + " 行：未知错误，忽略导入");
+                    errorMessage.add("  " + lineNumber + "  ：    ，    ");
                     log.error(e.getMessage(), e);
                 }
             }
@@ -77,17 +77,17 @@ public class ImportExcelUtil {
         } catch (Exception e) {
             String message = e.getMessage().toLowerCase();
             int lineNumber = i + 1;
-            // 通过索引名判断出错信息
+            //
             if (message.contains(CommonConstant.SQL_INDEX_UNIQ_SYS_ROLE_CODE)) {
-                errorMessage.add("第 " + lineNumber + " 行：角色编码已经存在，忽略导入。");
+                errorMessage.add("  " + lineNumber + "  ：        ，    。");
             } else if (message.contains(CommonConstant.SQL_INDEX_UNIQ_JOB_CLASS_NAME)) {
-                errorMessage.add("第 " + lineNumber + " 行：任务类名已经存在，忽略导入。");
+                errorMessage.add("  " + lineNumber + "  ：        ，    。");
             }else if (message.contains(CommonConstant.SQL_INDEX_UNIQ_CODE)) {
-                errorMessage.add("第 " + lineNumber + " 行：职务编码已经存在，忽略导入。");
+                errorMessage.add("  " + lineNumber + "  ：        ，    。");
             }else if (message.contains(CommonConstant.SQL_INDEX_UNIQ_DEPART_ORG_CODE)) {
-                errorMessage.add("第 " + lineNumber + " 行：部门编码已经存在，忽略导入。");
+                errorMessage.add("  " + lineNumber + "  ：        ，    。");
             }else {
-                errorMessage.add("第 " + lineNumber + " 行：未知错误，忽略导入");
+                errorMessage.add("  " + lineNumber + "  ：    ，    ");
                 log.error(e.getMessage(), e);
             }
         }

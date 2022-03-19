@@ -71,7 +71,6 @@ public class MetadataTablesController {
 				return dm;
 			}).collect(Collectors.toList());
 //			if (ls==null || ls.size()==0) {
-//				result.error500("未采集元数据！");
 //				return result;
 //			}
 			result.setSuccess(true);
@@ -79,7 +78,7 @@ public class MetadataTablesController {
 			log.debug(result.toString());
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			result.error500("操作失败");
+			result.error500("Exception");
 			return result;
 		}
 		return result;
@@ -124,7 +123,7 @@ public class MetadataTablesController {
 		referenceRelationService.remove(wrapper);
 		stageDataService.remove(wrapper);
 		tablesService.removeById(id);
-		return Result.ok("删除成功!");
+		return Result.ok("ok!");
 	}
 
 	@DeleteMapping(value = "/deleteBatch")
@@ -141,7 +140,7 @@ public class MetadataTablesController {
 			tablesExtService.remove(wrapper);
 		});
 		this.tablesService.removeByIds(idList);
-		return Result.ok("批量删除成功！");
+		return Result.ok("success！");
 	}
 
 	@PostMapping(value = "/refresh")
@@ -326,7 +325,6 @@ public class MetadataTablesController {
 			}
 		}
 
-		//结构未变化仅同步数据
 		List<StageData> list = stageDataService.list(queryWrapper);
 		List<String> insertSqlList = MetadataUtil.genInsertSql(list);
 		for(String inrsql:insertSqlList){

@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * 调用 Restful 接口 Util
+ *    Restful    Util
  *
  * @author sunjianlei
  */
@@ -26,8 +26,8 @@ public class RestUtil {
         if (domain == null) {
             domain = SpringContextUtils.getDomain();
             // issues/2959
-            // 微服务版集成企业微信单点登录
-            // 因为微服务版没有端口号，导致 SpringContextUtils.getDomain() 方法获取的域名的端口号变成了:-1所以出问题了，只需要把这个-1给去掉就可以了。
+            //               
+            //            ，   SpringContextUtils.getDomain()               :-1      ，      -1       。
             if (domain.endsWith(":-1")) {
                 domain = domain.substring(0, domain.length() - 3);
             }
@@ -51,7 +51,7 @@ public class RestUtil {
     }
 
     /**
-     * RestAPI 调用器
+     * RestAPI    
      */
     private final static RestTemplate RT;
 
@@ -60,7 +60,7 @@ public class RestUtil {
         requestFactory.setConnectTimeout(3000);
         requestFactory.setReadTimeout(3000);
         RT = new RestTemplate(requestFactory);
-        // 解决乱码问题
+        //       
         RT.getMessageConverters().set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
     }
 
@@ -69,140 +69,140 @@ public class RestUtil {
     }
 
     /**
-     * 发送 get 请求
+     *    get   
      */
     public static JSONObject get(String url) {
         return getNative(url, null, null).getBody();
     }
 
     /**
-     * 发送 get 请求
+     *    get   
      */
     public static JSONObject get(String url, JSONObject variables) {
         return getNative(url, variables, null).getBody();
     }
 
     /**
-     * 发送 get 请求
+     *    get   
      */
     public static JSONObject get(String url, JSONObject variables, JSONObject params) {
         return getNative(url, variables, params).getBody();
     }
 
     /**
-     * 发送 get 请求，返回原生 ResponseEntity 对象
+     *    get   ，     ResponseEntity   
      */
     public static ResponseEntity<JSONObject> getNative(String url, JSONObject variables, JSONObject params) {
         return request(url, HttpMethod.GET, variables, params);
     }
 
     /**
-     * 发送 Post 请求
+     *    Post   
      */
     public static JSONObject post(String url) {
         return postNative(url, null, null).getBody();
     }
 
     /**
-     * 发送 Post 请求
+     *    Post   
      */
     public static JSONObject post(String url, JSONObject params) {
         return postNative(url, null, params).getBody();
     }
 
     /**
-     * 发送 Post 请求
+     *    Post   
      */
     public static JSONObject post(String url, JSONObject variables, JSONObject params) {
         return postNative(url, variables, params).getBody();
     }
 
     /**
-     * 发送 POST 请求，返回原生 ResponseEntity 对象
+     *    POST   ，     ResponseEntity   
      */
     public static ResponseEntity<JSONObject> postNative(String url, JSONObject variables, JSONObject params) {
         return request(url, HttpMethod.POST, variables, params);
     }
 
     /**
-     * 发送 put 请求
+     *    put   
      */
     public static JSONObject put(String url) {
         return putNative(url, null, null).getBody();
     }
 
     /**
-     * 发送 put 请求
+     *    put   
      */
     public static JSONObject put(String url, JSONObject params) {
         return putNative(url, null, params).getBody();
     }
 
     /**
-     * 发送 put 请求
+     *    put   
      */
     public static JSONObject put(String url, JSONObject variables, JSONObject params) {
         return putNative(url, variables, params).getBody();
     }
 
     /**
-     * 发送 put 请求，返回原生 ResponseEntity 对象
+     *    put   ，     ResponseEntity   
      */
     public static ResponseEntity<JSONObject> putNative(String url, JSONObject variables, JSONObject params) {
         return request(url, HttpMethod.PUT, variables, params);
     }
 
     /**
-     * 发送 delete 请求
+     *    delete   
      */
     public static JSONObject delete(String url) {
         return deleteNative(url, null, null).getBody();
     }
 
     /**
-     * 发送 delete 请求
+     *    delete   
      */
     public static JSONObject delete(String url, JSONObject variables, JSONObject params) {
         return deleteNative(url, variables, params).getBody();
     }
 
     /**
-     * 发送 delete 请求，返回原生 ResponseEntity 对象
+     *    delete   ，     ResponseEntity   
      */
     public static ResponseEntity<JSONObject> deleteNative(String url, JSONObject variables, JSONObject params) {
         return request(url, HttpMethod.DELETE, null, variables, params, JSONObject.class);
     }
 
     /**
-     * 发送请求
+     *     
      */
     public static ResponseEntity<JSONObject> request(String url, HttpMethod method, JSONObject variables, JSONObject params) {
         return request(url, method, getHeaderApplicationJson(), variables, params, JSONObject.class);
     }
 
     /**
-     * 发送请求
+     *     
      *
-     * @param url          请求地址
-     * @param method       请求方式
-     * @param headers      请求头  可空
-     * @param variables    请求url参数 可空
-     * @param params       请求body参数 可空
-     * @param responseType 返回类型
+     * @param url              
+     * @param method           
+     * @param headers             
+     * @param variables      url     
+     * @param params         body     
+     * @param responseType     
      * @return ResponseEntity<responseType>
      */
     public static <T> ResponseEntity<T> request(String url, HttpMethod method, HttpHeaders headers, JSONObject variables, Object params, Class<T> responseType) {
         log.info(" RestUtil  --- request ---  url = "+ url);
         if (StringUtils.isEmpty(url)) {
-            throw new RuntimeException("url 不能为空");
+            throw new RuntimeException("url     ");
         }
         if (method == null) {
-            throw new RuntimeException("method 不能为空");
+            throw new RuntimeException("method     ");
         }
         if (headers == null) {
             headers = new HttpHeaders();
         }
-        // 请求体
+        //    
         String body = "";
         if (params != null) {
             if (params instanceof JSONObject) {
@@ -212,24 +212,24 @@ public class RestUtil {
                 body = params.toString();
             }
         }
-        // 拼接 url 参数
+        //    url   
         if (variables != null) {
             url += ("?" + asUrlVariables(variables));
         }
-        // 发送请求
+        //     
         HttpEntity<String> request = new HttpEntity<>(body, headers);
         return RT.exchange(url, method, request, responseType);
     }
 
     /**
-     * 获取JSON请求头
+     *   JSON   
      */
     public static HttpHeaders getHeaderApplicationJson() {
         return getHeader(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
 
     /**
-     * 获取请求头
+     *      
      */
     public static HttpHeaders getHeader(String mediaType) {
         HttpHeaders headers = new HttpHeaders();
@@ -239,7 +239,7 @@ public class RestUtil {
     }
 
     /**
-     * 将 JSONObject 转为 a=1&b=2&c=3...&n=n 的形式
+     *   JSONObject    a=1&b=2&c=3...&n=n    
      */
     public static String asUrlVariables(JSONObject variables) {
         Map<String, Object> source = variables.getInnerMap();
@@ -256,7 +256,7 @@ public class RestUtil {
             }
             urlVariables.append("&").append(key).append("=").append(value);
         }
-        // 去掉第一个&
+        //      &
         return urlVariables.substring(1);
     }
 

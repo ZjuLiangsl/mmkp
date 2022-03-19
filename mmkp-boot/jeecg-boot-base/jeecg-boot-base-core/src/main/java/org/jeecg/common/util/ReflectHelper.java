@@ -9,8 +9,8 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 /**
- * @author 张代浩
- * @desc 通过反射来动态调用get 和 set 方法
+ * @author    
+ * @desc          get   set   
  */
 @Slf4j
 public class ReflectHelper {
@@ -18,23 +18,23 @@ public class ReflectHelper {
     private Class cls;
 
     /**
-     * 传过来的对象
+     *       
      */
     private Object obj;
 
     /**
-     * 存放get方法
+     *   get  
      */
     private Hashtable<String, Method> getMethods = null;
     /**
-     * 存放set方法
+     *   set  
      */
     private Hashtable<String, Method> setMethods = null;
 
     /**
-     * 定义构造方法 -- 一般来说是个pojo
+     *        --       pojo
      *
-     * @param o 目标对象
+     * @param o     
      */
     public ReflectHelper(Object o) {
         obj = o;
@@ -42,19 +42,19 @@ public class ReflectHelper {
     }
 
     /**
-     * @desc 初始化
+     * @desc    
      */
     public void initMethods() {
         getMethods = new Hashtable<String, Method>();
         setMethods = new Hashtable<String, Method>();
         cls = obj.getClass();
         Method[] methods = cls.getMethods();
-        // 定义正则表达式，从方法中过滤出getter / setter 函数.
+        //        ，       getter / setter   .
         String gs = "get(\\w+)";
         Pattern getM = Pattern.compile(gs);
         String ss = "set(\\w+)";
         Pattern setM = Pattern.compile(ss);
-        // 把方法中的"set" 或者 "get" 去掉
+        //      "set"    "get"   
         String rapl = "$1";
         String param;
         for (int i = 0; i < methods.length; ++i) {
@@ -67,19 +67,19 @@ public class ReflectHelper {
                 param = setM.matcher(methodName).replaceAll(rapl).toLowerCase();
                 setMethods.put(param, m);
             } else {
-                // logger.info(methodName + " 不是getter,setter方法！");
+                // logger.info(methodName + "   getter,setter  ！");
             }
         }
     }
 
     /**
-     * @desc 调用set方法
+     * @desc   set  
      */
     public boolean setMethodValue(String property, Object object) {
         Method m = setMethods.get(property.toLowerCase());
         if (m != null) {
             try {
-                // 调用目标类的setter函数
+                //       setter  
                 m.invoke(obj, object);
                 return true;
             } catch (Exception ex) {
@@ -91,7 +91,7 @@ public class ReflectHelper {
     }
 
     /**
-     * @desc 调用set方法
+     * @desc   set  
      */
     public Object getMethodValue(String property) {
         Object value = null;
@@ -99,7 +99,7 @@ public class ReflectHelper {
         if (m != null) {
             try {
                 /*
-                 * 调用obj类的setter函数
+                 *   obj  setter  
                  */
                 value = m.invoke(obj, new Object[]{});
 
@@ -111,7 +111,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 把map中的内容全部注入到obj中
+     *  map         obj 
      *
      * @param data
      * @return
@@ -127,7 +127,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 把map中的内容全部注入到obj中
+     *  map         obj 
      *
      * @param o
      * @param data
@@ -140,7 +140,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 把map中的内容全部注入到新实例中
+     *  map             
      *
      * @param clazz
      * @param data
@@ -160,7 +160,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 根据传入的class将mapList转换为实体类list
+     *      class mapList      list
      *
      * @param mapist
      * @param clazz
@@ -177,7 +177,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 根据属性名获取属性值
+     *           
      */
     public static Object getFieldValueByName(String fieldName, Object o) {
         try {
@@ -193,13 +193,13 @@ public class ReflectHelper {
     }
 
     /**
-     * 获取属性值
+     *      
      */
     public static Object getFieldVal(String fieldName, Object o) {
         try {
-            // 暴力反射获取属性
+            //         
             Field filed = o.getClass().getDeclaredField(fieldName);
-            // 设置反射时取消Java的访问检查，暴力访问
+            //        Java     ，    
             filed.setAccessible(true);
             Object val = filed.get(o);
             return val;
@@ -210,7 +210,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 获取属性名数组
+     *        
      */
     public static String[] getFiledName(Object o) {
         Field[] fields = o.getClass().getDeclaredFields();
@@ -223,7 +223,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 获取属性类型(type)，属性名(name)，属性值(value)的map组成的list
+     *       (type)，   (name)，   (value) map   list
      */
     public static List<Map> getFiledsInfo(Object o) {
         Field[] fields = o.getClass().getDeclaredFields();
@@ -241,7 +241,7 @@ public class ReflectHelper {
     }
 
     /**
-     * 获取对象的所有属性值，返回一个对象数组
+     *           ，        
      */
     public static Object[] getFiledValues(Object o) {
         String[] fieldNames = getFiledName(o);

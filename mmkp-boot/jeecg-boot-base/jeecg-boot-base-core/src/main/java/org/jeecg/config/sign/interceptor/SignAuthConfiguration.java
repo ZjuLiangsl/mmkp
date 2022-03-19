@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 签名 拦截器配置
+ *         
  */
 @Configuration
 public class SignAuthConfiguration implements WebMvcConfigurer {

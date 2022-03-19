@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Api(tags = "数据查询录入")
 @RestController
 @RequestMapping("/dqe")
 public class DataQueryEditContorller {
@@ -45,7 +44,6 @@ public class DataQueryEditContorller {
 
 
     /**
-     * 分页查询
      *
      * @param po
      * @param pageNo
@@ -107,7 +105,6 @@ public class DataQueryEditContorller {
     }
 
     /**
-     * 列表查询
      *
      * @param po
      * @param req
@@ -161,7 +158,6 @@ public class DataQueryEditContorller {
     }
 
     /**
-     * 添加
      *
      * @return
      */
@@ -188,15 +184,14 @@ public class DataQueryEditContorller {
             log.info("dynamicSQL : "+sql.toString());
 
             DynamicDBUtil.update(tableVo.getDsCode(), sql.toString());
-            return Result.ok("添加成功!");
+            return Result.ok("Add a success!");
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.error("添加失败!"+e.getLocalizedMessage());
+            return Result.error("Add failure!"+e.getLocalizedMessage());
         }
     }
 
     /**
-     * 编辑
      *
      * @return
      */
@@ -214,7 +209,7 @@ public class DataQueryEditContorller {
             List<String> fields = new ArrayList<>();
             List<String> conditions = new ArrayList<>();
             if (pkFields == null || pkFields.size() == 0) {
-                return Result.error("当前表未设置主键，不支持编辑操作!");
+                return Result.error("The current table is not set primary key, do not support editing operation!");
             } else {
                 for (Map.Entry<String, Object> entry : record.entrySet()) {
                     String key = entry.getKey();
@@ -232,15 +227,14 @@ public class DataQueryEditContorller {
             log.info("dynamicSQL : "+sql.toString());
 
             DynamicDBUtil.update(tableVo.getDsCode(), sql.toString());
-            return Result.ok("编辑成功!");
+            return Result.ok("successful!");
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.error("编辑失败!"+e.getLocalizedMessage());
+            return Result.error("Exception!"+e.getLocalizedMessage());
         }
     }
 
     /**
-     * 删除
      *
      * @return
      */
@@ -257,7 +251,7 @@ public class DataQueryEditContorller {
             sql.append(" where ");
             List<String> conditions = new ArrayList<>();
             if (pkFields == null || pkFields.size() == 0) {
-                return Result.error("当前表未设置主键，不支持删除操作!");
+                return Result.error("The current table does not have a primary key and cannot be deleted!");
             } else {
                 pkFields.stream().forEach(pk -> {
                     String field = String.valueOf(pk);
@@ -268,21 +262,20 @@ public class DataQueryEditContorller {
             log.info("dynamicSQL : "+sql.toString());
 
             DynamicDBUtil.update(tableVo.getDsCode(), sql.toString());
-            return Result.ok("删除成功!");
+            return Result.ok("successful!");
         }catch (Exception e){
             e.printStackTrace();
-            return Result.error("删除失败!"+e.getLocalizedMessage());
+            return Result.error("Exception!"+e.getLocalizedMessage());
         }
     }
 
     /**
-     * 批量删除
      *
      * @return
      */
     @PostMapping(value = "/deleteBatch")
     public Result<?> deleteBatch(@RequestBody JSONObject formData) {
         System.out.println(formData.toString());
-        return Result.ok("批量删除成功！");
+        return Result.ok("Succeeded in batch deleting！");
     }
 }

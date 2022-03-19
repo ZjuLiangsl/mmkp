@@ -14,74 +14,63 @@ import java.io.Serializable;
  * @author 
  */
 @TableName("pmkb_metadata_tables_ext")
-@ApiModel(value="元数据表扩展信息")
+@ApiModel(value="MetadataTablesExt")
 @Data
 public class MetadataTablesExt implements Serializable {
     /**
-     * 主键ID
      */
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty(value="主键ID")
+    @ApiModelProperty(value="id")
     private String id;
 
     /**
-     * 数据源ID
      */
-    @ApiModelProperty(value="数据源ID")
+    @ApiModelProperty(value="dsCode")
     private String dsCode;
 
     /**
-     * 库名
      */
-    @ApiModelProperty(value="库名")
+    @ApiModelProperty(value="dbName")
     private String dbName;
 
     /**
-     * 表名
      */
-    @ApiModelProperty(value="表名")
+    @ApiModelProperty(value="tableName")
     private String tableName;
 
     /**
-     * 表注释
      */
-    @ApiModelProperty(value="表注释")
+    @ApiModelProperty(value="tableComment")
     private String tableComment;
 
     /**
-     * 表备注
      */
-    @ApiModelProperty(value="表备注")
+    @ApiModelProperty(value="tableRemark")
     private String tableRemark;
 
     /**
-     * 是否分页展示，0-否；1-是
      */
-    @ApiModelProperty(value="是否分页展示，0-否；1-是")
+    @ApiModelProperty(value="isPaging")
     private String isPaging;
 
     /**
-     * 表单宽度，默认450px
      */
-    @ApiModelProperty(value="表单宽度，默认450px")
+    @ApiModelProperty(value="formWidth 450px")
     private Integer formWidth;
 
     /**
-     * 扩展字段1
      */
-    @ApiModelProperty(value="扩展字段1")
+    @ApiModelProperty(value="extField1")
     private String extField1;
 
     /**
-     * 扩展字段2
      */
-    @ApiModelProperty(value="扩展字段2")
+    @ApiModelProperty(value="extField2")
     private String extField2;
 
     /**
-     * 扩展字段3
      */
-    @ApiModelProperty(value="扩展字段3")
+    @ApiModelProperty(value="extField3")
     private String extField3;
 
     private static final long serialVersionUID = 1L;

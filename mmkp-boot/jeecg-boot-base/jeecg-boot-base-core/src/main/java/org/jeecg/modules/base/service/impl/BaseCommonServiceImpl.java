@@ -28,7 +28,7 @@ public class BaseCommonServiceImpl implements BaseCommonService {
         if(oConvertUtils.isEmpty(logDTO.getId())){
             logDTO.setId(String.valueOf(IdWorker.getId()));
         }
-        //保存日志（异常捕获处理，防止数据太大存储失败，导致业务失败）JT-238
+        //    （      ，          ，      ）JT-238
         try {
             baseCommonMapper.saveLog(logDTO);
         } catch (Exception e) {
@@ -41,19 +41,19 @@ public class BaseCommonServiceImpl implements BaseCommonService {
     public void addLog(String logContent, Integer logType, Integer operatetype, LoginUser user) {
         LogDTO sysLog = new LogDTO();
         sysLog.setId(String.valueOf(IdWorker.getId()));
-        //注解上的描述,操作日志内容
+        //      ,      
         sysLog.setLogContent(logContent);
         sysLog.setLogType(logType);
         sysLog.setOperateType(operatetype);
         try {
-            //获取request
+            //  request
             HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
-            //设置IP地址
+            //  IP  
             sysLog.setIp(IPUtils.getIpAddr(request));
         } catch (Exception e) {
             sysLog.setIp("127.0.0.1");
         }
-        //获取登录用户信息
+        //        
         if(user==null){
             try {
                 user = (LoginUser) SecurityUtils.getSubject().getPrincipal();
@@ -66,7 +66,7 @@ public class BaseCommonServiceImpl implements BaseCommonService {
             sysLog.setUsername(user.getRealname());
         }
         sysLog.setCreateTime(new Date());
-        //保存日志（异常捕获处理，防止数据太大存储失败，导致业务失败）JT-238
+        //    （      ，          ，      ）JT-238
         try {
             baseCommonMapper.saveLog(sysLog);
         } catch (Exception e) {

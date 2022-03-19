@@ -7,7 +7,6 @@
 		WHERE user_id = #{userId, jdbcType=VARCHAR}
     </select>
 
-	<!-- 查询指定部门下的用户 并且支持用户账号模糊查询 -->
 	<select id="queryDepartUserList" resultType="org.platform.modules.system.entity.SysUser">
 		select a.* from sys_user a
 		join sys_user_depart b on b.user_id = a.id
@@ -18,7 +17,6 @@
 		</if>
 	</select>
 
-	<!-- 根据部门查询部门用户 分页 -->
 	<select id="queryDepartUserPageList" resultType="org.platform.modules.system.entity.SysUser">
 		select a.*, c.depart_name as org_code_txt from sys_user a
 		join sys_user_depart b on b.user_id = a.id

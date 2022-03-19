@@ -35,13 +35,6 @@ public class MetadataUtil {
         }
     }
 
-//    CREATE TABLE `pmkb-test`.`Untitled`  (
-//            `aa` varchar(255) NOT NULL COMMENT 'aa注释',
-//            `bbb` int(255) NULL COMMENT 'bb注释',
-//            `ccc` date NOT NULL COMMENT 'ccc这个意思',
-//            `ddd` decimal(20, 2) NULL COMMENT 'ddd注释',
-//            PRIMARY KEY (`aa`)
-//        ) COMMENT = '巴巴爸爸';
 
     public static String genCreateSql(MetadataTables table, List<MetadataFields> fieldsList){
         StringBuilder sb = new StringBuilder();

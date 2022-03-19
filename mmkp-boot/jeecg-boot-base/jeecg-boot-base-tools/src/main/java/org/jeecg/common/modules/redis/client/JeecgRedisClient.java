@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import javax.annotation.Resource;
 
 /**
- * redis客户端
+ * redis
  */
 @Configuration
 public class JeecgRedisClient {
@@ -18,7 +18,7 @@ public class JeecgRedisClient {
 
 
     /**
-     * 发送消息
+     *
      *
      * @param handlerName
      * @param params

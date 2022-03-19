@@ -10,10 +10,10 @@ import org.jeecg.common.handler.IFillRuleHandler;
 
 
 /**
- * 规则值自动生成工具类
+ *
  *
  * @author qinfeng
- * @举例： 自动生成订单号；自动生成当前日期
+ * @  ：        ；
  */
 @Slf4j
 public class FillRuleUtil {
@@ -26,17 +26,17 @@ public class FillRuleUtil {
     public static Object executeRule(String ruleCode, JSONObject formData) {
         if (!StringUtils.isEmpty(ruleCode)) {
             try {
-                // 获取 Service
+                //    Service
                 ServiceImpl impl = (ServiceImpl) SpringContextUtils.getBean("sysFillRuleServiceImpl");
-                // 根据 ruleCode 查询出实体
+                //    ruleCode
                 QueryWrapper queryWrapper = new QueryWrapper();
                 queryWrapper.eq("rule_code", ruleCode);
                 JSONObject entity = JSON.parseObject(JSON.toJSONString(impl.getOne(queryWrapper)));
                 if (entity == null) {
-                    log.warn("填值规则：" + ruleCode + " 不存在");
+                    log.warn("    ：" + ruleCode + "    ");
                     return null;
                 }
-                // 获取必要的参数
+                //
                 String ruleClass = entity.getString("ruleClass");
                 JSONObject params = entity.getJSONObject("ruleParams");
                 if (params == null) {
@@ -45,7 +45,7 @@ public class FillRuleUtil {
                 if (formData == null) {
                     formData = new JSONObject();
                 }
-                // 通过反射执行配置的类里的方法
+                //
                 IFillRuleHandler ruleHandler = (IFillRuleHandler) Class.forName(ruleClass).newInstance();
                 return ruleHandler.execute(params, formData);
             } catch (Exception e) {

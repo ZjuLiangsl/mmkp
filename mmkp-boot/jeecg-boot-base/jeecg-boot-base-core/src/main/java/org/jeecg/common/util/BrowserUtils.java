@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 
- * @Author 张代浩
+ * @Author
  * 
  */
 public class BrowserUtils {
 	
-	// 判断是否是IE
+	//      IE
 	public static boolean isIE(HttpServletRequest request) {
 		return (request.getHeader("USER-AGENT").toLowerCase().indexOf("msie") > 0 || request
 				.getHeader("USER-AGENT").toLowerCase().indexOf("rv:11.0") > 0) ? true
@@ -22,7 +22,7 @@ public class BrowserUtils {
 	}
 
 	/**
-	 * 获取IE版本
+	 *   IE
 	 * 
 	 * @param request
 	 * @return
@@ -46,7 +46,7 @@ public class BrowserUtils {
 	}
 
 	/**
-	 * 获取浏览器类型
+	 *
 	 * 
 	 * @param request
 	 * @return
@@ -109,7 +109,7 @@ public class BrowserUtils {
 	private final static String OPERA = "Opera";
 	private final static String CHROME = "Chrome";
 	private final static String SAFARI = "Safari";
-	private final static String OTHER = "其它";
+	private final static String OTHER = "  ";
 
 	public static String checkBrowse(HttpServletRequest request) {
 		String userAgent = request.getHeader("USER-AGENT");
@@ -191,12 +191,12 @@ public class BrowserUtils {
 		return browserLangCode;
 	}
 
-    /** 判断请求是否来自电脑端 */
+    /**             */
     public static boolean isDesktop(HttpServletRequest request) {
         return !isMobile(request);
     }
 
-    /** 判断请求是否来自移动端 */
+    /**             */
     public static boolean isMobile(HttpServletRequest request) {
         String ua = request.getHeader("User-Agent").toLowerCase();
         Pattern pattern = Pattern.compile("(phone|pad|pod|iphone|ipod|ios|ipad|android|mobile|blackberry|iemobile|mqqbrowser|juc|fennec|wosbrowser|browserng|webos|symbian|windows phone)");

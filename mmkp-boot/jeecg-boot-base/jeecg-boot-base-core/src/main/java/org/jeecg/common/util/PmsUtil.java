@@ -35,25 +35,21 @@ public class PmsUtil {
         String saveFilePath = saveFullDir + name + ".txt";
 
         try {
-            //封装目的地
             BufferedWriter bw = new BufferedWriter(new FileWriter(saveFilePath));
-            //遍历集合
             for (String s : msg) {
-                //写数据
                 if (s.indexOf("_") > 0) {
                     String arr[] = s.split("_");
-                    bw.write("第" + arr[0] + "行:" + arr[1]);
+                    bw.write("the" + arr[0] + "row:" + arr[1]);
                 } else {
                     bw.write(s);
                 }
                 //bw.newLine();
                 bw.write("\r\n");
             }
-            //释放资源
             bw.flush();
             bw.close();
         } catch (Exception e) {
-            log.info("excel导入生成错误日志文件异常:" + e.getMessage());
+            log.info("excel import Exception:" + e.getMessage());
         }
         return saveDir + name + ".txt";
     }

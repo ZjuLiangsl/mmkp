@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.platform.modules.system.entity.SysDataSource;
 
 /**
- * @Description: 多数据源管理
  * @Author: jeecg-boot
  * @Date: 2019-12-25
  * @Version: V1.0

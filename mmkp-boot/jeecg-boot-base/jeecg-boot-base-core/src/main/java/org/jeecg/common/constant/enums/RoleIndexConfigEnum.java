@@ -1,16 +1,16 @@
 package org.jeecg.common.constant.enums;
 
 /**
- * 首页自定义
- * 通过角色编码与首页组件路径配置
+ *
+ *
  */
 public enum RoleIndexConfigEnum {
     /**
-     * 管理员
+     *
      */
     ADMIN("admin1", "dashboard/Analysis2"),
     /**
-     * 测试
+     *
      */
     TEST("test",  "dashboard/Analysis"),
     /**
@@ -19,27 +19,27 @@ public enum RoleIndexConfigEnum {
     HR("hr", "dashboard/Analysis1");
 
     /**
-     * 角色编码
+     *
      */
     String roleCode;
     /**
-     * 路由index
+     *   index
      */
     String componentUrl;
 
     /**
-     * 构造器
      *
-     * @param roleCode 角色编码
-     * @param componentUrl 首页组件路径（规则跟菜单配置一样）
+     *
+     * @param roleCode
+     * @param componentUrl       （         ）
      */
     RoleIndexConfigEnum(String roleCode, String componentUrl) {
         this.roleCode = roleCode;
         this.componentUrl = componentUrl;
     }
     /**
-     * 根据code找枚举
-     * @param roleCode 角色编码
+     *   code   
+     * @param roleCode     
      * @return
      */
     public static RoleIndexConfigEnum getEnumByCode(String roleCode) {
@@ -51,8 +51,8 @@ public enum RoleIndexConfigEnum {
         return null;
     }
     /**
-     * 根据code找index
-     * @param roleCode 角色编码
+     *   code index
+     * @param roleCode     
      * @return
      */
     public static String getIndexByCode(String roleCode) {

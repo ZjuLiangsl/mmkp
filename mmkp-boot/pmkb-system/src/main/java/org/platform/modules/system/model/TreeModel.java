@@ -9,7 +9,6 @@ import java.util.Map;
 import org.platform.modules.system.entity.SysPermission;
 
 /**
-  * 树形列表用到
  */
 public class TreeModel implements Serializable {
 	

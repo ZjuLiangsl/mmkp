@@ -9,45 +9,34 @@ import org.jeecg.common.constant.CommonConstant;
 import java.io.Serializable;
 
 /**
- *   接口返回数据格式
  * @author scott
  * @email jeecgos@163.com
- * @date  2019年1月19日
+ * @date  2019-1-19
  */
 @Data
-@ApiModel(value="接口返回对象", description="接口返回对象")
+@ApiModel(value="Interface return object", description="Interface return object")
 public class Result<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 成功标志
-	 */
-	@ApiModelProperty(value = "成功标志")
+
+	@ApiModelProperty(value = "success")
 	private boolean success = true;
 
-	/**
-	 * 返回处理消息
-	 */
-	@ApiModelProperty(value = "返回处理消息")
-	private String message = "操作成功！";
 
-	/**
-	 * 返回代码
-	 */
-	@ApiModelProperty(value = "返回代码")
+	@ApiModelProperty(value = "message")
+	private String message = "message！";
+
+
+	@ApiModelProperty(value = "code")
 	private Integer code = 0;
 	
-	/**
-	 * 返回数据对象 data
-	 */
-	@ApiModelProperty(value = "返回数据对象")
+
+	@ApiModelProperty(value = "result")
 	private T result;
 	
-	/**
-	 * 时间戳
-	 */
-	@ApiModelProperty(value = "时间戳")
+
+	@ApiModelProperty(value = "timestamp")
 	private long timestamp = System.currentTimeMillis();
 
 	public Result() {
@@ -66,7 +55,7 @@ public class Result<T> implements Serializable {
 		Result<Object> r = new Result<Object>();
 		r.setSuccess(true);
 		r.setCode(CommonConstant.SC_OK_200);
-		r.setMessage("成功");
+		r.setMessage("success");
 		return r;
 	}
 
@@ -92,7 +81,7 @@ public class Result<T> implements Serializable {
 		Result<T> r = new Result<T>();
 		r.setSuccess(true);
 		r.setCode(CommonConstant.SC_OK_200);
-		r.setMessage("成功");
+		r.setMessage("success");
 		return r;
 	}
 
@@ -140,9 +129,7 @@ public class Result<T> implements Serializable {
 		this.success = false;
 		return this;
 	}
-	/**
-	 * 无权限访问返回结果
-	 */
+
 	public static Result<Object> noauth(String msg) {
 		return error(CommonConstant.SC_JEECG_NO_AUTHZ, msg);
 	}

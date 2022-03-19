@@ -43,7 +43,7 @@ public class Swagger2Config implements WebMvcConfigurer {
 
     /**
      *
-     * 显示swagger-ui.html文档展示页，还必须注入swagger资源：
+     *   swagger-ui.html     ，     swagger  ：
      *
      * @param registry
      */
@@ -55,7 +55,7 @@ public class Swagger2Config implements WebMvcConfigurer {
     }
 
     /**
-     * swagger2的配置文件，这里可以配置swagger2的一些基本的内容，比如扫描的包等等
+     * swagger2     ，      swagger2        ，        
      *
      * @return Docket
      */
@@ -64,9 +64,9 @@ public class Swagger2Config implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                //此包路径下的类，才生成接口文档
+                //       ，       
                 .apis(basePackage("org.jeecg;org.platform"))
-                //加了ApiOperation注解的类，才生成接口文档
+                //  ApiOperation    ，       
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
@@ -77,8 +77,8 @@ public class Swagger2Config implements WebMvcConfigurer {
     }
 
     /***
-     * oauth2配置
-     * 需要增加swagger授权回调地址
+     * oauth2  
+     *     swagger      
      * http://localhost:8888/webjars/springfox-swagger-ui/o2c.html
      * @return
      */
@@ -99,29 +99,29 @@ public class Swagger2Config implements WebMvcConfigurer {
     }
 
     /**
-     * api文档的详细信息函数,注意这里的注解引用的是哪个
+     * api         ,             
      *
      * @return
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                // //大标题
+                // //   
                 .title("PMKB — MMKP")
-                // 版本号
+                //    
                 .version("1.0")
 //				.termsOfServiceUrl("NO terms of service")
-                // 描述
+                //   
                 .description("A Mind Mapping Knowledgebase Prototyping Tool for Precision Medicine")
-                // 作者
+                //   
                 .contact(new Contact("PMKB — MMKP","",""))
-               // .contact("JEECG团队")
+               // .contact("JEECG  ")
                 .license("The Apache License, Version 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
     }
 
     /**
-     * 新增 securityContexts 保持登录状态
+     *    securityContexts       
      */
     private List<SecurityContext> securityContexts() {
         return new ArrayList(
@@ -141,9 +141,9 @@ public class Swagger2Config implements WebMvcConfigurer {
     }
 
     /**
-     * 声明基础包
+     *      
      *
-     * @param basePackage 基础包路径
+     * @param basePackage      
      * @return
      */
     public static Predicate<RequestHandler> basePackage(final String basePackage) {
@@ -151,9 +151,9 @@ public class Swagger2Config implements WebMvcConfigurer {
     }
 
     /**
-     * 校验基础包
+     *      
      *
-     * @param basePackage 基础包路径
+     * @param basePackage      
      * @return
      */
     private static Function<Class<?>, Boolean> handlerPackage(final String basePackage) {
@@ -169,9 +169,9 @@ public class Swagger2Config implements WebMvcConfigurer {
     }
 
     /**
-     * 检验基础包实例
+     *        
      *
-     * @param requestHandler 请求处理类
+     * @param requestHandler      
      * @return
      */
     @SuppressWarnings("deprecation")

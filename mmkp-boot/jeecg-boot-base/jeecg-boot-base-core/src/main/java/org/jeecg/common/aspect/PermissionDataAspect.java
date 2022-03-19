@@ -22,9 +22,9 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * 数据权限切面处理类
- *  当被请求的方法有注解PermissionData时,会在往当前request中写入数据权限信息
- * @Date 2019年4月10日
+ *          
+ *            PermissionData ,     request         
+ * @Date 2019 4 10 
  * @Version: 1.0
  */
 @Aspect
@@ -51,15 +51,15 @@ public class PermissionDataAspect {
         String requestMethod = request.getMethod();
         String requestPath = request.getRequestURI().substring(request.getContextPath().length());
         requestPath = filterUrl(requestPath);
-        log.debug("拦截请求 >> "+requestPath+";请求类型 >> "+requestMethod);
+        log.debug("     >> "+requestPath+";     >> "+requestMethod);
         String username = JwtUtil.getUserNameByToken(request);
-        //查询数据权限信息
-        //TODO 微服务情况下也得支持缓存机制
+        //        
+        //TODO               
         List<SysPermissionDataRuleModel> dataRules = commonAPI.queryPermissionDataRule(component, requestPath, username);
         if(dataRules!=null && dataRules.size()>0) {
-            //临时存储
+            //    
             JeecgDataAutorUtils.installDataSearchConditon(request, dataRules);
-            //TODO 微服务情况下也得支持缓存机制
+            //TODO               
             SysUserCacheInfo userinfo = commonAPI.getCacheUser(username);
             JeecgDataAutorUtils.installUserInfo(request, userinfo);
         }
@@ -82,7 +82,7 @@ public class PermissionDataAspect {
     }
 
     /**
-     * 获取请求地址
+     *       
      * @param request
      * @return
      */
@@ -92,7 +92,7 @@ public class PermissionDataAspect {
         if(oConvertUtils.isNotEmpty(queryString)){
             requestPath += "?" + queryString;
         }
-        if (requestPath.indexOf("&") > -1) {// 去掉其他参数(保留一个参数) 例如：loginController.do?login
+        if (requestPath.indexOf("&") > -1) {//       (      )   ：loginController.do?login
             requestPath = requestPath.substring(0, requestPath.indexOf("&"));
         }
         if(requestPath.indexOf("=")!=-1){
@@ -102,7 +102,7 @@ public class PermissionDataAspect {
                 requestPath = requestPath.substring(0,requestPath.indexOf("?"));
             }
         }
-        requestPath = requestPath.substring(request.getContextPath().length() + 1);// 去掉项目路径
+        requestPath = requestPath.substring(request.getContextPath().length() + 1);//       
         return filterUrl(requestPath);
     }
 

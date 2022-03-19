@@ -32,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- *  前端控制器
  * </p>
  *
  * @Author zhangweijian
@@ -47,7 +46,6 @@ public class SysDictItemController {
 	private ISysDictItemService sysDictItemService;
 	
 	/**
-	 * @功能：查询字典数据
 	 * @param sysDictItem
 	 * @param pageNo
 	 * @param pageSize
@@ -68,7 +66,6 @@ public class SysDictItemController {
 	}
 	
 	/**
-	 * @功能：新增
 	 * @return
 	 */
 	//@RequiresRoles({"admin"})
@@ -79,16 +76,15 @@ public class SysDictItemController {
 		try {
 			sysDictItem.setCreateTime(new Date());
 			sysDictItemService.save(sysDictItem);
-			result.success("保存成功！");
+			result.success("Save success！");
 		} catch (Exception e) {
 			log.error(e.getMessage(),e);
-			result.error500("操作失败");
+			result.error500("Exception");
 		}
 		return result;
 	}
 	
 	/**
-	 * @功能：编辑
 	 * @param sysDictItem
 	 * @return
 	 */
@@ -99,20 +95,18 @@ public class SysDictItemController {
 		Result<SysDictItem> result = new Result<SysDictItem>();
 		SysDictItem sysdict = sysDictItemService.getById(sysDictItem.getId());
 		if(sysdict==null) {
-			result.error500("未找到对应实体");
+			result.error500("No corresponding entity found");
 		}else {
 			sysDictItem.setUpdateTime(new Date());
 			boolean ok = sysDictItemService.updateById(sysDictItem);
-			//TODO 返回false说明什么？
 			if(ok) {
-				result.success("编辑成功!");
+				result.success("success!");
 			}
 		}
 		return result;
 	}
 	
 	/**
-	 * @功能：删除字典数据
 	 * @param id
 	 * @return
 	 */
@@ -123,18 +117,17 @@ public class SysDictItemController {
 		Result<SysDictItem> result = new Result<SysDictItem>();
 		SysDictItem joinSystem = sysDictItemService.getById(id);
 		if(joinSystem==null) {
-			result.error500("未找到对应实体");
+			result.error500("No corresponding entity found");
 		}else {
 			boolean ok = sysDictItemService.removeById(id);
 			if(ok) {
-				result.success("删除成功!");
+				result.success("success!");
 			}
 		}
 		return result;
 	}
 	
 	/**
-	 * @功能：批量删除字典数据
 	 * @param ids
 	 * @return
 	 */
@@ -144,39 +137,34 @@ public class SysDictItemController {
 	public Result<SysDictItem> deleteBatch(@RequestParam(name="ids",required=true) String ids) {
 		Result<SysDictItem> result = new Result<SysDictItem>();
 		if(ids==null || "".equals(ids.trim())) {
-			result.error500("参数不识别！");
+			result.error500("Parameter nonidentification！");
 		}else {
 			this.sysDictItemService.removeByIds(Arrays.asList(ids.split(",")));
-			result.success("删除成功!");
+			result.success("success!");
 		}
 		return result;
 	}
 
 	/**
-	 * 字典值重复校验
 	 * @param sysDictItem
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/dictItemCheck", method = RequestMethod.GET)
-	@ApiOperation("字典重复校验接口")
 	public Result<Object> doDictItemCheck(SysDictItem sysDictItem, HttpServletRequest request) {
 		int num = 0;
 		LambdaQueryWrapper<SysDictItem> queryWrapper = new LambdaQueryWrapper<SysDictItem>();
 		queryWrapper.eq(SysDictItem::getItemValue,sysDictItem.getItemValue());
 		queryWrapper.eq(SysDictItem::getDictId,sysDictItem.getDictId());
 		if (StringUtils.isNotBlank(sysDictItem.getId())) {
-			// 编辑页面校验
 			queryWrapper.ne(SysDictItem::getId,sysDictItem.getId());
 		}
 		num = sysDictItemService.count(queryWrapper);
 		if (num == 0) {
-			// 该值可用
-			return Result.ok("该值可用！");
+			return Result.ok("The value is available！");
 		} else {
-			// 该值不可用
-			log.info("该值不可用，系统中已存在！");
-			return Result.error("该值不可用，系统中已存在！");
+			log.info("The value is unavailable and already exists in the system！");
+			return Result.error("The value is unavailable and already exists in the system！");
 		}
 	}
 	

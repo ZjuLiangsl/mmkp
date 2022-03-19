@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- * 权限规则 Mapper 接口
  * </p>
  *
  * @Author huangzhilin
@@ -18,7 +17,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface SysPermissionDataRuleMapper extends BaseMapper<SysPermissionDataRule> {
 	
 	/**
-	  * 根据用户名和权限id查询
 	 * @param username
 	 * @param permissionId
 	 * @return

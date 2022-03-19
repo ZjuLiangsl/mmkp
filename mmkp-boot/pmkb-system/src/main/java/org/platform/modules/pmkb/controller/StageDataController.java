@@ -92,12 +92,10 @@ public class StageDataController {
         }
 
         if("0".equals(one.getDataState())){
-            //加载 本地 + 远程数据
             stageDataList = stageDataService.list(wrapper);
             remoteDateList = DynamicDBUtil.findList(po.getDsCode(), sql.toString());
         }
         else{
-            //加载本地数据
             stageDataList = stageDataService.list(wrapper);
         }
         int stageMaxId = 0,remoteMaxId=0;
@@ -143,19 +141,19 @@ public class StageDataController {
             result.put("add", false);
             result.put("del", true);
             result.put("edit", true);
-            result.put("msg", "当前表存在日期类型主键,暂不支持新增操作!");
+            result.put("msg", "The current table has a primary key of date type and does not support new operations!");
         }
         else if(pkFields.size()==0){
             result.put("add", true);
             result.put("del", false);
             result.put("edit", false);
-            result.put("msg", "当前表未设置主键,暂不支持修改/删除操作!");
+            result.put("msg", "The current table does not have a primary key and cannot be modified or deleted!");
         }
         else if(pkFields.size()>1){
             result.put("add", false);
             result.put("del", true);
             result.put("edit", true);
-            result.put("msg", "当前表为多字段联合主键,暂不支持新增操作!");
+            result.put("msg", "The current table is a multi-field combined primary key and does not support new operations!");
         }
         else{
             result.put("add", true);
@@ -199,17 +197,17 @@ public class StageDataController {
             result.put("add", false);
             result.put("del", true);
             result.put("edit", true);
-            result.put("msg", "当前表存在日期类型主键,暂不支持新增操作!");
+            result.put("msg", "The current table has a primary key of date type and does not support new operations!");
         }else if(pkFields.size()==0){
             result.put("add", true);
             result.put("del", false);
             result.put("edit", false);
-            result.put("msg", "当前表未设置主键,暂不支持修改/删除操作!");
+            result.put("msg", "The current table does not have a primary key and cannot be modified or deleted!");
         }else if(pkFields.size()>1){
             result.put("add", false);
             result.put("del", true);
             result.put("edit", true);
-            result.put("msg", "当前表为多字段联合主键,暂不支持新增操作!");
+            result.put("msg", "The current table is a multi-field combined primary key and does not support new operations!");
         }else{
             result.put("add", true);
             result.put("del", true);
@@ -224,7 +222,6 @@ public class StageDataController {
             int stageMaxId = 0,remoteMaxId=0;
             if("1".equals(one.getDataState())){
                 {
-                    //加载本地数据
                     wrapper.select("max(cast(pk_field_value as UNSIGNED INTEGER)) maxid");
                     Map map = stageDataService.getMap(wrapper);
                     if(map==null){
@@ -234,7 +231,6 @@ public class StageDataController {
                     }
                 }
             }else{
-                //加载 本地 + 远程数据
                 wrapper.select("max(cast(pk_field_value as UNSIGNED INTEGER)) maxid");
                 Map map = stageDataService.getMap(wrapper);
                 if(map==null){
@@ -383,7 +379,6 @@ public class StageDataController {
     }
 
     //local_mysql.pmkb-test.aaaaaaa:dpkid.1
-    //a5字段
     //a51:1
     @PostMapping(value = "/openReferenceField")
     public Result<?> openReferenceField(@RequestBody JSONObject jsonObject) {

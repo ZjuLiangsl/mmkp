@@ -24,16 +24,13 @@ public class DictModel implements Serializable{
 	}
 	
 	/**
-	 * 字典value
 	 */
 	private String value;
 	/**
-	 * 字典文本
 	 */
 	private String text;
 
 	/**
-	 * 特殊用途： JgEditableTable
 	 * @return
 	 */
 	public String getTitle() {

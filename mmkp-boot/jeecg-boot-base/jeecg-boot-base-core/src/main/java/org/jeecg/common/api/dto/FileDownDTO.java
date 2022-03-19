@@ -5,10 +5,7 @@ import lombok.Data;
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
-/**
- * 文件下载
- * cloud api 用到的接口传输对象
- */
+
 @Data
 public class FileDownDTO implements Serializable {
 

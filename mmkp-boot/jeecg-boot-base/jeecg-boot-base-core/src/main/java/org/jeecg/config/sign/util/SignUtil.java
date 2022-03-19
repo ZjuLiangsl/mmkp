@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 import java.util.SortedMap;
 
 /**
- * 签名工具类
+ *      
  * 
  * @author jeecg
  * @date 20210621
@@ -23,14 +23,14 @@ public class SignUtil {
 
     /**
      * @param params
-     *            所有的请求参数都会在这里进行排序加密
-     * @return 验证签名结果
+     *                              
+     * @return       
      */
     public static boolean verifySign(SortedMap<String, String> params,String headerSign) {
         if (params == null || StringUtils.isEmpty(headerSign)) {
             return false;
         }
-        // 把参数加密
+        //      
         String paramsSign = getParamsSign(params);
         log.info("Param Sign : {}", paramsSign);
         return !StringUtils.isEmpty(paramsSign) && headerSign.equals(paramsSign);
@@ -38,18 +38,18 @@ public class SignUtil {
 
     /**
      * @param params
-     *            所有的请求参数都会在这里进行排序加密
-     * @return 得到签名
+     *                              
+     * @return     
      */
     public static String getParamsSign(SortedMap<String, String> params) {
-        //去掉 Url 里的时间戳
+        //   Url      
         params.remove("_t");
         String paramsJsonStr = JSONObject.toJSONString(params);
         log.info("Param paramsJsonStr : {}", paramsJsonStr);
         StaticConfig staticConfig = SpringContextUtils.getBean(StaticConfig.class);
         String signatureSecret = staticConfig.getSignatureSecret();
         if(oConvertUtils.isEmpty(signatureSecret) || signatureSecret.contains("${")){
-            throw new JeecgBootException("签名密钥 ${jeecg.signatureSecret} 缺少配置 ！！");
+            throw new JeecgBootException("     ${jeecg.signatureSecret}      ！！");
         }
         return DigestUtils.md5DigestAsHex((paramsJsonStr + signatureSecret).getBytes()).toUpperCase();
     }

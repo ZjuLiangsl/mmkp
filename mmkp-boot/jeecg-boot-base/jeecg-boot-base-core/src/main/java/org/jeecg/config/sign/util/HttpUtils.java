@@ -19,7 +19,7 @@ import org.springframework.http.HttpMethod;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * http 工具类 获取请求中的参数
+ * http
  *
  * @author jeecg
  * @date 20210621
@@ -28,7 +28,7 @@ import com.alibaba.fastjson.JSONObject;
 public class HttpUtils {
 
     /**
-     * 将URL的参数和body参数合并
+     *  URL    body
      *
      * @author jeecg
      * @date 20210621
@@ -37,7 +37,7 @@ public class HttpUtils {
     public static SortedMap<String, String> getAllParams(HttpServletRequest request) throws IOException {
 
         SortedMap<String, String> result = new TreeMap<>();
-        // 获取URL上最后带逗号的参数变量 sys/dict/getDictItems/sys_user,realname,username
+        //   URL            sys/dict/getDictItems/sys_user,realname,username
         String pathVariable = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
         if (pathVariable.contains(",")) {
             log.info(" pathVariable: {}",pathVariable);
@@ -45,17 +45,17 @@ public class HttpUtils {
             log.info(" pathVariable decode: {}",deString);
             result.put(SignUtil.xPathVariable, deString);
         }
-        // 获取URL上的参数
+        //   URL
         Map<String, String> urlParams = getUrlParams(request);
         for (Map.Entry entry : urlParams.entrySet()) {
             result.put((String)entry.getKey(), (String)entry.getValue());
         }
         Map<String, String> allRequestParam = new HashMap<>(16);
-        // get请求不需要拿body参数
+        // get      body
         if (!HttpMethod.GET.name().equals(request.getMethod())) {
             allRequestParam = getAllRequestParam(request);
         }
-        // 将URL的参数和body参数进行合并
+        //  URL    body
         if (allRequestParam != null) {
             for (Map.Entry entry : allRequestParam.entrySet()) {
                 result.put((String)entry.getKey(), (String)entry.getValue());
@@ -65,7 +65,7 @@ public class HttpUtils {
     }
 
     /**
-     * 将URL的参数和body参数合并
+     *  URL    body
      *
      * @author jeecg
      * @date 20210621
@@ -75,7 +75,7 @@ public class HttpUtils {
         throws IOException {
 
         SortedMap<String, String> result = new TreeMap<>();
-        // 获取URL上最后带逗号的参数变量 sys/dict/getDictItems/sys_user,realname,username
+        //   URL            sys/dict/getDictItems/sys_user,realname,username
         String pathVariable = url.substring(url.lastIndexOf("/") + 1);
         if (pathVariable.contains(",")) {
             log.info(" pathVariable: {}",pathVariable);
@@ -83,17 +83,17 @@ public class HttpUtils {
             log.info(" pathVariable decode: {}",deString);
             result.put(SignUtil.xPathVariable, deString);
         }
-        // 获取URL上的参数
+        //   URL    
         Map<String, String> urlParams = getUrlParams(queryString);
         for (Map.Entry entry : urlParams.entrySet()) {
             result.put((String)entry.getKey(), (String)entry.getValue());
         }
         Map<String, String> allRequestParam = new HashMap<>(16);
-        // get请求不需要拿body参数
+        // get      body  
         if (!HttpMethod.GET.name().equals(method)) {
             allRequestParam = getAllRequestParam(body);
         }
-        // 将URL的参数和body参数进行合并
+        //  URL    body      
         if (allRequestParam != null) {
             for (Map.Entry entry : allRequestParam.entrySet()) {
                 result.put((String)entry.getKey(), (String)entry.getValue());
@@ -103,7 +103,7 @@ public class HttpUtils {
     }
 
     /**
-     * 获取 Body 参数
+     *    Body   
      *
      * @date 15:04 20210621
      * @param request
@@ -113,16 +113,16 @@ public class HttpUtils {
         BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
         String str = "";
         StringBuilder wholeStr = new StringBuilder();
-        // 一行一行的读取body体里面的内容；
+        //        body      ；
         while ((str = reader.readLine()) != null) {
             wholeStr.append(str);
         }
-        // 转化成json对象
+        //    json  
         return JSONObject.parseObject(wholeStr.toString(), Map.class);
     }
 
     /**
-     * 获取 Body 参数
+     *    Body   
      *
      * @date 15:04 20210621
      * @param body
@@ -132,12 +132,12 @@ public class HttpUtils {
             return null;
         }
         String wholeStr = new String(body);
-        // 转化成json对象
+        //    json  
         return JSONObject.parseObject(wholeStr.toString(), Map.class);
     }
 
     /**
-     * 将URL请求参数转换成Map
+     *  URL       Map
      *
      * @param request
      */
@@ -161,7 +161,7 @@ public class HttpUtils {
     }
 
     /**
-     * 将URL请求参数转换成Map
+     *  URL       Map
      * 
      * @param queryString
      */

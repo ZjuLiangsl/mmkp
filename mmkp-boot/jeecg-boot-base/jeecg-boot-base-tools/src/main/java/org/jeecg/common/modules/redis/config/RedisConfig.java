@@ -34,7 +34,7 @@ import java.time.Duration;
 import static java.util.Collections.singletonMap;
 
 /**
-* 开启缓存支持
+*
 * @author zyf
  * @Return:
 */
@@ -47,9 +47,9 @@ public class RedisConfig extends CachingConfigurerSupport {
 	private LettuceConnectionFactory lettuceConnectionFactory;
 
 //	/**
-//	 * @description 自定义的缓存key的生成策略 若想使用这个key
-//	 *              只需要讲注解上keyGenerator的值设置为keyGenerator即可</br>
-//	 * @return 自定义策略生成的key
+//	 * @description
+//	 *
+//	 * @return
 //	 */
 //	@Override
 //	@Bean
@@ -67,7 +67,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 //	}
 
 	/**
-	 * RedisTemplate配置
+	 * RedisTemplate
 	 * @param lettuceConnectionFactory
 	 * @return
 	 */
@@ -79,20 +79,15 @@ public class RedisConfig extends CachingConfigurerSupport {
 		redisTemplate.setConnectionFactory(lettuceConnectionFactory);
 		RedisSerializer<String> stringSerializer = new StringRedisSerializer();
 
-		// key序列化
 		redisTemplate.setKeySerializer(stringSerializer);
-		// value序列化
 		redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
-		// Hash key序列化
 		redisTemplate.setHashKeySerializer(stringSerializer);
-		// Hash value序列化
 		redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
 	}
 
 	/**
-	 * 缓存配置管理器
 	 *
 	 * @param factory
 	 * @return
@@ -100,34 +95,25 @@ public class RedisConfig extends CachingConfigurerSupport {
 	@Bean
 	public CacheManager cacheManager(LettuceConnectionFactory factory) {
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = jacksonSerializer();
-        // 配置序列化（解决乱码的问题）,并且配置缓存默认有效期 6小时
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(6));
         RedisCacheConfiguration redisCacheConfiguration = config.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
 															.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
 															//.disableCachingNullValues();
 
-		// 以锁写入的方式创建RedisCacheWriter对象
-		//update-begin-author:taoyan date:20210316 for:注解CacheEvict根据key删除redis支持通配符*
 		RedisCacheWriter writer = new JeecgRedisCacheWriter(factory, Duration.ofMillis(50L));
 		//RedisCacheWriter.lockingRedisCacheWriter(factory);
-		// 创建默认缓存配置对象
-		/* 默认配置，设置缓存有效期 1小时*/
 		//RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1));
-		/* 自定义配置test:demo 的超时时间为 5分钟*/
 		RedisCacheManager cacheManager = RedisCacheManager.builder(writer).cacheDefaults(redisCacheConfiguration)
             .withInitialCacheConfigurations(singletonMap(CacheConstant.SYS_DICT_TABLE_CACHE,
                 RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)).disableCachingNullValues()
                     .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))))
 				.withInitialCacheConfigurations(singletonMap(CacheConstant.TEST_DEMO_CACHE, RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5)).disableCachingNullValues()))
 				.transactionAware().build();
-		//update-end-author:taoyan date:20210316 for:注解CacheEvict根据key删除redis支持通配符*
 		return cacheManager;
 	}
 
 	/**
-	 * redis 监听配置
 	 *
-	 * @param redisConnectionFactory redis 配置
 	 * @return
 	 */
 	@Bean

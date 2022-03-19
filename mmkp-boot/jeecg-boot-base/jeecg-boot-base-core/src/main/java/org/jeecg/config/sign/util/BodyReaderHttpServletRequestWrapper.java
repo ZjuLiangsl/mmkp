@@ -9,7 +9,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 
 /**
- * 保存过滤器里面的流
+ *          
  * 
  * @author jeecg
  * @date 20210621
@@ -26,7 +26,7 @@ public class BodyReaderHttpServletRequestWrapper extends HttpServletRequestWrapp
     }
 
     /**
-     * 获取请求Body
+     *     Body
      *
      * @param request
      * @return
@@ -47,7 +47,7 @@ public class BodyReaderHttpServletRequestWrapper extends HttpServletRequestWrapp
     }
 
     /**
-     * Description: 复制输入流</br>
+     * Description:      </br>
      *
      * @param inputStream
      * @return</br>

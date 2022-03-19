@@ -10,40 +10,34 @@ public class MetadataTablesVO extends MetadataTables {
     private String dsName;
 
     /**
-     * 表备注
      */
-    @ApiModelProperty(value="表备注")
+    @ApiModelProperty(value="tableRemark")
     private String tableRemark;
 
     /**
-     * 是否分页展示，0-否；1-是
      */
-    @ApiModelProperty(value="是否分页展示，0-否；1-是")
+    @ApiModelProperty(value="isPaging")
     private String isPaging;
 
 
     /**
-     * 表单宽度，默认450px
      */
-    @ApiModelProperty(value="表单宽度，默认450px")
+    @ApiModelProperty(value="formWidth 450px")
     private Integer formWidth;
 
 
     /**
-     * 扩展字段1
      */
-    @ApiModelProperty(value="扩展字段1")
+    @ApiModelProperty(value="extField1")
     private String extField1;
 
     /**
-     * 扩展字段2
      */
-    @ApiModelProperty(value="扩展字段2")
+    @ApiModelProperty(value="extField2")
     private String extField2;
 
     /**
-     * 扩展字段3
      */
-    @ApiModelProperty(value="扩展字段3")
+    @ApiModelProperty(value="extField3")
     private String extField3;
 }

@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class SpringContextUtils implements ApplicationContextAware {
 
 	/**
-	 * 上下文对象实例
+	 *
 	 */
 	private static ApplicationContext applicationContext;
 
@@ -23,7 +23,7 @@ public class SpringContextUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * 获取applicationContext
+	 *   applicationContext
 	 *
 	 * @return
 	 */
@@ -32,14 +32,14 @@ public class SpringContextUtils implements ApplicationContextAware {
 	}
 
 	/**
-	  * 获取HttpServletRequest
+	  *   HttpServletRequest
 	 */
 	public static HttpServletRequest getHttpServletRequest() {
 		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 	}
 
 	/**
-	*  获取项目根路径 basePath
+	*          basePath
 	*/
 	public static String getDomain(){
 		HttpServletRequest request = getHttpServletRequest();
@@ -53,7 +53,7 @@ public class SpringContextUtils implements ApplicationContextAware {
 	}
 	
 	/**
-	 * 通过name获取 Bean.
+	 *   name   Bean.
 	 *
 	 * @param name
 	 * @return
@@ -63,7 +63,7 @@ public class SpringContextUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * 通过class获取Bean.
+	 *   class  Bean.
 	 *
 	 * @param clazz
 	 * @param       <T>
@@ -74,7 +74,7 @@ public class SpringContextUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * 通过name,以及Clazz返回指定的Bean
+	 *   name,  Clazz     Bean
 	 *
 	 * @param name
 	 * @param clazz

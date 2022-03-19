@@ -12,14 +12,14 @@ import java.util.regex.Pattern;
 /**
  * @Description: TODO
  * @author: lsq
- * @date: 2021年08月09日 15:29
+ * @date: 2021 08 09  15:29
  */
 public class FileTypeFilter {
 
-    //文件后缀
+    //
     private static String[] forbidType = {"jsp","php"};
 
-    // 初始化文件头类型，不够的自行补充
+    //         ，
     final static HashMap<String, String> fileTypeMap = new HashMap<>();
 
     static {
@@ -83,14 +83,14 @@ public class FileTypeFilter {
     /**
      * @param fileName
      * @return String
-     * @description 通过文件后缀名获取文件类型
+     * @description
      */
     private static String getFileTypeBySuffix(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
     }
 
     /**
-     * 文件类型过滤
+     *
      *
      * @param file
      */
@@ -98,16 +98,16 @@ public class FileTypeFilter {
         String suffix = getFileType(file);
         for (String type : forbidType) {
             if (type.contains(suffix)) {
-                throw new Exception("上传失败，文件类型异常：" + suffix);
+                throw new Exception("    ，      ：" + suffix);
             }
         }
     }
 
     /**
-     * 通过读取文件头部获得文件类型
+     *
      *
      * @param file
-     * @return 文件类型
+     * @return
      * @throws Exception
      */
 
@@ -123,14 +123,14 @@ public class FileTypeFilter {
             Iterator<String> keyIter = fileTypeMap.keySet().iterator();
             while (keyIter.hasNext()) {
                 String key = keyIter.next();
-                // 验证前5个字符比较
+                //    5
                 if (key.toLowerCase().startsWith(fileTypeHex.toLowerCase().substring(0, 5))
                         || fileTypeHex.toLowerCase().substring(0, 5).startsWith(key.toLowerCase())) {
                     fileExtendName = fileTypeMap.get(key);
                     break;
                 }
             }
-            // 如果不是上述类型，则判断扩展名
+            //         ，
             if (StringUtils.isBlank(fileExtendName)) {
                 String fileName = file.getOriginalFilename();
                 return getFileTypeBySuffix(fileName);
@@ -143,7 +143,7 @@ public class FileTypeFilter {
     }
 
     /**
-     * 获得文件头部字符串
+     *
      *
      * @param src
      * @return

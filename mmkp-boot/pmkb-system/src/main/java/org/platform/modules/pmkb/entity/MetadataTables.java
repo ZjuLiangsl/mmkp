@@ -13,38 +13,33 @@ import lombok.Data;
  * @author 
  */
 @TableName("pmkb_metadata_tables")
-@ApiModel(value="元数据表信息")
+@ApiModel(value="MetadataTables")
 @Data
 public class MetadataTables implements Serializable {
     /**
-     * 主键ID
      */
     @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty(value="主键ID")
+    @ApiModelProperty(value="id")
     private String id;
 
     /**
-     * 数据源ID
      */
-    @ApiModelProperty(value="数据源ID")
+    @ApiModelProperty(value="dsCode")
     private String dsCode;
 
     /**
-     * 库名
      */
-    @ApiModelProperty(value="库名")
+    @ApiModelProperty(value="dbName")
     private String dbName;
 
     /**
-     * 表名
      */
-    @ApiModelProperty(value="表名")
+    @ApiModelProperty(value="tableName")
     private String tableName;
 
     /**
-     * 表注释
      */
-    @ApiModelProperty(value="表注释")
+    @ApiModelProperty(value="tableComment")
     private String tableComment;
 
     private String dataState;

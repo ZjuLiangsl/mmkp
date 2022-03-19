@@ -14,32 +14,28 @@ import java.io.Serializable;
  * @author 
  */
 @TableName("pmkb_reference_relation")
-@ApiModel(value="元数据表信息")
+@ApiModel(value="ReferenceRelation")
 @Data
 public class ReferenceRelation implements Serializable {
     /**
-     * 主键ID
      */
     @TableId(type = IdType.AUTO)
-    @ApiModelProperty(value="主键ID")
+    @ApiModelProperty(value="id")
     private String id;
 
     /**
-     * 数据源ID
      */
-    @ApiModelProperty(value="数据源ID")
+    @ApiModelProperty(value="dsCode")
     private String dsCode;
 
     /**
-     * 库名
      */
-    @ApiModelProperty(value="库名")
+    @ApiModelProperty(value="dbName")
     private String dbName;
 
     /**
-     * 表名
      */
-    @ApiModelProperty(value="表名")
+    @ApiModelProperty(value="tableName")
     private String tableName;
 
     private String fieldName;

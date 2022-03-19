@@ -4,18 +4,18 @@ import org.jeecg.common.api.dto.LogDTO;
 import org.jeecg.common.system.vo.LoginUser;
 
 /**
- * common接口
+ * common  
  */
 public interface BaseCommonService {
 
     /**
-     * 保存日志
+     *     
      * @param logDTO
      */
     void addLog(LogDTO logDTO);
 
     /**
-     * 保存日志
+     *     
      * @param LogContent
      * @param logType
      * @param operateType
@@ -24,7 +24,7 @@ public interface BaseCommonService {
     void addLog(String LogContent, Integer logType, Integer operateType, LoginUser user);
 
     /**
-     * 保存日志
+     *     
      * @param LogContent
      * @param logType
      * @param operateType

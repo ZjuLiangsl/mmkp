@@ -16,7 +16,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
 /**
- * @Description: 部门权限表
  * @Author: jeecg-boot
  * @Date:   2020-02-11
  * @Version: V1.0
@@ -25,23 +24,23 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 @TableName("sys_depart_permission")
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="sys_depart_permission对象", description="部门权限表")
+@ApiModel(value="sys_depart_permission", description="sys_depart_permission")
 public class SysDepartPermission {
     
 	/**id*/
 	@TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty(value = "id")
 	private String id;
-	/**部门id*/
-	@Excel(name = "部门id", width = 15)
-    @ApiModelProperty(value = "部门id")
+	/**departId*/
+	@Excel(name = "departId", width = 15)
+    @ApiModelProperty(value = "departId")
 	private String departId;
-	/**权限id*/
-	@Excel(name = "权限id", width = 15)
-    @ApiModelProperty(value = "权限id")
+	/**permissionId*/
+	@Excel(name = "permissionId", width = 15)
+    @ApiModelProperty(value = "permissionId")
 	private String permissionId;
-	/**数据规则id*/
-	@ApiModelProperty(value = "数据规则id")
+	/**dataRuleIds*/
+	@ApiModelProperty(value = "dataRuleIds")
 	private String dataRuleIds;
 
 	public SysDepartPermission() {

@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.util.AntPathMatcher;
 
 /**
- * 使用Spring自身提供的地址匹配工具匹配URL
+ *   Spring             URL
  */
 public class PathMatcherUtil {
 
@@ -18,11 +18,11 @@ public class PathMatcherUtil {
     }
 
     /**
-     * 实际验证路径匹配权限
+     *           
      *
-     * @param matchPath 权限url
-     * @param path      访问路径
-     * @return 是否拥有权限
+     * @param matchPath   url
+     * @param path          
+     * @return       
      */
     public static boolean match(String matchPath, String path) {
         SpringAntMatcher springAntMatcher = new SpringAntMatcher(matchPath, true);
@@ -30,11 +30,11 @@ public class PathMatcherUtil {
     }
 
     /**
-     * 实际验证路径匹配权限
+     *           
      *
-     * @param list 权限url
-     * @param path 访问路径
-     * @return 是否拥有权限
+     * @param list   url
+     * @param path     
+     * @return       
      */
     public static boolean matches(Collection<String> list, String path) {
         for (String s : list) {
@@ -47,7 +47,7 @@ public class PathMatcherUtil {
     }
 
     /**
-     * 地址表达式匹配工具
+     *          
      */
     private static class SpringAntMatcher implements Matcher {
         private final AntPathMatcher antMatcher;

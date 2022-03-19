@@ -11,9 +11,7 @@ import java.util.List;
 
 /**
  * @ClassName: JeecgDataAutorUtils
- * @Description: 数据权限查询规则容器工具类
- * @Author: 张代浩
- * @Date: 2012-12-15 下午11:27:39
+ * @Date: 2012-12-15   11:27:39
  * 
  */
 public class JeecgDataAutorUtils {
@@ -25,26 +23,26 @@ public class JeecgDataAutorUtils {
 	public static final String SYS_USER_INFO = "SYS_USER_INFO";
 
 	/**
-	 * 往链接请求里面，传入数据查询条件
+	 *        ，        
 	 * 
 	 * @param request
 	 * @param dataRules
 	 */
 	public static synchronized void installDataSearchConditon(HttpServletRequest request, List<SysPermissionDataRuleModel> dataRules) {
 		@SuppressWarnings("unchecked")
-		List<SysPermissionDataRuleModel> list = (List<SysPermissionDataRuleModel>)loadDataSearchConditon();// 1.先从request获取MENU_DATA_AUTHOR_RULES，如果存则获取到LIST
+		List<SysPermissionDataRuleModel> list = (List<SysPermissionDataRuleModel>)loadDataSearchConditon();// 1.  request  MENU_DATA_AUTHOR_RULES，       LIST
 		if (list==null) {
-			// 2.如果不存在，则new一个list
+			// 2.     ， new  list
 			list = new ArrayList<SysPermissionDataRuleModel>();
 		}
 		for (SysPermissionDataRuleModel tsDataRule : dataRules) {
 			list.add(tsDataRule);
 		}
-		request.setAttribute(MENU_DATA_AUTHOR_RULES, list); // 3.往list里面增量存指
+		request.setAttribute(MENU_DATA_AUTHOR_RULES, list); // 3. list      
 	}
 
 	/**
-	 * 获取请求对应的数据权限规则
+	 *              
 	 * 
 	 * @return
 	 */
@@ -55,7 +53,7 @@ public class JeecgDataAutorUtils {
 	}
 
 	/**
-	 * 获取请求对应的数据权限SQL
+	 *            SQL
 	 * 
 	 * @return
 	 */
@@ -64,7 +62,7 @@ public class JeecgDataAutorUtils {
 	}
 
 	/**
-	 * 往链接请求里面，传入数据查询条件
+	 *        ，        
 	 * 
 	 * @param request
 	 * @param sql
@@ -77,7 +75,7 @@ public class JeecgDataAutorUtils {
 	}
 
 	/**
-	 * 将用户信息存到request
+	 *        request
 	 * @param request
 	 * @param userinfo
 	 */
@@ -86,7 +84,7 @@ public class JeecgDataAutorUtils {
 	}
 
 	/**
-	 * 将用户信息存到request
+	 *        request
 	 * @param userinfo
 	 */
 	public static synchronized void installUserInfo(SysUserCacheInfo userinfo) {
@@ -94,7 +92,7 @@ public class JeecgDataAutorUtils {
 	}
 
 	/**
-	 * 从request获取用户信息
+	 *  request      
 	 * @return
 	 */
 	public static synchronized SysUserCacheInfo loadUserInfo() {

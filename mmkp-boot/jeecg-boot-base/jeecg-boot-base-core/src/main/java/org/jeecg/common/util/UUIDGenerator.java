@@ -5,14 +5,14 @@ import java.net.InetAddress;
 
 /**
  * 
- * @Author  张代浩
+ * @Author
  *
  */
 public class UUIDGenerator {
 
 	
 	/**
-	 * 产生一个32位的UUID
+	 *     32  UUID
 	 * 
 	 * @return
 	 */

@@ -3,8 +3,8 @@ package org.jeecg.common.util.dynamic.db;
 import com.baomidou.mybatisplus.annotation.DbType;
 
 /**
- * 数据库类型判断
- * 【有些数据库引擎是一样的，以达到复用目的】
+ *
+ * 【           ，       】
  */
 public class DbTypeUtils {
 
@@ -25,7 +25,7 @@ public class DbTypeUtils {
     }
 
     /**
-     * 判断数据库类型
+     *
      */
     public static boolean dbTypeIf(DbType dbType, DbType... correctTypes) {
         for (DbType type : correctTypes) {

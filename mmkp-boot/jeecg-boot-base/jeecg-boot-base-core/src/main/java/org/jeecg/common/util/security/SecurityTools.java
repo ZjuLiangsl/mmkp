@@ -28,11 +28,11 @@ public class SecurityTools {
 
 
         byte[] decryptAes = rsa.decrypt(aesKey, KeyType.PublicKey);
-        //log.info("rsa解密后的秘钥"+ Base64Encoder.encode(decryptAes));
+        //log.info("rsa      "+ Base64Encoder.encode(decryptAes));
         AES aes = SecureUtil.aes(decryptAes);
 
         String dencrptValue =aes.decryptStr(data);
-        //log.info("解密后报文"+dencrptValue);
+        //log.info("     "+dencrptValue);
         resp.setData(JSONObject.parseObject(dencrptValue));
 
         boolean verify = sign.verify(dencrptValue.getBytes(), Base64Decoder.decode(signData));
@@ -51,12 +51,12 @@ public class SecurityTools {
         String encrptData =aes.encryptBase64(data);
         RSA rsa=new RSA(prikey,null);
         byte[] encryptAesKey = rsa.encrypt(secretKey.getEncoded(), KeyType.PrivateKey);
-        //log.info(("rsa加密过的秘钥=="+Base64Encoder.encode(encryptAesKey));
+        //log.info(("rsa      =="+Base64Encoder.encode(encryptAesKey));
 
         Sign sign= new Sign(SignAlgorithm.SHA1withRSA,prikey,null);
         byte[] signed = sign.sign(data.getBytes());
 
-        //log.info(("签名数据===》》"+Base64Encoder.encode(signed));
+        //log.info(("    ===》》"+Base64Encoder.encode(signed));
 
         SecuritySignResp resp=new SecuritySignResp();
         resp.setAesKey(Base64Encoder.encode(encryptAesKey));

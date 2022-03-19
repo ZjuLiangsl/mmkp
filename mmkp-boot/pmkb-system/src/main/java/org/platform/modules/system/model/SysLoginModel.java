@@ -4,20 +4,19 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 登录表单
  *
  * @Author scott
  * @since  2019-01-18
  */
-@ApiModel(value="登录对象", description="登录对象")
+@ApiModel(value="username", description="username")
 public class SysLoginModel {
-	@ApiModelProperty(value = "账号")
+	@ApiModelProperty(value = "username")
     private String username;
-	@ApiModelProperty(value = "密码")
+	@ApiModelProperty(value = "password")
     private String password;
-	@ApiModelProperty(value = "验证码")
+	@ApiModelProperty(value = "captcha")
     private String captcha;
-	@ApiModelProperty(value = "验证码key")
+	@ApiModelProperty(value = "checkKey")
     private String checkKey;
 
     public String getUsername() {

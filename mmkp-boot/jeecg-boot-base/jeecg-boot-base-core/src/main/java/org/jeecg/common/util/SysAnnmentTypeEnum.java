@@ -1,28 +1,28 @@
 package org.jeecg.common.util;
 
 /**
- * 系统公告自定义跳转方式
+ *
  */
 public enum SysAnnmentTypeEnum {
     /**
-     * 邮件跳转组件
+     *
      */
     EMAIL("email", "component", "modules/eoa/email/modals/EoaEmailInForm"),
     /**
-     * 工作流跳转链接我的办公
+     *
      */
     BPM("bpm", "url", "/bpm/task/MyTaskList");
 
     /**
-     * 业务类型(email:邮件 bpm:流程)
+     *     (email:   bpm:  )
      */
     private String type;
     /**
-     * 打开方式 组件：component 路由：url
+     *        ：component   ：url
      */
     private String openType;
     /**
-     * 组件/路由 地址
+     *   /
      */
     private String openPage;
 

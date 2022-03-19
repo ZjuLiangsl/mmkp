@@ -3,25 +3,25 @@ package org.jeecg.common.system.query;
 import org.jeecg.common.util.oConvertUtils;
 
 /**
- * Query 规则 常量
+ * Query
  * @Author Scott
- * @Date 2019年02月14日
+ * @Date 2019-02-14
  */
 public enum QueryRuleEnum {
 
-    GT(">","gt","大于"),
-    GE(">=","ge","大于等于"),
-    LT("<","lt","小于"),
-    LE("<=","le","小于等于"),
-    EQ("=","eq","等于"),
-    NE("!=","ne","不等于"),
-    IN("IN","in","包含"),
-    LIKE("LIKE","like","全模糊"),
-    LEFT_LIKE("LEFT_LIKE","left_like","左模糊"),
-    RIGHT_LIKE("RIGHT_LIKE","right_like","右模糊"),
-    EQ_WITH_ADD("EQWITHADD","eq_with_add","带加号等于"),
-    LIKE_WITH_AND("LIKEWITHAND","like_with_and","多词模糊匹配————暂时未用上"),
-    SQL_RULES("USE_SQL_RULES","ext","自定义SQL片段");
+    GT(">","gt","Greater than"),
+    GE(">=","ge","Greater than or equal"),
+    LT("<","lt","Less than"),
+    LE("<=","le","Less than or equal"),
+    EQ("=","eq","Equal"),
+    NE("!=","ne","Not equal"),
+    IN("IN","in","in"),
+    LIKE("LIKE","like","like"),
+    LEFT_LIKE("LEFT_LIKE","left_like","Left like"),
+    RIGHT_LIKE("RIGHT_LIKE","right_like","Right like"),
+    EQ_WITH_ADD("EQWITHADD","eq_with_add","eq with add"),
+    LIKE_WITH_AND("LIKEWITHAND","like_with_and","like with and"),
+    SQL_RULES("USE_SQL_RULES","ext","Customize SQL");
 
     private String value;
     

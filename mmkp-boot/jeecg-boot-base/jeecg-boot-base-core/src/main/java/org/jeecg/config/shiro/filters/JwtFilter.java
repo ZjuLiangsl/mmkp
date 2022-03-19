@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Description: 鉴权登录拦截器
+ * @Description:        
  * @Author: Scott
  * @Date: 2018/10/7
  **/
@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     /**
-     * 默认开启跨域设置（使用单体）
-     * 微服务情况下，此属性设置为false
+     *         （    ）
+     *       ，      false
      */
     private boolean allowOrigin = true;
 
@@ -34,7 +34,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     }
 
     /**
-     * 执行登录认证
+     *       
      *
      * @param request
      * @param response
@@ -47,7 +47,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             executeLogin(request, response);
             return true;
         } catch (Exception e) {
-            throw new AuthenticationException("Token失效，请重新登录", e);
+            throw new AuthenticationException("Token  ，     ", e);
         }
     }
 
@@ -58,21 +58,21 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = httpServletRequest.getHeader(CommonConstant.X_ACCESS_TOKEN);
-        // update-begin--Author:lvdandan Date:20210105 for：JT-355 OA聊天添加token验证，获取token参数
+        // update-begin--Author:lvdandan Date:20210105 for：JT-355 OA    token  ，  token  
         if (oConvertUtils.isEmpty(token)) {
             token = httpServletRequest.getParameter("token");
         }
-        // update-end--Author:lvdandan Date:20210105 for：JT-355 OA聊天添加token验证，获取token参数
+        // update-end--Author:lvdandan Date:20210105 for：JT-355 OA    token  ，  token  
 
         JwtToken jwtToken = new JwtToken(token);
-        // 提交给realm进行登入，如果错误他会抛出异常并被捕获
+        //    realm    ，              
         getSubject(request, response).login(jwtToken);
-        // 如果没有抛出异常则代表登入成功，返回true
+        //                ，  true
         return true;
     }
 
     /**
-     * 对跨域提供支持
+     *        
      */
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
@@ -82,12 +82,12 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
             httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
             httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
-            //update-begin-author:scott date:20200907 for:issues/I1TAAP 前后端分离，shiro过滤器配置引起的跨域问题
-            // 是否允许发送Cookie，默认Cookie不包括在CORS请求之中。设为true时，表示服务器允许Cookie包含在请求中。
+            //update-begin-author:scott date:20200907 for:issues/I1TAAP      ，shiro            
+            //       Cookie，  Cookie    CORS    。  true ，       Cookie      。
             httpServletResponse.setHeader("Access-Control-Allow-Credentials", "true");
-            //update-end-author:scott date:20200907 for:issues/I1TAAP 前后端分离，shiro过滤器配置引起的跨域问题
+            //update-end-author:scott date:20200907 for:issues/I1TAAP      ，shiro            
         }
-        // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
+        //           option  ，     option          
         if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
             httpServletResponse.setStatus(HttpStatus.OK.value());
             return false;
