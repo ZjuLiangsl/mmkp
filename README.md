@@ -1,16 +1,25 @@
 # mmkp
 A Mind Mapping Knowledgebase Prototyping Tool for Precision Medicine
 
-## 安装nodejs
+## Interface : mmkp-web
+### Tools
+  vs code or webstorm
+### 1.Install nodejs
 
-## 下载依赖
+### 2.Download dependencies
+  yarn install
+### 3.Run
 
-yarn install
+  yarn run serve
+### 4.Compile
 
-## 启动
+  yarn run build
 
-yarn run serve
-
-## 编译项目
-
-yarn run build
+## Server : mmkp-init
+### Tools
+  eclipse or IDEA
+### 1.Install maven, mysql, redis
+### 2.Initiate database
+  database script: db/mmkp-db.sql
+### 3.Refresh pom.xml dependencies
+### 4.Start PmkbSystemApplication
