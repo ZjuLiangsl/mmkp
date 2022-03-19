@@ -3,11 +3,9 @@
 
   <slot name="button" :isActive="superQueryFlag" :isMobile="izMobile" :open="handleOpen" :reset="handleReset">
     <a-tooltip v-if="superQueryFlag" v-bind="tooltipProps" :mouseLeaveDelay="0.2">
-      <!-- begin 不知道为什么不加上这段代码就无法生效 -->
       <span v-show="false">{{tooltipProps}}</span>
-      <!-- end 不知道为什么不加上这段代码就无法生效 -->
       <template slot="title">
-        <span>已有高级查询条件生效</span>
+        <span>Advanced query conditions have taken effect</span>
         <a-divider type="vertical"/>
         <a @click="handleReset">Empty</a>
       </template>
@@ -23,7 +21,7 @@
   </slot>
 
   <j-modal
-    title="高级查询构造器"
+    title="Advanced query constructor"
     :width="1000"
     :visible="visible"
     @cancel="handleCancel"
@@ -36,9 +34,9 @@
     <template slot="footer">
       <div style="float: left">
         <a-button :loading="loading" @click="handleReset">Reset</a-button>
-        <a-button :loading="loading" @click="handleSave">保存查询条件</a-button>
+        <a-button :loading="loading" @click="handleSave">save</a-button>
       </div>
-      <a-button :loading="loading" @click="handleCancel">关闭</a-button>
+      <a-button :loading="loading" @click="handleCancel">close</a-button>
       <a-button :loading="loading" type="primary" @click="handleOk">Query</a-button>
     </template>
 
@@ -48,9 +46,9 @@
 
           <a-empty v-if="queryParamsModel.length === 0" style="margin-bottom: 12px;">
             <div slot="description">
-              <span>没有任何查询条件</span>
+              <span>There are no query criteria</span>
               <a-divider type="vertical"/>
-              <a @click="handleAdd">点击新增</a>
+              <a @click="handleAdd">click to add</a>
             </div>
           </a-empty>
 
@@ -58,10 +56,10 @@
 
             <a-row style="margin-bottom: 12px;">
               <a-col :md="12" :xs="24">
-                <a-form-item label="过滤条件匹配" :labelCol="{md: 6,xs:24}" :wrapperCol="{md: 18,xs:24}" style="width: 100%;">
+                <a-form-item label="Filtering condition matching" :labelCol="{md: 6,xs:24}" :wrapperCol="{md: 18,xs:24}" style="width: 100%;">
                   <a-select v-model="matchType" :getPopupContainer="node=>node.parentNode" style="width: 100%;">
-                    <a-select-option value="and">AND（所有条件都要求匹配）</a-select-option>
-                    <a-select-option value="or">OR（条件中的任意一个匹配）</a-select-option>
+                    <a-select-option value="and">AND（All conditions require a match）</a-select-option>
+                    <a-select-option value="or">OR（Any one of the conditions matches）</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -75,7 +73,7 @@
                   v-model="item.field"
                   :treeData="fieldTreeData"
                   :dropdownStyle="{ maxHeight: '400px', overflow: 'auto' }"
-                  placeholder="选择查询字段"
+                  placeholder="Select query field"
                   allowClear
                   treeDefaultExpandAll
                   :getPopupContainer="node=>node.parentNode"
@@ -86,24 +84,22 @@
               </a-col>
 
               <a-col :md="4" :xs="24" style="margin-bottom: 12px;">
-                <a-select placeholder="匹配规则" :value="item.rule" :getPopupContainer="node=>node.parentNode" @change="handleRuleChange(item,$event)">
-                  <a-select-option value="eq">等于</a-select-option>
-                  <a-select-option value="like">包含</a-select-option>
-                  <a-select-option value="right_like">以..开始</a-select-option>
-                  <a-select-option value="left_like">以..结尾</a-select-option>
-                  <a-select-option value="in">在...中</a-select-option>
-                  <a-select-option value="ne">不等于</a-select-option>
-                  <a-select-option value="gt">大于</a-select-option>
-                  <a-select-option value="ge">大于等于</a-select-option>
-                  <a-select-option value="lt">小于</a-select-option>
-                  <a-select-option value="le">小于等于</a-select-option>
+                <a-select placeholder="Match rule" :value="item.rule" :getPopupContainer="node=>node.parentNode" @change="handleRuleChange(item,$event)">
+                  <a-select-option value="eq">eq</a-select-option>
+                  <a-select-option value="like">like</a-select-option>
+                  <a-select-option value="right_like">right_like</a-select-option>
+                  <a-select-option value="left_like">left_like</a-select-option>
+                  <a-select-option value="in">in</a-select-option>
+                  <a-select-option value="ne">ne</a-select-option>
+                  <a-select-option value="gt">gt</a-select-option>
+                  <a-select-option value="ge">ge</a-select-option>
+                  <a-select-option value="lt">lt</a-select-option>
+                  <a-select-option value="le">le</a-select-option>
                 </a-select>
               </a-col>
 
               <a-col :md="8" :xs="24" style="margin-bottom: 12px;">
-                <!-- 下拉搜索 -->
                 <j-search-select-tag v-if="item.type==='sel_search'" v-model="item.val" :dict="getDictInfo(item)" placeholder="Please Select"/>
-                <!-- 下拉多选 -->
                 <template v-else-if="item.type==='list_multi'">
                   <j-multi-select-tag v-if="item.options" v-model="item.val" :options="item.options" placeholder="Please Select"/>
                   <j-multi-select-tag v-else v-model="item.val" :dictCode="getDictInfo(item)" placeholder="Please Select"/>
@@ -137,14 +133,14 @@
                   v-model="item.val"
                   :buttons="false"
                   :multiple="false"
-                  placeholder="请选择用户"
+                  placeholder="select user"
                   :returnKeys="['id', item.customReturnField || 'username']"
                 />
                 <j-select-depart
                   v-else-if="item.type === 'select-depart' || item.type === 'sel_depart'"
                   v-model="item.val"
                   :multi="false"
-                  placeholder="请选择部门"
+                  placeholder="select dept"
                   :customReturnField="item.customReturnField || 'id'"
                 />
                 <a-select
@@ -156,15 +152,15 @@
                   :mode="allowMultiple(item)?'multiple':''"
                 />
                 <j-area-linkage v-model="item.val" v-else-if="item.type==='area-linkage' || item.type==='pca'" style="width: 100%"/>
-                <j-date v-else-if=" item.type=='date' " v-model="item.val" placeholder="请选择日期" style="width: 100%"></j-date>
-                <j-date v-else-if=" item.type=='datetime' " v-model="item.val" placeholder="请选择时间" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%"></j-date>
+                <j-date v-else-if=" item.type=='date' " v-model="item.val" placeholder="select date" style="width: 100%"></j-date>
+                <j-date v-else-if=" item.type=='datetime' " v-model="item.val" placeholder="select time" :show-time="true" date-format="YYYY-MM-DD HH:mm:ss" style="width: 100%"></j-date>
                 <a-time-picker v-else-if="item.type==='time'" :value="item.val ? moment(item.val,'HH:mm:ss') : null" format="HH:mm:ss" style="width: 100%" @change="(time,value)=>item.val=value"/>
                 <a-input-number v-else-if=" item.type=='int'||item.type=='number' " style="width: 100%" placeholder="请输入数值" v-model="item.val"/>
                 <a-select v-else-if="item.type=='switch'" placeholder="Please Select" v-model="item.val">
-                  <a-select-option value="Y">是</a-select-option>
-                  <a-select-option value="N">否</a-select-option>
+                  <a-select-option value="Y">yes</a-select-option>
+                  <a-select-option value="N">no</a-select-option>
                 </a-select>
-                <a-input v-else v-model="item.val" placeholder="请输入值"/>
+                <a-input v-else v-model="item.val" placeholder="input"/>
               </a-col>
 
               <a-col :md="4" :xs="0" style="margin-bottom: 12px;">
@@ -182,14 +178,13 @@
           </a-form>
         </a-col>
         <a-col :sm="24" :md="5">
-          <!-- 查询记录 -->
 
           <a-card class="j-super-query-history-card" :bordered="true">
             <div slot="title">
-              保存的查询
+              Saved query
             </div>
 
-            <a-empty v-if="saveTreeData.length === 0" class="j-super-query-history-empty" description="没有保存任何查询"/>
+            <a-empty v-if="saveTreeData.length === 0" class="j-super-query-history-empty" description="No queries are saved"/>
             <a-tree
               v-else
               class="j-super-query-history-tree"
@@ -208,7 +203,7 @@
 
     </a-spin>
 
-    <a-modal title="请输入保存的名称" :visible="prompt.visible" @cancel="prompt.visible=false" @ok="handlePromptOk">
+    <a-modal title="Please enter a name to save" :visible="prompt.visible" @cancel="prompt.visible=false" @ok="handlePromptOk">
       <a-input v-model="prompt.value"></a-input>
     </a-modal>
 
@@ -231,36 +226,24 @@
     mixins: [mixinDevice],
     components: { JAreaLinkage, JMultiSelectTag, JDate, JSelectDepart, JSelectMultiUser },
     props: {
-      /*
-       fieldList: [{
-          value:'',
-          text:'',
-          type:'',
-          dictCode:'' // 只要 dictCode 有值，无论 type 是什么，都显示为字典下拉框
-       }]
-       type:date datetime int number string
-      * */
+
       fieldList: {
         type: Array,
         required: true
       },
-      /*
-      * 这个回调函数接收一个数组参数 即查询条件
-      * */
+
       callback: {
         type: String,
         required: false,
         default: 'handleSuperQuery'
       },
 
-      // 当前是否在加载中
       loading: {
         type: Boolean,
         default: false
       },
 
-      // 保存查询条件的唯一 code，通过该 code 区分
-      // 默认为 null，代表以当前路由全路径为区分Code
+
       saveCode: {
         type: String,
         default: null
@@ -280,11 +263,8 @@
         visible: false,
         queryParamsModel: [],
         treeIcon: <a-icon type="file-text"/>,
-        // 保存查询条件的treeData
         saveTreeData: [],
-        // 保存查询条件的前缀名
         saveCodeBefore: 'JSuperQuerySaved_',
-        // 查询类型，过滤条件匹配（and、or）
         matchType: 'and',
         superQueryFlag: false,
       }
@@ -305,7 +285,6 @@
       },
     },
     watch: {
-      // 当 saveCode 变化时，重新查询已保存的条件
       fullSaveCode: {
         immediate: true,
         handler() {
@@ -361,7 +340,6 @@
         }else{
           str = item.dictTable+','+item.dictText+','+item.dictCode
         }
-        console.log('高级查询字典信息',str)
         return str
       },
       handleOk() {
@@ -370,13 +348,12 @@
             matchType: this.matchType,
             params: this.removeEmptyObject(this.queryParamsModel)
           }
-          // 移动端模式下关闭弹窗
           if (this.izMobile) {
             this.visible = false
           }
           this.emitCallback(event)
         } else {
-          this.$message.warn("不能查询空条件")
+          this.$message.warn("Null conditions cannot be queried")
         }
       },
       emitCallback(event = {}) {
@@ -387,7 +364,6 @@
             param.val = param.val.join(',')
           }
         }
-        console.debug('---高级查询参数--->', { params, matchType })
         this.$emit(this.callback, params, matchType)
       },
       handleCancel() {
@@ -435,7 +411,7 @@
       handleSave() {
         let queryParams = this.removeEmptyObject(this.queryParamsModel)
         if (this.isNullArray(queryParams)) {
-          this.$message.warning('空条件不能保存')
+          this.$message.warning('An empty condition cannot be saved')
         } else {
           this.prompt.value = ''
           this.prompt.visible = true
@@ -444,16 +420,14 @@
       handlePromptOk() {
         let { value } = this.prompt
         if(!value){
-          this.$message.warning('保存名称不能为空')
+          this.$message.warning('The save name cannot be empty')
           return
         }
-        // 取出查询条件
         let records = this.removeEmptyObject(this.queryParamsModel)
-        // 判断有没有重名的
         let filterList = this.saveTreeData.filter(i => i.originTitle === value)
         if (filterList.length > 0) {
           this.$confirm({
-            content: `${value} 已存在，是否覆盖？`,
+            content: `${value} Exists, whether to overwrite？`,
             onOk: () => {
               this.prompt.visible = false
               filterList[0].records = records
@@ -462,15 +436,12 @@
             }
           })
         } else {
-          // 没有重名的，直接添加
           this.prompt.visible = false
-          // 添加到树列表中
           this.saveTreeData.push(this.renderSaveTreeData({
             title: value,
             matchType: this.matchType,
             records: records
           }))
-          // 保存到 LocalStore
           this.saveToLocalStore()
           this.$message.success('Save Success')
         }
@@ -478,17 +449,15 @@
       handleTreeSelect(idx, event) {
         if (event.selectedNodes[0]) {
           let { matchType, records } = event.selectedNodes[0].data.props
-          // 将保存的matchType取出，兼容旧数据，如果没有保存就还是使用原来的
           this.matchType = matchType || this.matchType
           this.queryParamsModel = utils.cloneObject(records)
         }
       },
       handleRemoveSaveTreeItem(event, vNode) {
-        // 阻止事件冒泡
         event.stopPropagation()
 
         this.$confirm({
-          content: '是否 Delete 当前查询？',
+          content: ' Delete current query？',
           onOk: () => {
             let { eventKey } = vNode
             this.saveTreeData.splice(Number.parseInt(eventKey.substring(2)), 1)
@@ -497,14 +466,12 @@
         })
       },
 
-      // 将查询保存到 LocalStore 里
       saveToLocalStore() {
         let saveValue = this.saveTreeData.map(({ originTitle, matchType, records }) => ({ title: originTitle, matchType, records }))
         this.$ls.set(this.fullSaveCode, saveValue)
       },
 
       isNullArray(array) {
-        //判断是不是空数组对象
         if (!array || array.length === 0) {
           return true
         }
@@ -516,7 +483,6 @@
         }
         return false
       },
-      // 去掉数组中的空对象
       removeEmptyObject(arr) {
         let array = utils.cloneObject(arr)
         for (let i = 0; i < array.length; i++) {
@@ -525,29 +491,24 @@
             array.splice(i--, 1)
           } else {
             if (Array.isArray(item.options)) {
-              // 如果有字典属性，就不需要保存 options 了
-              //update-begin-author:taoyan date:20200819 for:【开源问题】 高级查询 下拉框作为并且选项很多多多 LOWCOD-779
               delete item.options
-              //update-end-author:taoyan date:20200819 for:【开源问题】 高级查询 下拉框作为并且选项很多多多 LOWCOD-779
             }
           }
         }
         return array
       },
 
-      /** 渲染保存查询条件的 title（加个 Delete 按钮） */
       renderSaveTreeData(item) {
         item.icon = this.treeIcon
         item.originTitle = item['title']
         item.title = (arg1, arg2) => {
           let vNode
-          // 兼容旧版的Antdv
           if (arg1.dataRef) {
             vNode = arg1
           } else if (arg2.dataRef) {
             vNode = arg2
           } else {
-            return <span style="color:red;">Antdv版本不支持</span>
+            return <span style="color:red;">Antdv version is not supported</span>
           }
           let {originTitle} = vNode.dataRef
           return (
@@ -563,7 +524,6 @@
         return item
       },
 
-      /** 判断是否允许多选 */
       allowMultiple(item) {
         return item.rule === 'in'
       },
@@ -571,7 +531,6 @@
       handleRuleChange(item, newValue) {
         let oldValue = item.rule
         this.$set(item, 'rule', newValue)
-        // 上一个规则是否是 in，且type是字典或下拉
         if (oldValue === 'in') {
           if (item.dictCode || item.options instanceof Array) {
             let value = item.val

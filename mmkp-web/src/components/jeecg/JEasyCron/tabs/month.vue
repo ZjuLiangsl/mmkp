@@ -2,31 +2,31 @@
   <div class="config-list">
     <a-radio-group v-model="type">
       <div class="item">
-        <a-radio value="TYPE_EVERY" class="choice" :disabled="disabled">每月</a-radio>
+        <a-radio value="TYPE_EVERY" class="choice" :disabled="disabled">A month</a-radio>
       </div>
       <div class="item">
-        <a-radio value="TYPE_RANGE" class="choice" :disabled="disabled">区间</a-radio>
-        从
+        <a-radio value="TYPE_RANGE" class="choice" :disabled="disabled">interval</a-radio>
+        from
         <a-input-number :disabled="type!==TYPE_RANGE || disabled" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueRange.start"/>
-        月
-        至
+        month
+        to
         <a-input-number :disabled="type!==TYPE_RANGE || disabled" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueRange.end"/>
-        月
+        month
       </div>
       <div class="item">
-        <a-radio value="TYPE_LOOP" class="choice" :disabled="disabled">循环</a-radio>
-        从
+        <a-radio value="TYPE_LOOP" class="choice" :disabled="disabled">cycle</a-radio>
+        from
         <a-input-number :disabled="type!==TYPE_LOOP || disabled" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueLoop.start"/>
-        月开始，间隔
+        month begin,interval
         <a-input-number :disabled="type!==TYPE_LOOP || disabled" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueLoop.interval"/>
-        月
+        month
       </div>
       <div class="item">
-        <a-radio value="TYPE_SPECIFY" class="choice" :disabled="disabled">指定</a-radio>
+        <a-radio value="TYPE_SPECIFY" class="choice" :disabled="disabled">The specified</a-radio>
         <div class="list">
           <a-checkbox-group v-model="valueList">
             <template v-for="i of specifyRange">

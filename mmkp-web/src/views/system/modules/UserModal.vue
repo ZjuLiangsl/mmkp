@@ -40,13 +40,7 @@
           <a-input placeholder="Please Input Actual Name" v-model="model.realname"/>
         </a-form-model-item>
 
-        <!--<a-form-model-item label="工号" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="workNo">
-          <a-input placeholder="请输入工号" v-model="model.workNo"/>
-        </a-form-model-item>
 
-        <a-form-model-item label="职务" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-select-position placeholder="请选择职务" :multiple="false" v-model="model.post"/>
-        </a-form-model-item>-->
 
         <a-form-model-item label="Role" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!roleDisabled">
           <j-multi-select-tag
@@ -57,32 +51,7 @@
           </j-multi-select-tag>
         </a-form-model-item>
 
-        <!--部门分配-->
-        <!--<a-form-model-item label="Department" :labelCol="labelCol" :wrapperCol="wrapperCol" v-show="!departDisabled">
-          <j-select-depart v-model="model.selecteddeparts" :multi="true" @back="backDepartInfo" :backDepart="true"
-                           :treeOpera="true">>
-          </j-select-depart>
-        </a-form-model-item>-->
 
-
-        <!--<a-form-model-item label="身份" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <a-radio-group  v-model="model.userIdentity"  @change="identityChange">
-            <a-radio :value="1">普通用户</a-radio>
-            <a-radio :value="2">上级</a-radio>
-          </a-radio-group>
-        </a-form-model-item>
-        <a-form-model-item label="负责部门" :labelCol="labelCol" :wrapperCol="wrapperCol"  v-if="departIdShow==true">
-          <j-multi-select-tag
-            :disabled="disableSubmit"
-            v-model="model.departIds"
-            :options="nextDepartOptions"
-            placeholder="请选择负责部门">
-          </j-multi-select-tag>
-        </a-form-model-item>-->
-
-        <!--<a-form-model-item label="头像" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-image-upload class="avatar-uploader" text="上传" v-model="model.avatar" ></j-image-upload>
-        </a-form-model-item>-->
 
         <a-form-model-item label="Birthday" :labelCol="labelCol" :wrapperCol="wrapperCol">
           <a-date-picker
@@ -108,20 +77,13 @@
           <a-input placeholder="Please Input Phone Number" v-model="model.phone"/>
         </a-form-model-item>
 
-<!--        <a-form-model-item label="座机" :labelCol="labelCol" :wrapperCol="wrapperCol" prop="telephone">-->
-<!--          <a-input placeholder="请输入座机" v-model="model.telephone"/>-->
-<!--        </a-form-model-item>-->
-
-        <!--<a-form-model-item label="工作流引擎" :labelCol="labelCol" :wrapperCol="wrapperCol">
-          <j-dict-select-tag  v-model="model.activitiSync"  placeholder="请选择是否同步工作流引擎" :type="'radio'" dictCode="activiti_sync"/>
-        </a-form-model-item>-->
 
       </a-form-model>
     </a-spin>
 
 
     <div class="drawer-bootom-button" v-show="!disableSubmit">
-      <a-popconfirm title="确定放弃编辑？" @confirm="handleCancel" okText="Save" cancelText="Cancel">
+      <a-popconfirm title="Decide not to edit？" @confirm="handleCancel" okText="Save" cancelText="Cancel">
         <a-button style="margin-right: .8rem">Cancel</a-button>
       </a-popconfirm>
       <a-button @click="handleSubmit" type="primary" :loading="confirmLoading">Save</a-button>
@@ -143,13 +105,13 @@ export default {
   components: {},
   data() {
     return {
-      departDisabled: false, //是否是我的部门调用该页面
-      roleDisabled: false, //是否是角色维护调用该页面
+      departDisabled: false,
+      roleDisabled: false,
       modalWidth: 800,
       drawerWidth: 700,
       modaltoggleFlag: true,
       confirmDirty: false,
-      userId: '', //保存用户id
+      userId: '',
       disableSubmit: false,
       dateFormat: 'YYYY-MM-DD',
       validatorRules: {
@@ -187,9 +149,9 @@ export default {
       headers: {},
       url: {
         fileUpload: window._CONFIG['domianURL'] + '/sys/common/upload',
-        userWithDepart: '/sys/user/userDepartList', // 引入为指定用户查看部门信息需要的url
-        userId: '/sys/user/generateUserId', // 引入生成添加用户情况下的url
-        syncUserByUserName: '/act/process/extActProcess/doSyncUserByUserName'//同步用户到工作流
+        userWithDepart: '/sys/user/userDepartList',
+        userId: '/sys/user/generateUserId',
+        syncUserByUserName: '/act/process/extActProcess/doSyncUserByUserName'
       },
       tenantsOptions: [],
       rolesOptions: [],
@@ -214,11 +176,9 @@ export default {
     edit(record) {
       let that = this
       that.visible = true
-      //根据屏幕宽度自适应抽屉宽度
       this.resetScreenSize()
       that.userId = record.id
       that.model = Object.assign({}, { selectedroles: '', selecteddeparts: '' }, record)
-      //身份为上级显示负责部门，否则不显示
       if (this.model.userIdentity == 2) {
         this.departIdShow = true
       } else {
@@ -234,7 +194,6 @@ export default {
     isDisabledAuth(code) {
       return disabledAuthFilter(code)
     },
-    //窗口最大化切换
     toggleScreen() {
       if (this.modaltoggleFlag) {
         this.modalWidth = window.innerWidth
@@ -243,7 +202,6 @@ export default {
       }
       this.modaltoggleFlag = !this.modaltoggleFlag
     },
-    // 根据屏幕变化,设置抽屉尺寸
     resetScreenSize() {
       let screenWidth = document.body.clientWidth
       if (screenWidth < 500) {
@@ -253,7 +211,6 @@ export default {
       }
     },
 
-    //初始化角色字典
     initRoleList() {
       queryall().then((res) => {
         if (res.success) {
@@ -281,7 +238,6 @@ export default {
           let selectDepartKeys = []
           for (let i = 0; i < res.result.length; i++) {
             selectDepartKeys.push(res.result[i].key)
-            //新增负责部门选择下拉框
             departOptions.push({
               value: res.result[i].key,
               label: res.result[i].title
@@ -316,11 +272,9 @@ export default {
     moment,
     handleSubmit() {
       const that = this
-      // 触发表单验证
       this.$refs.form.validate(valid => {
         if (valid) {
           that.confirmLoading = true
-          //如果是上级择传入departIds,否则为空
           if (this.model.userIdentity !== 2) {
             this.model.departIds = ''
           }
@@ -440,7 +394,7 @@ export default {
         if (res.success) {
           callback()
         } else {
-          callback('工号已存在!')
+          callback('The id already exists!')
         }
       })
     },
@@ -454,7 +408,6 @@ export default {
         this.$message.warning('Please upload pictures.')
         return false
       }
-      //TODO 验证文件大小
     },
     identityChange(e) {
       if (e.target.value === 1) {

@@ -43,12 +43,7 @@
           label="Source Address">
           <a-input placeholder="Please Input Source Address" v-decorator="['dbUrl', validatorRules.dbUrl]"/>
         </a-form-item>
-        <!-- <a-form-item
-           :labelCol="labelCol"
-           :wrapperCol="wrapperCol"
-           label="数据库名称">
-           <a-input placeholder="Please Input 数据库名称" v-decorator="['dbName', validatorRules.dbName]"/>
-         </a-form-item>-->
+
         <a-form-item
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
@@ -113,7 +108,7 @@ export default {
               validator: (rule, value, callback) => {
                 let pattern = /^[a-z|A-Z][a-z|A-Z\d_-]{0,}$/
                 if (!pattern.test(value)) {
-                  callback('编码必须以字母开头，可包含数字、下划线、横杠')
+                  callback('The code must start with a letter and can contain digits, underscores, and dashes')
                 } else {
                   validateDuplicateValue('sys_data_source', 'code', value, this.model.id, callback)
                 }
@@ -125,7 +120,7 @@ export default {
         dbType: { rules: [{ required: true, message: 'Please SelectDatabase Type!' }] },
         dbDriver: { rules: [{ required: true, message: 'Please Input Driver!' }] },
         dbUrl: { rules: [{ required: true, message: 'Please Input Source Address!' }] },
-        dbName: { rules: [{ required: true, message: 'Please Input 数据库名称!' }] },
+        dbName: { rules: [{ required: true, message: 'Please Input dbName!' }] },
         dbUsername: { rules: [{ required: true, message: 'Please Input User Account!' }] },
         dbPassword: { rules: [{ required: false, message: ' Please Input Password!' }] }
       },
@@ -134,11 +129,9 @@ export default {
         edit: '/sys/dataSource/edit'
       },
       dbDriverMap: {
-        // MySQL 数据库
         'mysql': { dbDriver: 'com.mysql.cj.jdbc.Driver' }
       },
       dbUrlMap: {
-        // MySQL 数据库
         'mysql': { dbUrl: 'jdbc:mysql://127.0.0.1:3306/pmkb-db?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai' }
       }
     }
@@ -162,7 +155,6 @@ export default {
       this.visible = false
     },
     handleOk() {
-      // 触发表单验证
       this.form.validateFields((err, values) => {
         if (!err) {
           this.confirmLoading = true
@@ -171,7 +163,6 @@ export default {
           if (this.model.id) {
             httpUrl = this.url.edit
             method = 'put'
-            // 由于编码的特殊性，所以不能更改
             formData['code'] = undefined
           }
           httpAction(httpUrl, formData, method).then((res) => {
@@ -191,34 +182,29 @@ export default {
     handleCancel() {
       this.close()
     },
-    // 测试数据源配置是否可以正常连接
     handleTest() {
       let keys = ['dbType', 'dbDriver', 'dbUrl', 'dbName', 'dbUsername', 'dbPassword']
-      // 获取以上字段的值，并清除校验状态
       let fieldsValues = this.form.getFieldsValue(keys)
       let setFields = {}
       keys.forEach(key => setFields[key] = { value: fieldsValues[key], errors: null })
-      // 清除校验状态，目的是可以让错误文字闪烁
       this.form.setFields(setFields)
-      // 重新校验
       this.$nextTick(() => {
         this.form.validateFields(keys, (errors, values) => {
           if (!errors) {
-            let loading = this.$message.loading('连接中……', 0)
+            let loading = this.$message.loading('Connection……', 0)
             postAction('/sys/dataSource/testConnection', fieldsValues).then(res => {
               if (res.success) {
-                this.$message.success('连接成功')
+                this.$message.success('Connection Success')
               } else {
                 throw new Error(res.message)
               }
             }).catch(error => {
-              this.$warning({ title: '连接失败', content: error.message || error })
+              this.$warning({ title: 'Connection Failure', content: error.message || error })
             }).finally(() => loading())
           }
         })
       })
     },
-    // Database Type更改时，联动更改数据库驱动
     handleDbTypeChange(val) {
       let dbDriver = this.dbDriverMap[val]
       let dbUrl = this.dbUrlMap[val]

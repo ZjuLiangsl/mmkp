@@ -41,43 +41,37 @@
         type: String,
         default: ''
       },
-      /** 是否返回 id，默认 false，返回 code */
       returnId: {
         type: Boolean,
         default: false
       },
       placeholder: {
         type: String,
-        default: '请选择'
+        default: 'select'
       },
       disabled: {
         type: Boolean,
         default: false
       },
-      // 是否支持多选，默认 true
       multiple: {
         type: Boolean,
         default: true
       },
-      // 是否显示按钮，默认 true
       buttons: {
         type: Boolean,
         default: true
       },
-      // 显示的 Key
       displayKey: {
         type: String,
         default: null
       },
-      // 返回的 key
       returnKeys: {
         type: Array,
         default: () => ['id', 'id']
       },
-      // 选择按钮文字
       selectButtonText: {
         type: String,
-        default: '选择'
+        default: 'select'
       },
 
     },
@@ -133,7 +127,6 @@
         this.dataSourceMap = dataSourceMap
       },
       handleDropdownVisibleChange() {
-        // 解决antdv自己的bug —— open 设置为 false 了，点击后还是添加了 open 样式，导致点击事件失效
         this.selectOpen = true
         this.$nextTick(() => {
           this.selectOpen = false

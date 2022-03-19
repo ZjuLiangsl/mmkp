@@ -1,23 +1,21 @@
 <template>
   <a-card :bordered="false" class="card-area">
 
-    <!-- 查询区域 -->
     <div class="table-page-search-wrapper">
-      <!-- 搜索区域 -->
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
           <a-col :md="6" :sm="8">
-            <a-form-item label="名称" :labelCol="{span: 5}" :wrapperCol="{span: 18, offset: 1}">
-              <a-input placeholder="请输入名称查询" v-model="queryParam.roleName"></a-input>
+            <a-form-item label="roleName" :labelCol="{span: 5}" :wrapperCol="{span: 18, offset: 1}">
+              <a-input placeholder="roleName" v-model="queryParam.roleName"></a-input>
             </a-form-item>
           </a-col>
           <a-col :md="10" :sm="12">
-            <a-form-item label="创建时间" :labelCol="{span: 5}" :wrapperCol="{span: 18, offset: 1}">
+            <a-form-item label="createTime" :labelCol="{span: 5}" :wrapperCol="{span: 18, offset: 1}">
               <j-date v-model="queryParam.createTime_begin" :showTime="true" date-format="YYYY-MM-DD HH:mm:ss"
-                      style="width:45%" placeholder="请选择开始时间"></j-date>
+                      style="width:45%" placeholder="createTime_begin"></j-date>
               <span style="width: 10px;">~</span>
               <j-date v-model="queryParam.createTime_end" :showTime="true" date-format="YYYY-MM-DD HH:mm:ss"
-                      style="width:45%" placeholder="请选择结束时间"></j-date>
+                      style="width:45%" placeholder="createTime_end"></j-date>
             </a-form-item>
           </a-col>
           <span style="float: left;overflow: hidden;" class="table-page-search-submitButtons">
@@ -30,10 +28,9 @@
       </a-form>
     </div>
 
-    <!-- 操作按钮区域 -->
     <div class="table-operator" style="margin-top: 5px">
       <a-button @click="handleAdd" type="primary" icon="plus">New</a-button>
-      <a-button type="primary" icon="download" @click="handleExportXls('角色信息')">Export</a-button>
+      <a-button type="primary" icon="download" @click="handleExportXls('role')">Export</a-button>
       <a-upload name="file" :showUploadList="false" :multiple="false" :headers="tokenHeader" :action="importExcelUrl"
                 @change="handleImportExcel">
         <a-button type="primary" icon="import">Import</a-button>
@@ -53,7 +50,6 @@
       </a-dropdown>
     </div>
 
-    <!-- table区域-begin -->
     <div>
       <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i> <a style="font-weight: 600">{{
@@ -80,11 +76,11 @@
 
           <a-dropdown>
             <a class="ant-dropdown-link">
-              更多 <a-icon type="down"/>
+              More <a-icon type="down"/>
             </a>
             <a-menu slot="overlay">
               <a-menu-item>
-                <a @click="handlePerssion(record.id)">授权</a>
+                <a @click="handlePerssion(record.id)">auth</a>
               </a-menu-item>
               <a-menu-item>
                 <a-popconfirm title="Are you sure?" @confirm="() => handleDelete(record.id)">
@@ -98,9 +94,7 @@
 
       </a-table>
     </div>
-    <!-- table区域-end -->
 
-    <!-- 表单区域 -->
     <role-modal ref="modalForm" @ok="modalFormOk"></role-modal>
     <user-role-modal ref="modalUserRole"></user-role-modal>
   </a-card>
@@ -123,10 +117,8 @@ export default {
   data() {
     return {
 
-      description: '角色管理页面',
-      // 查询条件
+      description: 'role mananger',
       queryParam: { roleName: '' },
-      // 表头
       columns: [
         {
           title: '#',
@@ -149,7 +141,7 @@ export default {
           dataIndex: 'roleCode'
         },
         {
-          title: '备注',
+          title: 'description',
           align: 'center',
           dataIndex: 'description'
         },
@@ -160,7 +152,7 @@ export default {
           sorter: true
         },
         {
-          title: '更新时间',
+          title: 'updateTime',
           dataIndex: 'updateTime',
           align: 'center',
           sorter: true

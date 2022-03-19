@@ -2,45 +2,45 @@
   <div class="config-list">
     <a-radio-group v-model="type">
       <div class="item">
-        <a-radio value="TYPE_NOT_SET" class="choice" :disabled="disableChoice">不设置</a-radio>
-        <span class="tip-info">日和周只能设置其中之一</span>
+        <a-radio value="TYPE_NOT_SET" class="choice" :disabled="disableChoice">Don't set</a-radio>
+        <span class="tip-info">You can set either day or week</span>
       </div>
       <div class="item">
-        <a-radio value="TYPE_EVERY" class="choice" :disabled="disableChoice">每日</a-radio>
+        <a-radio value="TYPE_EVERY" class="choice" :disabled="disableChoice">daily</a-radio>
       </div>
       <div class="item">
-        <a-radio value="TYPE_RANGE" class="choice" :disabled="disableChoice">区间</a-radio>
-        从
+        <a-radio value="TYPE_RANGE" class="choice" :disabled="disableChoice">interval</a-radio>
+        from
         <a-input-number :disabled="type!==TYPE_RANGE || disableChoice" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueRange.start"/>
-        日
-        至
+        day
+        to
         <a-input-number :disabled="type!==TYPE_RANGE || disableChoice" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueRange.end"/>
-        日
+        day
       </div>
       <div class="item">
-        <a-radio value="TYPE_LOOP" class="choice" :disabled="disableChoice">循环</a-radio>
-        从
+        <a-radio value="TYPE_LOOP" class="choice" :disabled="disableChoice">cycle</a-radio>
+        from
         <a-input-number :disabled="type!==TYPE_LOOP || disableChoice" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueLoop.start"/>
-        日开始，间隔
+        day begin,interval
         <a-input-number :disabled="type!==TYPE_LOOP || disableChoice" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueLoop.interval"/>
-        日
+        day
       </div>
       <div class="item">
-        <a-radio value="TYPE_WORK" class="choice" :disabled="disableChoice">工作日</a-radio>
-        本月
+        <a-radio value="TYPE_WORK" class="choice" :disabled="disableChoice">Working days</a-radio>
+        This month
         <a-input-number :disabled="type!==TYPE_WORK || disableChoice" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueWork"/>
-        日，最近的工作日
+        Day, the nearest working day
       </div>
       <div class="item">
-        <a-radio value="TYPE_LAST" class="choice" :disabled="disableChoice">最后一日</a-radio>
+        <a-radio value="TYPE_LAST" class="choice" :disabled="disableChoice">The last day</a-radio>
       </div>
       <div class="item">
-        <a-radio value="TYPE_SPECIFY" class="choice" :disabled="disableChoice">指定</a-radio>
+        <a-radio value="TYPE_SPECIFY" class="choice" :disabled="disableChoice">The specified</a-radio>
         <div class="list">
           <a-checkbox-group v-model="valueList">
             <template v-for="i of specifyRange">
@@ -77,7 +77,6 @@ export default {
   },
   watch: {
     value_c(newVal, oldVal) {
-      // 数值变化
       this.updateValue()
     },
     week(newVal, oldVal) {

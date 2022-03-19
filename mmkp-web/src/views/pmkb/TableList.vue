@@ -1,7 +1,6 @@
 <template>
   <a-card :bordered="false">
 
-    <!-- 查询区域 -->
     <div class="table-page-search-wrapper">
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
@@ -52,7 +51,6 @@
       </a-form>
     </div>
 
-    <!-- table区域-begin -->
     <div>
       <a-table
         ref="table"
@@ -75,7 +73,6 @@
 
       </a-table>
     </div>
-    <!-- table区域-end -->
 
     <data-query-config-modal ref="modalForm" @ok="modalFormOk"/>
   </a-card>
@@ -98,7 +95,7 @@ export default {
   },
   data() {
     return {
-      description: '这是数据表页面',
+      description: '',
       queryParam: { dataState: '0' },
       recycleBinVisible: false,
       columns: [

@@ -1,7 +1,6 @@
 <template>
   <a-card :bordered="false">
 
-    <!-- 查询区域 -->
     <div class="table-page-search-wrapper">
       <a-form layout="inline" @keyup.enter.native="searchQuery">
         <a-row :gutter="24">
@@ -52,7 +51,6 @@
       </a-form>
     </div>
 
-    <!-- 操作按钮区域 -->
     <div class="table-operator" style="border-top: 5px">
       <a-button @click="handleCollect" type="primary" icon="plus">Collect Meta Data</a-button>
       <a-button @click="handleAdd" type="primary" icon="plus">New</a-button>
@@ -71,7 +69,6 @@
       <span style="color: orangered;margin-left: 20px">Operations in this page will be directly saved to remote database!</span>
     </div>
 
-    <!-- table区域-begin -->
     <div>
       <div class="ant-alert ant-alert-info" style="margin-bottom: 16px;">
         <i class="anticon anticon-info-circle ant-alert-icon"></i><a style="font-weight: 600">{{
@@ -95,20 +92,17 @@
         <span slot="action" slot-scope="text, record">
           <a @click="handleEdit(record)">Edit</a>
           <a-divider type="vertical"/>
-          <!--<a @click="handleRefresh(record.id,record.dsCode,record.dbName,record.tableName)" title="同步远程数据库最新表结构">同步</a>
-          <a-divider type="vertical" />-->
           <a @click="handleDelete(record.id)" title="Delete only locally synchronized metadata and local staging operations, but not remote knowledge base structures and data!">Delete</a>
         </span>
 
 
       </a-table>
     </div>
-    <!-- table区域-end -->
 
     <metadata-table-modal ref="modalForm" @ok="modalFormOk"/>
 
     <a-modal
-      title="元数据采集"
+      title="Metadata collection"
       :visible="visible"
       :confirm-loading="confirmLoading"
       @ok="handleOk"
@@ -148,7 +142,7 @@
             show-search
             allowClear
             mode="multiple"
-            placeholder="请选择需要采集的数据表"
+            placeholder="Select the table that you want to collect"
             :value="tablesNames"
             :maxTagCount="1"
             :filter-option="filterTablesOption"
@@ -177,7 +171,7 @@ export default {
   },
   data() {
     return {
-      description: '这是元数据管理页面',
+      description: '',
       queryParam: {},
       recycleBinVisible: false,
       columns: [

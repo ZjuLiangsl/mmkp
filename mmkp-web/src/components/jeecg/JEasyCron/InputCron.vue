@@ -3,10 +3,10 @@
     <a-input :placeholder="placeholder" v-model="editCronValue" :disabled="disabled">
       <a slot="addonAfter" @click="showConfigDlg" class="config-btn" :disabled="disabled">
         <a-icon type="setting"></a-icon>
-        选择
+        select
       </a>
     </a-input>
-    <j-modal :visible.sync="show" title="Cron表达式" width="800px">
+    <j-modal :visible.sync="show" title="CronExpression" width="800px">
       <easy-cron
         v-model="editCronValue"
         :exeStartTime="exeStartTime"
@@ -40,7 +40,7 @@ export default {
     },
     placeholder: {
       type: String,
-      default: '请输入cron表达式'
+      default: 'Enter the CRon expression'
     },
     disabled: {
       type: Boolean,

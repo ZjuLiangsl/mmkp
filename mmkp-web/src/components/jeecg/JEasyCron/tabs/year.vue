@@ -2,28 +2,28 @@
   <div class="config-list">
     <a-radio-group v-model="type">
       <div class="item">
-        <a-radio value="TYPE_EVERY" class="choice" :disabled="disabled">每年</a-radio>
+        <a-radio value="TYPE_EVERY" class="choice" :disabled="disabled">Every year</a-radio>
       </div>
       <div class="item">
-        <a-radio value="TYPE_RANGE" class="choice" :disabled="disabled">区间</a-radio>
-        从
+        <a-radio value="TYPE_RANGE" class="choice" :disabled="disabled">interval</a-radio>
+        from
         <a-input-number :disabled="type!==TYPE_RANGE || disabled" :min="0" :precision="0" class="w60"
                         v-model="valueRange.start"/>
-        年
-        至
+        year
+        to
         <a-input-number :disabled="type!==TYPE_RANGE || disabled" :min="1" :precision="0" class="w60"
                         v-model="valueRange.end"/>
-        年
+        year
       </div>
       <div class="item">
-        <a-radio value="TYPE_LOOP" class="choice" :disabled="disabled">循环</a-radio>
-        从
+        <a-radio value="TYPE_LOOP" class="choice" :disabled="disabled">cycle</a-radio>
+        from
         <a-input-number :disabled="type!==TYPE_LOOP || disabled" :min="0" :precision="0" class="w60"
                         v-model="valueLoop.start"/>
-        年开始，间隔
+        year begin,
         <a-input-number :disabled="type!==TYPE_LOOP || disabled" :min="1" :precision="0" class="w60"
                         v-model="valueLoop.interval"/>
-        年
+        year
       </div>
     </a-radio-group>
   </div>

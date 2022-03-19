@@ -3,12 +3,12 @@
       <a-input
         v-show="!departIds"
         @click="openSelect"
-        placeholder="请点击选择部门"
+        placeholder="select dept"
         v-model="departNames"
         readOnly
         :disabled="componentDisabled"
         class="jvxe-select-input">
-        <a-icon slot="prefix" type="cluster" title="部门选择控件"/>
+        <a-icon slot="prefix" type="cluster" title="dept selected"/>
       </a-input>
       <j-select-depart-modal
         ref="innerDepartSelectModal"
@@ -20,7 +20,7 @@
         @initComp="initComp"/>
     <span style="display: inline-block;height:100%;padding-left:14px" v-if="departIds" >
       <span @click="openSelect" style="display: inline-block;vertical-align: middle">{{ departNames }}</span>
-      <a-icon style="margin-left:5px;vertical-align: middle" type="close-circle" @click="handleEmpty" title="清空"/>
+      <a-icon style="margin-left:5px;vertical-align: middle" type="close-circle" @click="handleEmpty" title="reset"/>
     </span>
   </div>
 </template>

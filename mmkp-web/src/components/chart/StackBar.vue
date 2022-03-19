@@ -5,7 +5,7 @@
       <v-tooltip/>
       <v-legend/>
       <v-axis dataKey="State" :label="label"/>
-      <v-stack-bar position="State*流程数量" color="流程状态"/>
+      <v-stack-bar position="State*Number" color="Process state"/>
     </v-chart>
   </div>
 
@@ -21,10 +21,10 @@ export default {
       type: Array,
       required: true,
       default: () => [
-        { 'State': '请假', '流转中': 25, '已归档': 18 },
-        { 'State': '出差', '流转中': 30, '已归档': 20 },
-        { 'State': '加班', '流转中': 38, '已归档': 42 },
-        { 'State': '用车', '流转中': 51, '已归档': 67 }
+        { 'State': 'leave', 'flow': 25, 'archived': 18 },
+        { 'State': 'evection', 'flow': 30, 'archived': 20 },
+        { 'State': 'overtime', 'flow': 38, 'archived': 42 },
+        { 'State': 'useCar', 'flow': 51, 'archived': 67 }
       ]
     },
     height: {
@@ -42,9 +42,9 @@ export default {
       const dv = new DataSet.View().source(this.dataSource)
       dv.transform({
         type: 'fold',
-        fields: ['流转中', '已归档'],
-        key: '流程状态',
-        value: '流程数量',
+        fields: ['flow', 'archived'],
+        key: 'Process state',
+        value: 'State*Number',
         retains: ['State']
       })
       return dv.rows

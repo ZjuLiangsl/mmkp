@@ -17,12 +17,8 @@
         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
         @click="toggle"/>
 
-      <!--      <span v-if="device === 'desktop'">欢迎进入 PMKB 精准医学知识库管理系统</span>-->
-      <!--      <span v-else>PMKB</span>-->
-
       <user-menu :theme="theme"/>
     </div>
-    <!-- 顶部导航栏模式 -->
     <div v-else :class="['top-nav-header-index', theme]">
       <div class="header-index-wide">
         <div class="header-index-left" :style="topMenuStyle.headerIndexLeft">
@@ -91,7 +87,6 @@ export default {
   data() {
     return {
       headerBarFixed: false,
-      //update-begin--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
       topMenuStyle: {
         headerIndexLeft: {},
         topNavHeader: {},
@@ -102,27 +97,22 @@ export default {
     }
   },
   watch: {
-    /** 监听设备变化 */
     device() {
       if (this.mode === 'topmenu') {
         this.buildTopMenuStyle()
       }
     },
-    /** 监听导航栏模式变化 */
     mode(newVal) {
       if (newVal === 'topmenu') {
         this.buildTopMenuStyle()
       }
     }
   },
-  //update-end--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
-    //update-begin--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
     if (this.mode === 'topmenu') {
       this.buildTopMenuStyle()
     }
-    //update-end--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
   },
   methods: {
     handleScroll() {
@@ -140,11 +130,9 @@ export default {
     toggle() {
       this.$emit('toggle')
     },
-    //update-begin--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
     buildTopMenuStyle() {
       if (this.mode === 'topmenu') {
         if (this.device === 'mobile') {
-          // 手机端需要清空样式，否则显示会错乱
           this.topMenuStyle.topNavHeader = {}
           this.topMenuStyle.topSmenuStyle = {}
           this.topMenuStyle.headerIndexRight = {}
@@ -158,20 +146,16 @@ export default {
         }
       }
     },
-    //update-begin--author:sunjianlei---date:20190508------for: 顶部导航栏过长时显示更多按钮-----
 
-    // update-begin-author:sunjianlei date:20210508 for: 修复动态Function Test菜单、带参数菜单标题错误、展开错误的问题
     handleUpdateMenuTitle(value) {
       this.$emit('updateMenuTitle', value)
     }
-    // update-end-author:sunjianlei date:20210508 for: 修复动态Function Test菜单、带参数菜单标题错误、展开错误的问题
 
   }
 }
 </script>
 
 <style lang="less" scoped>
-/* update_begin author:scott date:20190220 for: 缩小首页布局顶部的高度*/
 
 @height: 59px;
 
@@ -204,7 +188,6 @@ export default {
     background-color: @primary-color;
     transition: background 300ms;
 
-    /* dark 样式 */
 
     &.dark {
       color: #000000;
@@ -225,6 +208,5 @@ export default {
   line-height: @height;
 }
 
-/* update_end author:scott date:20190220 for: 缩小首页布局顶部的高度*/
 
 </style>

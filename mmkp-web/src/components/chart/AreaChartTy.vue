@@ -18,52 +18,42 @@ import { triggerWindowResizeEvent } from '@/utils/util'
 export default {
   name: 'AreaChartTy',
   props: {
-    // 图表数据
     dataSource: {
       type: Array,
       required: true
     },
-    // 图表标题
     title: {
       type: String,
       default: ''
     },
-    // x 轴别名
     x: {
       type: String,
       default: 'x'
     },
-    // y 轴别名
     y: {
       type: String,
       default: 'y'
     },
-    // Y轴最小值
     min: {
       type: Number,
       default: 0
     },
-    // Y轴最大值
     max: {
       type: Number,
       default: null
     },
-    // 图表高度
     height: {
       type: Number,
       default: 254
     },
-    // 线的粗细
     lineSize: {
       type: Number,
       default: 2
     },
-    // 面积的颜色
     color: {
       type: String,
       default: ''
     },
-    // 线的颜色
     lineColor: {
       type: String,
       default: ''

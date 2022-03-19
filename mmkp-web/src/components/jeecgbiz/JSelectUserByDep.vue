@@ -2,11 +2,11 @@
   <div>
     <a-input-search
       v-model="textVals"
-      placeholder="请先选择用户"
+      placeholder="Please select the user first"
       readOnly
       unselectable="on"
       @search="onSearchDepUser">
-      <a-button slot="enterButton" :disabled="disabled">选择用户</a-button>
+      <a-button slot="enterButton" :disabled="disabled">select the user</a-button>
     </a-input-search>
     <j-select-user-by-dep-modal
       ref="selectModal"
@@ -52,13 +52,11 @@
         default: false,
         required: false
       },
-      // 存储字段 [key field]
       store: {
         type: String,
         default: 'username',
         required: false
       },
-      // 显示字段 [label field]
       text: {
         type: String,
         default: 'realname',
@@ -99,7 +97,6 @@
       initComp(textVals) {
         this.textVals = textVals
       },
-      //返回选中的用户信息
       backDeparInfo(){
         if(this.backUser===true){
           if(this.storeVals && this.storeVals.length>0){
@@ -120,7 +117,6 @@
         this.$refs.selectModal.showModal()
       },
       selectOK(rows) {
-        console.log("当前选中用户", rows)
         if (!rows) {
           this.storeVals = ''
           this.textVals = ''

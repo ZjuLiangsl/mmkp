@@ -3,54 +3,53 @@
     <div class="content">
       <div>
         <a-tabs size="small" v-model="curtab">
-          <a-tab-pane tab="秒" key="second" v-if="!hideSecond">
+          <a-tab-pane tab="second" key="second" v-if="!hideSecond">
             <second-ui v-model="second" :disabled="disabled"></second-ui>
           </a-tab-pane>
-          <a-tab-pane tab="分" key="minute">
+          <a-tab-pane tab="minute" key="minute">
             <minute-ui v-model="minute" :disabled="disabled"></minute-ui>
           </a-tab-pane>
-          <a-tab-pane tab="时" key="hour">
+          <a-tab-pane tab="hour" key="hour">
             <hour-ui v-model="hour" :disabled="disabled"></hour-ui>
           </a-tab-pane>
-          <a-tab-pane tab="日" key="day">
+          <a-tab-pane tab="day" key="day">
             <day-ui v-model="day" :week="week" :disabled="disabled"></day-ui>
           </a-tab-pane>
-          <a-tab-pane tab="月" key="month">
+          <a-tab-pane tab="month" key="month">
             <month-ui v-model="month" :disabled="disabled"></month-ui>
           </a-tab-pane>
-          <a-tab-pane tab="周" key="week">
+          <a-tab-pane tab="week" key="week">
             <week-ui v-model="week" :day="day" :disabled="disabled"></week-ui>
           </a-tab-pane>
-          <a-tab-pane tab="年" key="year" v-if="!hideYear && !hideSecond">
+          <a-tab-pane tab="year" key="year" v-if="!hideYear && !hideSecond">
             <year-ui v-model="year" :disabled="disabled"></year-ui>
           </a-tab-pane>
         </a-tabs>
       </div>
       <a-divider/>
-      <!-- 执行时间预览 -->
       <a-row :gutter="8">
         <a-col :span="18" style="margin-top: 22px;">
           <a-row :gutter="8">
             <a-col :span="8" style="margin-bottom: 8px;">
-              <a-input addon-before="秒" v-model="inputValues.second" @blur="onInputBlur"/>
+              <a-input addon-before="second" v-model="inputValues.second" @blur="onInputBlur"/>
             </a-col>
             <a-col :span="8" style="margin-bottom: 8px;">
-              <a-input addon-before="分" v-model="inputValues.minute" @blur="onInputBlur"/>
+              <a-input addon-before="minute" v-model="inputValues.minute" @blur="onInputBlur"/>
             </a-col>
             <a-col :span="8" style="margin-bottom: 8px;">
-              <a-input addon-before="时" v-model="inputValues.hour" @blur="onInputBlur"/>
+              <a-input addon-before="hour" v-model="inputValues.hour" @blur="onInputBlur"/>
             </a-col>
             <a-col :span="8" style="margin-bottom: 8px;">
-              <a-input addon-before="日" v-model="inputValues.day" @blur="onInputBlur"/>
+              <a-input addon-before="day" v-model="inputValues.day" @blur="onInputBlur"/>
             </a-col>
             <a-col :span="8" style="margin-bottom: 8px;">
-              <a-input addon-before="月" v-model="inputValues.month" @blur="onInputBlur"/>
+              <a-input addon-before="month" v-model="inputValues.month" @blur="onInputBlur"/>
             </a-col>
             <a-col :span="8" style="margin-bottom: 8px;">
-              <a-input addon-before="周" v-model="inputValues.week" @blur="onInputBlur"/>
+              <a-input addon-before="week" v-model="inputValues.week" @blur="onInputBlur"/>
             </a-col>
             <a-col :span="8" style="margin-bottom: 8px;">
-              <a-input addon-before="年" v-model="inputValues.year" @blur="onInputBlur"/>
+              <a-input addon-before="year" v-model="inputValues.year" @blur="onInputBlur"/>
             </a-col>
             <a-col :span="16" style="margin-bottom: 8px;">
               <a-input addon-before="Cron" v-model="inputValues.cron" @blur="onInputCronBlur"/>
@@ -59,7 +58,7 @@
         </a-col>
         <a-col :span="6">
 
-          <div>近十次执行时间（不含年）</div>
+          <div>Last 10 times of execution (excluding years)</div>
           <a-textarea type="textarea" :value="preTimeList" :rows="5"/>
         </a-col>
       </a-row>
@@ -125,7 +124,7 @@ export default {
       week: '?',
       year: '*',
       inputValues: {second: '', minute: '', hour: '', day: '', month: '', week: '', year: '', cron: ''},
-      preTimeList: '执行预览，会忽略年份参数',
+      preTimeList: 'Perform preview, ignoring the year parameter',
     }
   },
   computed: {
@@ -230,7 +229,6 @@ export default {
       this.calTriggerListInner()
     }, 500),
     calTriggerListInner() {
-      // 设置了回调函数
       if (this.remote) {
         this.remote(this.cronValue_c, +new Date(), v => {
           this.preTimeList = v
@@ -246,7 +244,7 @@ export default {
       for (let i = 1; i <= 10; i++) {
         result.push(dateFormat(new Date(iter.next()), format))
       }
-      this.preTimeList = result.length > 0 ? result.join('\n') : '无执行时间'
+      this.preTimeList = result.length > 0 ? result.join('\n') : 'No execution time'
     },
     onInputBlur(){
       this.second = this.inputValues.second

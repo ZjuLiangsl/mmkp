@@ -255,20 +255,7 @@ export default {
           width: 80,
           scopedSlots: { customRender: 'isPk' }
         },
-        /*{
-          title: '外键关联表',
-          dataIndex: 'fkTableName',
-          scopedSlots: { customRender: 'fkTableName' },
-          width: 240,
-          ellipsis: true
-        },
-        {
-          title: '外键关联字段',
-          dataIndex: 'fkFieldName',
-          scopedSlots: { customRender: 'fkFieldName' },
-          width: 180,
-          ellipsis: true
-        },*/
+
         {
           title: 'Operation',
           dataIndex: 'operation',
@@ -329,12 +316,10 @@ export default {
       })
     },
     loadDataType() {
-      //优先从缓存中读取字典配置
       if (getDictItemsFromCache('field_data_type')) {
         this.dataTypes = getDictItemsFromCache('field_data_type')
         return
       }
-      //根据字典Code, 初始化字典数组
       ajaxGetDictItems('field_data_type', null).then((res) => {
         if (res.success) {
           this.dataTypes = res.result
@@ -443,10 +428,7 @@ export default {
           this.$message.warning('The field type cannot be empty！')
           return
         }
-        // if(column==='fieldComment'){
-        //   this.$message.warning('字段注释不能为空！');
-        //   return ;
-        // }
+
       }
       if (value <= 0 && column === 'fieldLength' && row.fieldType === 'varchar') {
         this.$message.warning('The value is a string that cannot contain 0 characters！')
@@ -537,10 +519,7 @@ export default {
           this.$message.warning('The field type cannot be empty！')
           return
         }
-        // if(!target['fieldComment']){
-        //   this.$message.warning('字段注释不能为空！');
-        //   return ;
-        // }
+
 
         let pattern = /^[a-z|A-Z][a-z|A-Z\d_]{0,}$/
         if (!pattern.test(target['fieldName'])) {

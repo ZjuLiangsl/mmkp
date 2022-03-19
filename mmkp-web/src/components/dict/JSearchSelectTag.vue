@@ -53,7 +53,7 @@ export default {
     async: Boolean,
     placeholder: {
       type: String,
-      default: '请选择',
+      default: 'select',
       required: false
     },
     popContainer: {
@@ -72,7 +72,7 @@ export default {
     }
   },
   data() {
-    this.loadData = debounce(this.loadData, 800)//消抖
+    this.loadData = debounce(this.loadData, 800)
     this.lastLoad = 0
     return {
       loading: false,
@@ -118,7 +118,6 @@ export default {
     initSelectValue() {
       if (this.async) {
         if (!this.selectedAsyncValue || !this.selectedAsyncValue.key || this.selectedAsyncValue.key != this.value) {
-          console.log('这才请求后台')
           getAction(`/sys/dict/loadDictItem/${this.dict}`, { key: this.value }).then(res => {
             if (res.success) {
               let obj = {
@@ -134,12 +133,10 @@ export default {
       }
     },
     loadData(value) {
-      console.log('数据加载', value)
       this.lastLoad += 1
       const currentLoad = this.lastLoad
       this.options = []
       this.loading = true
-      // 字典code格式：table,text,code
       getAction(`/sys/dict/loadDict/${this.dict}`, { keyword: value, pageSize: this.pageSize }).then(res => {
         this.loading = false
         if (res.success) {
@@ -147,7 +144,6 @@ export default {
             return
           }
           this.options = res.result
-          console.log('我是第一个', res)
         } else {
           this.$message.warning(res.message)
         }
@@ -157,11 +153,9 @@ export default {
     },
     initDictData() {
       if (!this.async) {
-        //如果字典项集合有数据
         if (this.dictOptions && this.dictOptions.length > 0) {
           this.options = [...this.dictOptions]
         } else {
-          //根据字典Code, 初始化字典数组
           let dictStr = ''
           if (this.dict) {
             let arr = this.dict.split(',')
@@ -172,7 +166,6 @@ export default {
               dictStr = this.dict
             }
             if (this.dict.indexOf(',') == -1) {
-              //优先从缓存中读取字典配置
               if (getDictItemsFromCache(this.dictCode)) {
                 this.options = getDictItemsFromCache(this.dictCode)
                 return
@@ -186,7 +179,6 @@ export default {
           }
         }
       } else {
-        //异步一开始也加载一点数据
         this.loading = true
         getAction(`/sys/dict/loadDict/${this.dict}`, { pageSize: this.pageSize, keyword: '' }).then(res => {
           this.loading = false
@@ -207,7 +199,6 @@ export default {
       this.callback()
     },
     handleAsyncChange(selectedObj) {
-      //update-begin-author:scott date:20201222 for:【搜索】搜索查询组件， Delete 条件，默认下拉还是上次的缓存数据，不好 JT-191
       if (selectedObj) {
         this.selectedAsyncValue = selectedObj
         this.selectedValue = selectedObj.key
@@ -218,7 +209,6 @@ export default {
         this.loadData('')
       }
       this.callback()
-      //update-end-author:scott date:20201222 for:【搜索】搜索查询组件， Delete 条件，默认下拉还是上次的缓存数据，不好 JT-191
     },
     callback() {
       this.$emit('change', this.selectedValue)

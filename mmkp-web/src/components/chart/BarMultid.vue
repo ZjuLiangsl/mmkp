@@ -53,7 +53,6 @@ export default {
       type: Array,
       default: () => ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.']
     },
-    // 别名，需要的格式：[{field:'name',alias:'姓名'}, {field:'sex',alias:'性别'}]
     aliases: {
       type: Array,
       default: () => []
@@ -81,14 +80,12 @@ export default {
         value: 'y'
       })
 
-      // bar 使用不了 - 和 / 所以替换下
       let rows = dv.rows.map(row => {
         if (typeof row.x === 'string') {
           row.x = row.x.replace(/[-/]/g, '_')
         }
         return row
       })
-      // 替换别名
       rows.forEach(row => {
         for (let item of this.aliases) {
           if (item.field === row.type) {

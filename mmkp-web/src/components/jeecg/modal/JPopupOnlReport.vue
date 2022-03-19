@@ -48,7 +48,7 @@
       <a style="font-weight: 600">{{ table.selectedRowKeys.length }}</a> Selected&nbsp;&nbsp;
       <a style="margin-left: 24px" @click="onClearSelected">Empty</a>
 
-      <a v-if="!showSearchFlag" style="margin-left: 24px" @click="onlyReload">刷新</a>
+      <a v-if="!showSearchFlag" style="margin-left: 24px" @click="onlyReload">refresh</a>
     </div>
 
     <a-table
@@ -98,14 +98,10 @@ export default {
       },
       table: {
         loading: true,
-        // 表头
         columns: [],
-        //数据集
         dataSource: [],
-        // 选择器
         selectedRowKeys: [],
         selectionRows: [],
-        // 分页参数
         pagination: {
           current: 1,
           pageSize: 10,
@@ -122,7 +118,6 @@ export default {
       modalWidth: MODAL_WIDTH,
       tableScroll: { x: true },
       dynamicParam: {},
-      // 排序字段，默认无排序
       iSorter: null
     }
   },
@@ -136,12 +131,10 @@ export default {
     param: {
       deep: true,
       handler() {
-        // update--begin--autor:liusq-----date:20210706------for：JPopup组件在modal中使用报错#2729------
         if (this.visible) {
           this.dynamicParamHandler()
           this.loadData()
         }
-        // update--begin--autor:liusq-----date:20210706------for：JPopup组件在modal中使用报错#2729------
       }
     },
     sorter: {
@@ -151,7 +144,6 @@ export default {
           let arr = this.sorter.split('=')
           if (arr.length === 2 && ['asc', 'desc'].includes(arr[1].toLowerCase())) {
             this.iSorter = { column: arr[0], order: arr[1].toLowerCase() }
-            // 排序字段受控
             this.table.columns.forEach(col => {
               if (col.dataIndex === this.iSorter.column) {
                 this.$set(col, 'sortOrder', this.iSorter.order === 'asc' ? 'ascend' : 'descend')
@@ -160,7 +152,7 @@ export default {
               }
             })
           } else {
-            console.warn('【JPopup】sorter参数不合法')
+            console.warn('【JPopup】sorter')
           }
         }
       }
@@ -174,7 +166,6 @@ export default {
   methods: {
     loadColumnsInfo() {
       let url = `${this.url.getColumns}${this.code}`
-      //缓存key
       let groupIdKey
       if (this.groupId) {
         groupIdKey = this.groupId + url
@@ -192,7 +183,6 @@ export default {
                 return filterMultiDictText(this.dictOptions[dictCode], text + '')
               }
             }
-            // 排序字段受控
             if (this.iSorter && currColumns[a].dataIndex === this.iSorter.column) {
               currColumns[a].sortOrder = this.iSorter.order === 'asc' ? 'ascend' : 'descend'
             }
@@ -204,27 +194,22 @@ export default {
     },
     initQueryInfo() {
       let url = `${this.url.getQueryInfo}${this.cgRpConfigId}`
-      //缓存key
       let groupIdKey
       if (this.groupId) {
         groupIdKey = this.groupId + url
       }
       httpGroupRequest(() => getAction(url), groupIdKey).then((res) => {
-        // console.log("获取查询条件", res);
         if (res.success) {
           this.dynamicParamHandler(res.result)
           this.queryInfo = res.result
-          //查询条件加载后再请求数据
           this.loadData(1)
         } else {
           this.$message.warning(res.message)
         }
       })
     },
-    //处理动态参数
     dynamicParamHandler(arr) {
       if (arr && arr.length > 0) {
-        //第一次加载查询条件前 初始化queryParam为空对象
         let queryTemp = {}
         for (let item of arr) {
           if (item.mode === 'single') {
@@ -241,7 +226,6 @@ export default {
             if (str && str.startsWith('\'') && str.endsWith('\'')) {
               str = str.substring(1, str.length - 1)
             }
-            //如果查询条件包含参数 设置值
             this.queryParam[key] = str
           }
           dynamicTemp[key] = this.param[key]
@@ -253,17 +237,15 @@ export default {
       if (arg == 1) {
         this.table.pagination.current = 1
       }
-      let params = this.getQueryParams()//查询条件
+      let params = this.getQueryParams()
       this.table.loading = true
       let url = `${this.url.getData}${this.cgRpConfigId}`
-      //缓存key
       let groupIdKey
       if (this.groupId) {
         groupIdKey = this.groupId + url + JSON.stringify(params)
       }
       httpGroupRequest(() => getAction(url, params), groupIdKey).then(res => {
         this.table.loading = false
-        // console.log("daa",res)
         let data = res.result
         if (data) {
           this.table.pagination.total = Number(data.total)
@@ -277,7 +259,6 @@ export default {
     getQueryParams() {
       let paramTarget = {}
       if (this.dynamicParam) {
-        //处理自定义参数
         Object.keys(this.dynamicParam).map(key => {
           paramTarget['self_' + key] = this.dynamicParam[key]
         })
@@ -288,40 +269,32 @@ export default {
       return filterObj(param)
     },
     handleChangeInTableSelect(selectedRowKeys, selectionRows) {
-      //update-begin-author:taoyan date:2020902 for:【issue】开源online的几个问题 LOWCOD-844
       if (!selectedRowKeys || selectedRowKeys.length == 0) {
         this.table.selectionRows = []
       } else if (selectedRowKeys.length == selectionRows.length) {
         this.table.selectionRows = selectionRows
       } else {
-        //当两者长度不一的时候 需要判断
         let keys = this.table.selectedRowKeys
         let rows = this.table.selectionRows
-        //这个循环 添加新的记录
         for (let i = 0; i < selectionRows.length; i++) {
           let combineKey = this.combineRowKey(selectionRows[i])
           if (keys.indexOf(combineKey) < 0) {
-            //如果 原来的key 不包含当前记录 push
             rows.push(selectionRows[i])
           }
         }
-        //这个循环 移除取消选中的数据
         this.table.selectionRows = rows.filter(item => {
           let combineKey = this.combineRowKey(item)
           return selectedRowKeys.indexOf(combineKey) >= 0
         })
       }
-      //update-end-author:taoyan date:2020902 for:【issue】开源online的几个问题 LOWCOD-844
       this.table.selectedRowKeys = selectedRowKeys
     },
     handleChangeInTable(pagination, filters, sorter) {
-      //分页、排序、筛选变化时触发
       if (Object.keys(sorter).length > 0) {
         this.iSorter = {
           column: sorter.field,
           order: 'ascend' === sorter.order ? 'asc' : 'desc'
         }
-        // 排序字段受控
         this.table.columns.forEach(col => {
           if (col.dataIndex === sorter.field) {
             this.$set(col, 'sortOrder', sorter.order)
@@ -381,13 +354,11 @@ export default {
     combineRowKey(record) {
       let res = ''
       Object.keys(record).forEach(key => {
-        //update-begin---author:liusq   Date:20210203  for：pop选择器列主键问题 issues/I29P9Q------------
         if (key == 'id') {
           res = record[key] + res
         } else {
           res += record[key]
         }
-        //update-end---author:liusq     Date:20210203  for：pop选择器列主键问题 issues/I29P9Q------------
       })
       if (res.length > 50) {
         res = res.substring(0, 50)
@@ -420,7 +391,6 @@ export default {
         }
       }
     },
-    //防止字典中有垃圾数据
     initDictOptionData(dictOptions) {
       let obj = {}
       Object.keys(dictOptions).map(k => {

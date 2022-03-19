@@ -22,7 +22,6 @@ export default {
       visible: false,
       loading: false,
       content: '',
-      // 弹窗参数
       modalProps: {
         title: ''
       },
@@ -33,9 +32,7 @@ export default {
       model: {
         input: ''
       },
-      // 校验
       rule: [],
-      // 回调函数
       callback: {}
     }
   },
@@ -55,13 +52,10 @@ export default {
       if (options.defaultValue != null) {
         this.model.input = options.defaultValue
       }
-      // 取出常用的弹窗参数
       let pickModalProps = pick(options, 'title', 'centered', 'cancelText', 'closable', 'mask', 'maskClosable', 'okText', 'okType', 'okButtonProps', 'cancelButtonProps', 'width', 'wrapClassName', 'zIndex', 'dialogStyle', 'dialogClass')
       this.modalProps = Object.assign({}, pickModalProps, options.modalProps)
-      // 取出常用的input参数
       let pickInputProps = pick(options, 'placeholder', 'allowClear')
       this.inputProps = Object.assign({}, pickInputProps, options.inputProps)
-      // 回调函数
       this.callback = pick(options, 'onOk', 'onOkAsync', 'onCancel')
       this.visible = true
       this.$nextTick(() => this.$refs.input.focus())
@@ -71,7 +65,6 @@ export default {
       this.$refs.form.validate((ok, err) => {
         if (ok) {
           let event = { value: this.model.input, target: this }
-          // 异步方法优先级高于同步方法
           if (typeof this.callback.onOkAsync === 'function') {
             this.callback.onOkAsync(event)
           } else if (typeof this.callback.onOk === 'function') {

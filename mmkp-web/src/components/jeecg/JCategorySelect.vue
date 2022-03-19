@@ -26,7 +26,7 @@
       },
       placeholder:{
         type: String,
-        default: '请选择',
+        default: 'select',
         required: false
       },
       disabled:{
@@ -39,7 +39,6 @@
         default:'',
         required:false
       },
-      // 是否支持多选
       multiple: {
         type: Boolean,
         default: false,
@@ -92,7 +91,6 @@
       })
     },
     methods: {
-      /**加载一级节点 */
       loadRoot(){
         let param = {
           pid:this.pid,
@@ -111,12 +109,11 @@
             }
             this.treeData = [...res.result]
           }else{
-            console.log("树一级节点查询结果-else",res)
+            console.log("Tree Level-1 node query result-else",res)
           }
         })
       },
 
-      /** 数据回显*/
       loadItemByCode(){
         if(!this.value || this.value=="0"){
           this.treeValue = []
@@ -135,7 +132,6 @@
         }
       },
       onLoadTriggleChange(text){
-        //只有单选才会触发
         if(!this.multiple && this.loadTriggleChange){
           this.backValue(this.value,text)
         }
@@ -223,18 +219,17 @@
               if(typeof test == 'object' && test){
                 resolve()
               }else{
-                this.$message.error("组件JTreeSelect-condition传值有误，需要一个json字符串!")
+                this.$message.error("The JTreeSelect-condition component failed to pass a value and requires a JSON string!")
                 reject()
               }
             } catch(e) {
-              this.$message.error("组件JTreeSelect-condition传值有误，需要一个json字符串!")
+              this.$message.error("The JTreeSelect-condition component failed to pass a value and requires a JSON string!")
               reject()
             }
           }
         })
       }
     },
-    //2.2新增 在组件内定义 指定父组件调用时候的传值属性和事件类型 这个牛逼
     model: {
       prop: 'value',
       event: 'change'

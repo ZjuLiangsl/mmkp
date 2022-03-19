@@ -96,7 +96,6 @@
           return document.querySelector(this.popContainer)
         }
       },
-      // 根据字典code查询字典项
       loadDictOptions(){
         getAction(`/sys/dict/getDictItems/${this.dictCode}`,{}).then(res=>{
           if (res.success) {

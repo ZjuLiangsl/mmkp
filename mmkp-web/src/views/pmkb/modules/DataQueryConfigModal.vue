@@ -399,15 +399,12 @@ export default {
 
     },
     loadDict() {
-      // 加载组件类型
       if (getDictItemsFromCache('form_comp_type')) {
-        //优先从缓存中读取字典配置
         this.compTypes = getDictItemsFromCache('form_comp_type')
         this.compTypes.forEach(item => {
           this.compTypeMap[item.value] = item.text || item.label
         })
       } else {
-        //根据字典Code, 初始化字典数组
         ajaxGetDictItems('form_comp_type', null).then((res) => {
           if (res.success) {
             this.compTypes = res.result
@@ -418,7 +415,6 @@ export default {
         })
       }
 
-      // 加载Dictionary
       getAction('/sys/dict/listAll', {}).then(res => {
         if (res.success == true) {
           this.dictData = res.result
@@ -431,7 +427,6 @@ export default {
         }
       })
 
-      // 加载Constraint Strategy列表
       getAction('/sys/checkRule/listAll', {}).then(res => {
         if (res.success == true) {
           this.checkRuleData = res.result

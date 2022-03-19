@@ -4,9 +4,9 @@
 
       <a-alert type="info" :showIcon="true">
         <div slot="message">
-          上次更新时间：{{ this.time }}
+          Last updated：{{ this.time }}
           <a-divider type="vertical"/>
-          <a @click="handleClickUpdate">立即更新</a>
+          <a @click="handleClickUpdate">Update now</a>
         </div>
       </a-alert>
 
@@ -48,7 +48,7 @@ export default {
       loading: true,
       tableLoading: true,
       columns: [{
-        title: '参数',
+        title: 'param',
         width: '30%',
         dataIndex: 'param',
         scopedSlots: { customRender: 'param' }
@@ -58,32 +58,30 @@ export default {
         dataIndex: 'text',
         scopedSlots: { customRender: 'text' }
       }, {
-        title: '当前值',
+        title: 'now value',
         width: '30%',
         dataIndex: 'value',
         scopedSlots: { customRender: 'value' }
       }],
       dataSource: [],
-      // 列表通过 textInfo 渲染出颜色、描述和单位
       textInfo: {
-        'jvm.memory.max': { color: 'purple', text: 'JVM 最大内存', unit: 'MB' },
-        'jvm.memory.committed': { color: 'purple', text: 'JVM 可用内存', unit: 'MB' },
-        'jvm.memory.used': { color: 'purple', text: 'JVM 已用内存', unit: 'MB' },
-        'jvm.buffer.memory.used': { color: 'cyan', text: 'JVM 缓冲区已用内存', unit: 'MB' },
-        'jvm.buffer.count': { color: 'cyan', text: '当前缓冲区数量', unit: '个' },
-        'jvm.threads.daemon': { color: 'green', text: 'JVM 守护线程数量', unit: '个' },
-        'jvm.threads.live': { color: 'green', text: 'JVM 当前活跃线程数量', unit: '个' },
-        'jvm.threads.peak': { color: 'green', text: 'JVM 峰值线程数量', unit: '个' },
-        'jvm.classes.loaded': { color: 'orange', text: 'JVM 已加载 Class 数量', unit: '个' },
-        'jvm.classes.unloaded': { color: 'orange', text: 'JVM 未加载 Class 数量', unit: '个' },
-        'jvm.gc.memory.allocated': { color: 'pink', text: 'GC 时, 年轻代分配的内存空间', unit: 'MB' },
-        'jvm.gc.memory.promoted': { color: 'pink', text: 'GC 时, 老年代分配的内存空间', unit: 'MB' },
-        'jvm.gc.max.data.size': { color: 'pink', text: 'GC 时, 老年代的最大内存空间', unit: 'MB' },
-        'jvm.gc.live.data.size': { color: 'pink', text: 'FullGC 时, 老年代的内存空间', unit: 'MB' },
-        'jvm.gc.pause.count': { color: 'blue', text: '系统启动以来GC 次数', unit: '次' },
-        'jvm.gc.pause.totalTime': { color: 'blue', text: '系统启动以来GC 总耗时', unit: '秒' }
+        'jvm.memory.max': { color: 'purple', text: 'jvm.memory.max', unit: 'MB' },
+        'jvm.memory.committed': { color: 'purple', text: 'jvm.memory.committed', unit: 'MB' },
+        'jvm.memory.used': { color: 'purple', text: 'jvm.memory.used', unit: 'MB' },
+        'jvm.buffer.memory.used': { color: 'cyan', text: 'jvm.buffer.memory.used', unit: 'MB' },
+        'jvm.buffer.count': { color: 'cyan', text: 'jvm.buffer.count', unit: '个' },
+        'jvm.threads.daemon': { color: 'green', text: 'jvm.threads.daemon', unit: '个' },
+        'jvm.threads.live': { color: 'green', text: 'jvm.threads.live', unit: '个' },
+        'jvm.threads.peak': { color: 'green', text: 'jvm.threads.peak', unit: '个' },
+        'jvm.classes.loaded': { color: 'orange', text: 'jvm.classes.loaded', unit: '个' },
+        'jvm.classes.unloaded': { color: 'orange', text: 'jvm.classes.unloaded', unit: '个' },
+        'jvm.gc.memory.allocated': { color: 'pink', text: 'jvm.gc.memory.allocated', unit: 'MB' },
+        'jvm.gc.memory.promoted': { color: 'pink', text: 'jvm.gc.memory.promoted', unit: 'MB' },
+        'jvm.gc.max.data.size': { color: 'pink', text: 'jvm.gc.max.data.size', unit: 'MB' },
+        'jvm.gc.live.data.size': { color: 'pink', text: 'jvm.gc.live.data.size', unit: 'MB' },
+        'jvm.gc.pause.count': { color: 'blue', text: 'jvm.gc.pause.count', unit: 'times' },
+        'jvm.gc.pause.totalTime': { color: 'blue', text: 'jvm.gc.pause.totalTime', unit: 'seconds' }
       },
-      // 当一条记录中需要取出多条数据的时候需要配置该字段
       moreInfo: {
         'jvm.gc.pause': ['.count', '.totalTime']
       }
@@ -100,7 +98,7 @@ export default {
 
     loadTomcatInfo() {
       this.tableLoading = true
-      this.time = moment().format('YYYY年MM月DD日 HH时mm分ss秒')
+      this.time = moment().format('YYYY-MM-DD HH:mm:ss')
       Promise.all([
         getAction('actuator/metrics/jvm.memory.max'),
         getAction('actuator/metrics/jvm.memory.committed'),
@@ -147,7 +145,7 @@ export default {
 
       }).catch((e) => {
         console.error(e)
-        this.$message.error('获取JVM信息失败')
+        this.$message.error('failure')
       }).finally(() => {
         this.loading = false
         this.tableLoading = false

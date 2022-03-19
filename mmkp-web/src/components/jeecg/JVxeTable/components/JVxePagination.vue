@@ -26,7 +26,7 @@
           pageSize: 10,
           pageSizeOptions: ['10', '20', '30'],
           showTotal: (total, range) => {
-            return range[0] + '-' + range[1] + ' 共 ' + total + ' 条'
+            return range[0] + '-' + range[1] + ' total ' + total + ' row'
           },
           showQuickJumper: true,
           showSizeChanger: true,

@@ -27,11 +27,11 @@ export default {
     dataSource: {
       type: Array,
       default: () => [
-        { item: '示例一', count: 40 },
-        { item: '示例二', count: 21 },
-        { item: '示例三', count: 17 },
-        { item: '示例四', count: 13 },
-        { item: '示例五', count: 9 }
+        { item: 'sample 1', count: 40 },
+        { item: 'sample 2', count: 21 },
+        { item: 'sample 3', count: 17 },
+        { item: 'sample 4', count: 13 },
+        { item: 'sample 5', count: 9 }
       ]
     }
   },
@@ -56,7 +56,6 @@ export default {
   computed: {
     data() {
       let dv = new DataSet.View().source(this.dataSource)
-      // 计算数据百分比
       dv.transform({
         type: 'percent',
         field: 'count',

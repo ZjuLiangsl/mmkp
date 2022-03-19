@@ -1,14 +1,12 @@
 <template>
   <div :id="containerId" style="position: relative">
 
-    <!--  ---------------------------- begin 图片左右换位置 ------------------------------------- -->
     <div class="movety-container" :style="{top:top+'px',left:left+'px',display:moveDisplay}" style="padding:0 8px;position: absolute;z-index: 91;height: 32px;width: 104px;text-align: center;">
       <div :id="containerId+'-mover'" :class="showMoverTask?'uploadty-mover-mask':'movety-opt'" style="margin-top: 12px">
         <a @click="moveLast" style="margin: 0 5px;"><a-icon type="arrow-left" style="color: #fff;font-size: 16px"/></a>
         <a @click="moveNext" style="margin: 0 5px;"><a-icon type="arrow-right" style="color: #fff;font-size: 16px"/></a>
       </div>
     </div>
-    <!--  ---------------------------- end 图片左右换位置 ------------------------------------- -->
 
     <a-upload
       name="file"
@@ -69,7 +67,6 @@
         newFileList: [],
         uploadGoOn:true,
         previewVisible: false,
-        //---------------------------- begin 图片左右换位置 -------------------------------------
         previewImage: '',
         containerId:'',
         top:'',
@@ -78,21 +75,19 @@
         showMoverTask:false,
         moverHold:false,
         currentImg:''
-        //---------------------------- end 图片左右换位置 -------------------------------------
       }
     },
     props:{
       text:{
         type:String,
         required:false,
-        default:"点击上传"
+        default:"upload"
       },
       fileType:{
         type:String,
         required:false,
         default:FILE_TYPE_ALL
       },
-      /*这个属性用于控制文件上传的业务路径*/
       bizPath:{
         type:String,
         required:false,
@@ -102,23 +97,17 @@
         type:[String,Array],
         required:false
       },
-      // update-begin- --- author:wangshuai ------ date:20190929 ---- for:Jupload组件增加是否能够点击
       disabled:{
         type:Boolean,
         required:false,
         default: false
       },
-      // update-end- --- author:wangshuai ------ date:20190929 ---- for:Jupload组件增加是否能够点击
-      //此属性被废弃了
       triggerChange:{
         type: Boolean,
         required: false,
         default: false
       },
       /**
-       * update -- author:lvdandan -- date:20190219 -- for:Jupload组件增加是否返回url，
-       * true：仅返回url
-       * false：返回fileName filePath fileSize
        */
       returnUrl:{
         type:Boolean,
@@ -170,10 +159,8 @@
     },
     created(){
       const token = Vue.ls.get(ACCESS_TOKEN);
-      //---------------------------- begin 图片左右换位置 -------------------------------------
       this.headers = {"X-Access-Token":token};
       this.containerId = 'container-ty-'+new Date().getTime();
-      //---------------------------- end 图片左右换位置 -------------------------------------
     },
 
     methods:{
@@ -200,11 +187,8 @@
       },
       initFileList(paths){
         if(!paths || paths.length==0){
-          //return [];
-          // update-begin- --- author:os_chengtgen ------ date:20190729 ---- for:issues:326,Jupload组件初始化bug
           this.fileList = [];
           return;
-          // update-end- --- author:os_chengtgen ------ date:20190729 ---- for:issues:326,Jupload组件初始化bug
         }
         let fileList = [];
         let arr = paths.split(",")
@@ -232,13 +216,11 @@
         let arr = [];
 
         for(var a=0;a<uploadFiles.length;a++){
-          // update-begin-author:lvdandan date:20200603 for:【TESTA-514】【开源issue】多个文件同时上传时，控制台报错
           if(uploadFiles[a].status === 'done' ) {
             arr.push(uploadFiles[a].response.message)
           }else{
             return;
           }
-          // update-end-author:lvdandan date:20200603 for:【TESTA-514】【开源issue】多个文件同时上传时，控制台报错
         }
         if(arr.length>0){
           path = arr.join(",")
@@ -250,19 +232,17 @@
         var fileType = file.type;
         if(this.fileType===FILE_TYPE_IMG){
           if(fileType.indexOf('image')<0){
-            this.$message.warning('请上传图片');
+            this.$message.warning('upload');
             this.uploadGoOn=false
             return false;
           }
         }
-        // 扩展 beforeUpload 验证
         if (typeof this.beforeUpload === 'function') {
           return this.beforeUpload(file)
         }
         return true
       },
       handleChange(info) {
-        console.log("--文件列表改变--")
         if(!info.file.status && this.uploadGoOn === false){
           info.fileList.pop();
         }
@@ -280,22 +260,18 @@
               return file;
             });
           }
-          //this.$message.success(`${info.file.name} 上传成功!`);
         }else if (info.file.status === 'error') {
-          this.$message.error(`${info.file.name} 上传失败.`);
+          this.$message.error(`${info.file.name} uplaod failure.`);
         }else if(info.file.status === 'removed'){
           this.handleDelete(info.file)
         }
         this.fileList = fileList
         if(info.file.status==='done' || info.file.status === 'removed'){
-          //returnUrl为true时仅返回文件路径
           if(this.returnUrl){
             this.handlePathChange()
           }else{
-            //returnUrl为false时返回文件名称、文件路径及文件大小
             this.newFileList = [];
             for(var a=0;a<fileList.length;a++){
-              // update-begin-author:lvdandan date:20200603 for:【TESTA-514】【开源issue】多个文件同时上传时，控制台报错
               if(fileList[a].status === 'done' ) {
                 var fileJson = {
                   fileName:fileList[a].name,
@@ -306,14 +282,12 @@
               }else{
                 return;
               }
-              // update-end-author:lvdandan date:20200603 for:【TESTA-514】【开源issue】多个文件同时上传时，控制台报错
             }
             this.$emit('change', this.newFileList);
           }
         }
       },
       handleDelete(file){
-        //如有需要新增  Delete 逻辑
         console.log(file)
       },
       handlePreview(file){
@@ -327,14 +301,13 @@
       handleCancel(){
         this.previewVisible = false;
       },
-      //---------------------------- begin 图片左右换位置 -------------------------------------
       moveLast(){
         //console.log(ev)
         //console.log(this.fileList)
         //console.log(this.currentImg)
         let index = this.getIndexByUrl();
         if(index==0){
-          this.$message.warn('未知的操作')
+          this.$message.warn('Unknown operation')
         }else{
           let curr = this.fileList[index].url;
           let last = this.fileList[index-1].url;
@@ -355,7 +328,7 @@
       moveNext(){
         let index = this.getIndexByUrl();
         if(index==this.fileList.length-1){
-          this.$message.warn('已到最后~')
+          this.$message.warn('Already at the end of the day~')
         }else{
           let curr = this.fileList[index].url;
           let next = this.fileList[index+1].url;
@@ -426,7 +399,6 @@
             this.moveDisplay = 'none';
           }
         })
-        //---------------------------- end 图片左右换位置 -------------------------------------
       }
     },
     model: {
@@ -447,7 +419,6 @@
     }
   }
 }
-  //---------------------------- begin 图片左右换位置 -------------------------------------
   .uploadty-mover-mask{
     background-color: rgba(0, 0, 0, 0.5);
     opacity: .8;
@@ -455,5 +426,4 @@
     height: 28px;
     line-height: 28px;
   }
-  //---------------------------- end 图片左右换位置 -------------------------------------
 </style>

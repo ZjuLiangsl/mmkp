@@ -2,18 +2,18 @@
   <div class="config-list">
     <a-radio-group v-model="type">
       <div class="item">
-        <a-radio value="TYPE_NOT_SET" class="choice" :disabled="disableChoice">不设置</a-radio>
-        <span class="tip-info">日和周只能设置其中之一</span>
+        <a-radio value="TYPE_NOT_SET" class="choice" :disabled="disableChoice">Don't set</a-radio>
+        <span class="tip-info">You can set either day or week</span>
       </div>
       <div class="item">
-        <a-radio value="TYPE_RANGE" class="choice" :disabled="disableChoice">区间</a-radio>
-        从
+        <a-radio value="TYPE_RANGE" class="choice" :disabled="disableChoice">interval</a-radio>
+        from
         <a-select v-model="valueRange.start" class="w80" :disabled="type!==TYPE_RANGE || disableChoice">
           <template v-for="(v, k) of WEEK_MAP">
             <a-select-option :value="v">{{ k }}</a-select-option>
           </template>
         </a-select>
-        至
+        to
         <a-select v-model="valueRange.end" class="w80" :disabled="type!==TYPE_RANGE || disableChoice">
           <template v-for="(v, k) of WEEK_MAP">
             <a-select-option :value="v">{{ k }}</a-select-option>
@@ -21,20 +21,20 @@
         </a-select>
       </div>
       <div class="item">
-        <a-radio value="TYPE_LOOP" class="choice" :disabled="disableChoice">循环</a-radio>
-        从
+        <a-radio value="TYPE_LOOP" class="choice" :disabled="disableChoice">cycle</a-radio>
+        from
         <a-select v-model="valueLoop.start" class="w80" :disabled="type!==TYPE_LOOP || disableChoice">
           <template v-for="(v, k) of WEEK_MAP">
             <a-select-option :value="v">{{ k }}</a-select-option>
           </template>
         </a-select>
-        开始，间隔
+        begin，interval
         <a-input-number :disabled="type!==TYPE_LOOP || disableChoice" :max="maxValue" :min="minValue" :precision="0"
                         class="w60" v-model="valueLoop.interval"/>
-        天
+        day
       </div>
       <div class="item">
-        <a-radio value="TYPE_SPECIFY" class="choice" :disabled="disableChoice">指定</a-radio>
+        <a-radio value="TYPE_SPECIFY" class="choice" :disabled="disableChoice">The specified</a-radio>
         <div class="list">
           <a-checkbox-group v-model="valueList">
             <template v-for="i in specifyRange">
@@ -54,14 +54,13 @@ import mixin from './mixin'
 import { replaceWeekName, WEEK_MAP_EN } from './const.js'
 
 const WEEK_MAP = {
-  '周一': 1,
-  '周二': 2,
-  '周三': 3,
-  '周四': 4,
-  '周五': 5,
-  '周六': 6,
-  // 按照国人习惯，将周日放到每周的最后一天
-  '周日': 7
+  'Monday': 1,
+  'Tuesday': 2,
+  'Wednesday': 3,
+  'Thursday': 4,
+  'Friday': 5,
+  'Saturday': 6,
+  'Sunday': 7
 }
 
 export default {
@@ -86,7 +85,6 @@ export default {
   },
   watch: {
     value_c(newVal, oldVal) {
-      // 如果设置日，那么星期就直接不设置
       this.updateValue()
     },
     day(newVal) {
@@ -104,7 +102,6 @@ export default {
   },
   created() {
     this.DEFAULT_VALUE = '*'
-    // 0,7表示周日 1表示周一
     this.minValue = 1
     this.maxValue = 7
     this.valueRange.start = 1

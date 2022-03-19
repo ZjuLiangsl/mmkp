@@ -11,15 +11,7 @@
 </template>
 
 <script>
-  /**
-   * 使用方法
-   * 在form下直接写这个组件就行了，
-   *<a-form layout="inline" :form="form" >
-   *     <j-form-container :disabled="true">
-   *         <!-- 表单内容省略..... -->
-   *     </j-form-container>
-   *</a-form>
-   */
+
   export default {
     name: 'JFormContainer',
     props:{
@@ -30,7 +22,7 @@
       }
     },
     mounted(){
-      console.log("我是表单禁用专用组件,但是我并不支持表单中iframe的内容禁用")
+      console.log("I'm a form disabling component, but I don't support disabling iframe content in forms")
     }
   }
 </script>

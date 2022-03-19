@@ -91,7 +91,7 @@
             <a-input-search
               enter-button
               v-ant-ref="c => (searchInput = c)"
-              :placeholder="`搜索 ${column.title}`"
+              :placeholder="`search ${column.title}`"
               :value="selectedKeys[0]"
               style="width: 188px; margin-bottom: 8px; "
               @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
@@ -214,7 +214,7 @@ export default {
         {
           key: 'fieldValue',
           width: 110,
-          title: '字段值',
+          title: 'fieldValue',
           render: (val, row) => {
             if (val) {
               return val.toString()
@@ -555,7 +555,6 @@ export default {
         }
       })
 
-      // 加载Constraint Strategy列表
       getAction('/sys/checkRule/listAll', {}).then(res => {
         if (res.success == true) {
           this.checkRuleData = res.result
@@ -716,7 +715,7 @@ export default {
             'maxId': res.result.maxId
           }
         } else {
-          this.$message.error('数据 For failure!')
+          this.$message.error('data For failure!')
           console.error(res)
         }
       })
@@ -730,7 +729,7 @@ export default {
         if (res.success == true) {
           this.tableOption[tableName] = res.result
         } else {
-          this.$message.error('表属性 For failure!')
+          this.$message.error('data For failure!')
           console.error(res)
         }
       })
@@ -855,7 +854,7 @@ export default {
 
               fieldObj['validate'] = []
               if (item.isNullable == '0' || item.extField3 == '0') {
-                fieldObj['validate'].push({ required: true, message: title + '不能为空!' })
+                fieldObj['validate'].push({ required: true, message: title + 'not null!' })
               }
               if (item.compRuleCodes) {
                 let ruleCodes = item.compRuleCodes.split(',')
@@ -880,7 +879,7 @@ export default {
           let key = this.dsCode + '.' + this.dbCode + '.' + tableName
           this.formField[key] = formFields
         } else {
-          this.$message.error('页面初始化错误！')
+          this.$message.error('page init failure！')
           console.error(res)
         }
       })
@@ -895,7 +894,7 @@ export default {
           let key = this.dsCode + '.' + this.dbCode + '.' + tableName
           this.referenceFieldMap[key] = res.result
         } else {
-          this.$message.error('数据 For failure!')
+          this.$message.error('data For failure!')
           console.error(res)
         }
       })
@@ -916,23 +915,7 @@ export default {
           this.modelData.edges.splice(index, 1)
         }
       })
-      /*postAction('/md/tables/delEdge', { id:dataid}).then(res => {
-        if (res.success == true) {
-          let result = res.result
-          if(result.refNode){
-            this.updateTable(result.refNode)
-          }
-          this.$nextTick(() => {
-            this.$nextTick(() => {
-              this.$message.success('关联关系 Delete the success！')
-            })
-          })
-        }
-        else {
-          this.$message.error('关联关系 Delete 失败！')
-          console.error(res)
-        }
-      })*/
+
     },
     delEdgeById(id) {
       for (let i = 0; i < this.modelData.edges.length;) {
@@ -1050,7 +1033,7 @@ export default {
             }
             if (!referenceFieldRelation[lk.source] || referenceFieldRelation[lk.source].indexOf(refKey) < 0) {
               this.delEdgeById(id)
-              this.$message.warning('源字段与目标表没有关联关系,不可连线！')
+              this.$message.warning('The source field is not associated with the target table and cannot be wired！')
               return
             }
             this.delEdgeById(id)
@@ -1386,7 +1369,7 @@ export default {
         let v = this.nodeTitleIds[title].split(':')[1]
         let tmp = key.split('.')
         if (tableName == tmp[2] && value.split(':')[1] == v.split('.')[1]) {
-          this.$message.warning('不支持展开自身！')
+          this.$message.warning('Expansion itself is not supported！')
           return
         }
         this.referenceFieldOpenState[this.nodeTitleIds[title] + '.' + field] = true
@@ -1486,7 +1469,7 @@ export default {
               }
             })
           } else {
-            this.$message.error('关联数据不存在,不能展开！')
+            this.$message.error('The associated data does not exist and cannot be expanded！')
           }
         })
       } else {
@@ -1510,7 +1493,7 @@ export default {
       // console.log(this.referenceField[tableName])
       let referenceFields = this.referenceFieldMap[this.nodeTitleIds[title].split(':')[0]][field]
       if (!referenceFields) {
-        this.$message.warning('该字段还未设置关联关系!')
+        this.$message.warning('The association is not set for this field!')
         return
       }
       // console.log(referenceFields)
@@ -1523,7 +1506,7 @@ export default {
       })
       // console.log(tabsName)
 
-      this.refModelTitle = '选择[' + field + ']'
+      this.refModelTitle = 'select[' + field + ']'
       this.tabsName = tabsName
       this.tabsKey = tabsKey
       if (value) {
@@ -1602,7 +1585,7 @@ export default {
                 }
                 this.refModelVisible = true
               } else {
-                this.$message.error('数据 For failure!')
+                this.$message.error('data For failure!')
                 console.error(res)
               }
             })
@@ -1691,7 +1674,7 @@ export default {
                 }
                 this.refModelVisible = true
               } else {
-                this.$message.error('数据 For failure!')
+                this.$message.error('data For failure!')
                 console.error(res)
               }
             })
@@ -1783,7 +1766,7 @@ export default {
                 'maxId': res.result.maxId
               }
             } else {
-              this.$message.error('数据 For failure!')
+              this.$message.error('data For failure!')
               console.error(res)
             }
           })
@@ -1804,7 +1787,7 @@ export default {
     },
     refModelOk() {
       if (this.refModelSelectKeys.length == 0) {
-        this.$message.warning('请选择数据!')
+        this.$message.warning('Please select data!')
         return
       }
       // console.log(this.currentNodeId)
@@ -2025,7 +2008,7 @@ export default {
                 this.refModelVisible = false
               })
             } else {
-              this.$message.error('表属性 For failure!')
+              this.$message.error('data For failure!')
               console.error(res)
             }
           })
@@ -2074,7 +2057,7 @@ export default {
     },
     handleDel() {
       if (this.selectedRowKeys.length == 0) {
-        this.$message.warning('请选择要 Delete 的数据！')
+        this.$message.warning('Please select to Delete data！')
         return
       }
       let tableName = this.form.getFieldValue('tableName')
@@ -2107,7 +2090,7 @@ export default {
             }
           }
         } else {
-          this.$message.error('数据 Delete 失败！')
+          this.$message.error('data Delete failure！')
           console.error(res)
         }
       })
@@ -2202,9 +2185,9 @@ export default {
           ids: ids
         }).then(res => {
           if (res.success == true) {
-            this.$message.success('数据同步成功！')
+            this.$message.success('Data synchronization succeeds！')
           } else {
-            this.$message.error('数据同步发生错误！')
+            this.$message.error('data synchronization error occurs！')
             console.error(res)
           }
         })
@@ -2222,9 +2205,9 @@ export default {
               ids: ids
             }).then(res => {
               if (res.success == true) {
-                that.$message.success('数据同步成功！')
+                that.$message.success('Data synchronization succeeds！')
               } else {
-                that.$message.error('数据同步发生错误！')
+                that.$message.error('data synchronization error occurs！')
                 console.error(res)
               }
             })

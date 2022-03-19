@@ -41,16 +41,16 @@ const scale = [
     max: 100
   }, {
     dataKey: 'user',
-    alias: '类型'
+    alias: 'type'
   }
 ]
 
 const sourceData = [
-  { item: '示例一', score: 40 },
-  { item: '示例二', score: 20 },
-  { item: '示例三', score: 67 },
-  { item: '示例四', score: 43 },
-  { item: '示例五', score: 90 }
+  { item: 'sample1', score: 40 },
+  { item: 'sample2', score: 20 },
+  { item: 'sample3', score: 67 },
+  { item: 'sample4', score: 43 },
+  { item: 'sample5', score: 90 }
 ]
 
 export default {

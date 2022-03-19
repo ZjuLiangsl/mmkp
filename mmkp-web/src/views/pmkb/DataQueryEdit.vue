@@ -1,7 +1,6 @@
 <template>
   <div>
     <a-card :bordered="false">
-      <!-- 查询区域 -->
       <div class="table-page-search-wrapper">
         <a-form layout="inline" @keyup.enter.native="searchQuery">
 
@@ -34,12 +33,10 @@
         </a-form>
       </div>
 
-      <!-- 操作按钮区域 -->
       <div class="table-operator">
         <a-button @click="handleAdd" type="primary" icon="plus">New</a-button>
       </div>
 
-      <!-- table区域-begin -->
       <div>
         <a-table
           v-if="isPagination"
@@ -80,7 +77,6 @@
           </span>
         </a-table>
       </div>
-      <!-- table区域-end -->
 
       <data-query-edit-modal ref="modalForm" :formFields="formFields" :pkFields="pkFields" :formWidth="table.formWidth"
                              :table="table" @ok="modalFormOk"/>
@@ -334,7 +330,7 @@ export default {
                 }
                 fieldObj['validate'] = []
                 if (item.isNullable == '0' || item.extField3 == '0') {
-                  fieldObj['validate'].push({ required: true, message: title + '不能为空!' })
+                  fieldObj['validate'].push({ required: true, message: title + 'not null!' })
                 }
                 if (item.compRuleCodes) {
                   let ruleCodes = item.compRuleCodes.split(',')
@@ -395,7 +391,7 @@ export default {
             this.loadData()
 
           } else {
-            this.$message.error('页面初始化错误！')
+            this.$message.error('page init failure！')
             console.error(res)
           }
         })

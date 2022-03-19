@@ -4,9 +4,9 @@
 
       <a-alert type="info" :showIcon="true">
         <div slot="message">
-          上次更新时间：{{ this.time }}
+          Last updated：{{ this.time }}
           <a-divider type="vertical"/>
-          <a @click="handleClickUpdate">立即更新</a>
+          <a @click="handleClickUpdate">Update now</a>
         </div>
       </a-alert>
 
@@ -48,7 +48,7 @@ export default {
       loading: true,
       tableLoading: true,
       columns: [{
-        title: '参数',
+        title: 'param',
         width: '30%',
         dataIndex: 'param',
         scopedSlots: { customRender: 'param' }
@@ -58,21 +58,19 @@ export default {
         dataIndex: 'text',
         scopedSlots: { customRender: 'text' }
       }, {
-        title: '当前值',
+        title: 'now value',
         width: '30%',
         dataIndex: 'value',
         scopedSlots: { customRender: 'value' }
       }],
       dataSource: [],
-      // 列表通过 textInfo 渲染出颜色、描述和单位
       textInfo: {
-        'system.cpu.count': { color: 'green', text: 'CPU 数量', unit: '核' },
-        'system.cpu.usage': { color: 'green', text: '系统 CPU 使用率', unit: '%' },
-        'process.start.time': { color: 'purple', text: '应用启动时间点', unit: '' },
-        'process.uptime': { color: 'purple', text: '应用已运行时间', unit: '秒' },
-        'process.cpu.usage': { color: 'purple', text: '当前应用 CPU 使用率', unit: '%' }
+        'system.cpu.count': { color: 'green', text: 'system.cpu.count', unit: 'core' },
+        'system.cpu.usage': { color: 'green', text: 'system.cpu.usage', unit: '%' },
+        'process.start.time': { color: 'purple', text: 'process.start.time', unit: '' },
+        'process.uptime': { color: 'purple', text: 'process.uptime', unit: 'seconds' },
+        'process.cpu.usage': { color: 'purple', text: 'process.cpu.usage', unit: '%' }
       },
-      // 当一条记录中需要取出多条数据的时候需要配置该字段
       moreInfo: {}
     }
   },
@@ -87,7 +85,7 @@ export default {
 
     loadTomcatInfo() {
       this.tableLoading = true
-      this.time = moment().format('YYYY年MM月DD日 HH时mm分ss秒')
+      this.time = moment().format('YYYY-MM-DD HH:mm:ss')
       Promise.all([
         getAction('actuator/metrics/system.cpu.count'),
         getAction('actuator/metrics/system.cpu.usage'),
@@ -116,7 +114,7 @@ export default {
         this.dataSource = info
       }).catch((e) => {
         console.error(e)
-        this.$message.error('获取服务器信息失败')
+        this.$message.error('failure')
       }).finally(() => {
         this.loading = false
         this.tableLoading = false

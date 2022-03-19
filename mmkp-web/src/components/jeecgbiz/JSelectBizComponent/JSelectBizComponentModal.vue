@@ -1,7 +1,7 @@
 <template>
   <j-modal
     centered
-    :title="name + '选择'"
+    :title="name + 'select'"
     :width="width"
     :visible="visible"
     switchFullscreen
@@ -11,15 +11,11 @@
 
     <a-row :gutter="18">
       <a-col :span="16">
-        <!-- 查询区域 -->
         <a-form layout="inline" class="j-inline-form">
-          <!-- 固定条件 -->
           <a-form-item :label="(queryParamText||name)">
-            <a-input v-model="queryParam[queryParamCode||valueKey]" :placeholder="'请输入' + (queryParamText||name)" @pressEnter="searchQuery"/>
+            <a-input v-model="queryParam[queryParamCode||valueKey]" :placeholder="'input' + (queryParamText||name)" @pressEnter="searchQuery"/>
           </a-form-item>
-          <!-- 动态生成的查询条件 -->
           <j-select-biz-query-item v-if="queryConfig.length>0" v-show="showMoreQueryItems" :queryParam="queryParam" :queryConfig="queryConfig" @pressEnter="searchQuery"/>
-          <!-- 按钮 -->
           <a-button type="primary" @click="searchQuery" icon="search">Query</a-button>
           <a-button type="primary" @click="searchReset" icon="reload" style="margin-left: 8px">Reset</a-button>
           <a v-if="queryConfig.length>0" @click="showMoreQueryItems=!showMoreQueryItems" style="margin-left: 8px">
@@ -44,7 +40,7 @@
 
       </a-col>
       <a-col :span="8">
-        <a-card :title="'已选' + name" :bordered="false" :head-style="{padding:0}" :body-style="{padding:0}">
+        <a-card :title="'selected' + name" :bordered="false" :head-style="{padding:0}" :body-style="{padding:0}">
 
           <a-table size="middle" :rowKey="rowKey" bordered v-bind="selectedTable">
               <span slot="action" slot-scope="text, record, index">
@@ -100,7 +96,6 @@
         required: true,
         default: ''
       },
-      // 根据 value 获取显示文本的地址，例如存的是 username，可以通过该地址获取到 realname
       valueUrl: {
         type: String,
         default: ''
@@ -114,17 +109,14 @@
         required: true,
         default: () => []
       },
-      // 查询条件Code
       queryParamCode: {
         type: String,
         default: null
       },
-      // 查询条件文字
       queryParamText: {
         type: String,
         default: null
       },
-      // 查询配置
       queryConfig: {
         type: Array,
         default: () => []
@@ -133,7 +125,6 @@
         type: String,
         default: 'id'
       },
-      // 过长裁剪长度，设置为 -1 代表不裁剪
       ellipsisLength: {
         type: Number,
         default: 12
@@ -142,7 +133,6 @@
     data() {
       return {
         innerValue: [],
-        // 已选择列表
         selectedTable: {
           pagination: false,
           scroll: { y: 240 },
@@ -157,7 +147,6 @@
         },
         renderEllipsis: (value) => (<ellipsis length={this.ellipsisLength}>{value}</ellipsis>),
         url: { list: this.listUrl },
-        /* 分页参数 */
         ipagination: {
           current: 1,
           pageSize: 5,
@@ -175,11 +164,9 @@
       }
     },
     computed: {
-      // 表头
       innerColumns() {
         let columns = cloneObject(this.columns)
         columns.forEach(column => {
-          // 给所有的列加上过长裁剪
           if (this.ellipsisLength !== -1) {
             column.customRender = (text) => this.renderEllipsis(text)
           }
@@ -209,11 +196,9 @@
         immediate: true,
         deep: true,
         handler(val) {
-          //update--begin--autor:scott-----date:20200927------for：选取职务名称出现全选 #1753-----
           if(this.innerValue){
             this.innerValue.length=0;
           }
-          //update--end--autor:scott-----date:20200927------for：选取职务名称出现全选 #1753-----
           this.selectedTable.dataSource = val.map(key => {
             for (let data of this.dataSource) {
               if (data[this.rowKey] === key) {
@@ -227,7 +212,7 @@
                 return data
               }
             }
-            console.warn('未找到选择的行信息，key：' + key)
+            console.warn('The selected row information was not found，key：' + key)
             return {}
           })
         },
@@ -236,7 +221,6 @@
 
     methods: {
 
-      /** 关闭弹窗 */
       close() {
         this.$emit('update:visible', false)
       },
@@ -255,7 +239,6 @@
         if (!value || value.length === 0) {
           return
         }
-        // 判断options是否存在value，如果已存在数据就不再请求后台了
         let notExist = false
         for (let val of value) {
           let find = false
@@ -272,7 +255,6 @@
         }
         if (!notExist) return
         getAction(this.valueUrl || this.listUrl, {
-          // 这里最后加一个 , 的原因是因为无论如何都要使用 in 查询，防止后台进行了模糊匹配，导致查询结果不准确
           [this.valueKey]: value.join(',') + ',',
           pageNo: 1,
           pageSize: value.length
@@ -301,21 +283,17 @@
         this.$emit('options', this.options, this.dataSourceMap)
       },
 
-      /** 完成选择 */
       handleOk() {
         let value = this.selectedTable.dataSource.map(data => data[this.valueKey])
         this.$emit('input', value)
         this.close()
       },
-      /**  Delete 已选择的 */
       handleDeleteSelected(record, index) {
         this.selectedRowKeys.splice(this.selectedRowKeys.indexOf(record[this.rowKey]), 1)
-        //update--begin--autor:wangshuai-----date:20200722------for：JSelectBizComponent组件切换页数值问题------
         this.selectedTable.dataSource.splice(this.selectedTable.dataSource.indexOf(record), 1)
         this.innerValue.splice(this.innerValue.indexOf(record[this.valueKey]), 1)
         console.log("this.selectedRowKeys:",this.selectedRowKeys)
         console.log("this.selectedTable.dataSource:",this.selectedTable.dataSource)
-        //update--begin--autor:wangshuai-----date:20200722------for：JSelectBizComponent组件切换页数值问题------
       },
 
       customRowFn(record) {

@@ -19,9 +19,7 @@
           <a-button icon="sync" type="primary" style="float: right;" title="Sync: Synchronize structure, content data to knowledge base." @click="sync">
             Save
           </a-button>
-          <!--<a-button icon="delete" type="primary" style="float:right;margin-right: 20px;" title=" Delete: Delete 本地暂存的结构、关联关系、内容数据!" @click="remove">
-             Delete
-          </a-button>-->
+
           <a-button icon="redo" type="primary" style="float:right;margin-right: 20px;" title="Rest: Just empty the canvas without doing anything to the data."
                     @click="redo">
             Reset
@@ -361,36 +359,7 @@ export default {
           scopedSlots: { customRender: 'fieldLength' }
         },
 
-        /*{
-          title: '小数点',
-          dataIndex: 'fieldDigit',
-          width: '8%'
-        },
-        {
-          title: '可为空',
-          dataIndex: 'isNullable',
-          width: '8%'
-        },
-        {
-          title: '完整类型',
-          dataIndex: 'fieldTypeFull',
-          width: '8%'
-        },
-        {
-          title: '是否唯一',
-          dataIndex: 'isUnique',
-          width: '8%'
-        },
-        {
-          title: '外键库',
-          dataIndex: 'fkDbName',
-          width: '8%'
-        },
-        {
-          title: 'Status',
-          dataIndex: 'dataState',
-          width: '8%'
-        },*/
+
 
         {
           title: 'Min',
@@ -406,20 +375,7 @@ export default {
           width: 150,
           ellipsis: true
         },
-        /*{
-          title: '外键关联表',
-          dataIndex: 'fkTableName',
-          scopedSlots: { customRender: 'fkTableName' },
-          width: 240,
-          ellipsis: true
-        },
-        {
-          title: '外键关联字段',
-          dataIndex: 'fkFieldName',
-          scopedSlots: { customRender: 'fkFieldName' },
-          width: 180,
-          ellipsis: true
-        },*/
+
         {
           title: 'Operation',
           dataIndex: 'operation',
@@ -1242,7 +1198,6 @@ export default {
           console.error(res)
         }
       })
-      // 加载Constraint Strategy列表
       getAction('/sys/checkRule/listAll', {}).then(res => {
         if (res.success == true) {
           this.checkRuleData = res.result
@@ -1255,12 +1210,10 @@ export default {
         }
       })
 
-      //优先从缓存中读取字典配置
       if (getDictItemsFromCache('field_data_type')) {
         this.dataTypes = getDictItemsFromCache('field_data_type')
         return
       }
-      //根据字典Code, 初始化字典数组
       ajaxGetDictItems('field_data_type', null).then((res) => {
         if (res.success) {
           this.dataTypes = res.result
@@ -1272,11 +1225,9 @@ export default {
         let codes = dictCodes.split(',')
         codes.forEach(c => {
           if (c) {
-            //优先从缓存中读取字典配置
             if (getDictItemsFromCache(c)) {
               this.dictsMap[c] = getDictItemsFromCache(c)
             } else {
-              //根据字典Code, 初始化字典数组
               ajaxGetDictItems(c, null).then((res) => {
                 if (res.success) {
                   this.dictsMap[c] = res.result
@@ -1767,10 +1718,7 @@ export default {
           this.$message.warning('The field type cannot be empty！')
           return
         }
-        /*if (column === 'fieldComment') {
-          this.$message.warning('字段注释不能为空！')
-          return
-        }*/
+
       }
       if (value <= 0 && column === 'fieldLength' && row.fieldType === 'varchar') {
         this.$message.warning('The value is a string that cannot contain 0 characters！')

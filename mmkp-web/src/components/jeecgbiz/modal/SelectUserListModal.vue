@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="用户列表"
+    title="user list"
     :width="1000"
     :visible="visible"
     :confirmLoading="confirmLoading"
@@ -29,7 +29,7 @@
     mixins: [JeecgListMixin],
     data() {
       return {
-        title: "操作",
+        title: "operation",
         visible: false,
         model: {},
         confirmLoading: false,
@@ -46,22 +46,22 @@
             width: 200
           },
           {
-            title: '用户姓名',
+            title: 'realname',
             align: "center",
             dataIndex: 'realname',
           },
           {
-            title: '性别',
+            title: 'sex',
             align: "center",
             dataIndex: 'sex_dictText'
           },
           {
-            title: '手机号码',
+            title: 'phone',
             align: "center",
             dataIndex: 'phone'
           },
           {
-            title: '邮箱',
+            title: 'email',
             align: "center",
             dataIndex: 'email'
           },
@@ -74,7 +74,6 @@
       }
     },
     created() {
-      //Step.2 加载用户数据
       getUserList().then((res) => {
         if (res.success) {
           this.dataSource = res.result.records;
@@ -86,7 +85,6 @@
       open() {
         this.visible = true;
 
-        //Step.1 清空选中用户
         this.selectedRowKeys = []
         this.selectedRows = []
       },

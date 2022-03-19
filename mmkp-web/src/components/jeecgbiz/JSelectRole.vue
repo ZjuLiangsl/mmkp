@@ -2,13 +2,13 @@
   <j-select-biz-component
     :value="value"
 
-    name="角色"
+    name="role"
     displayKey="roleName"
 
     :returnKeys="returnKeys"
     :listUrl="url.list"
     :columns="columns"
-    queryParamText="角色编码"
+    queryParamText="role code"
 
     v-on="$listeners"
     v-bind="$attrs"

@@ -17,7 +17,6 @@
     name: 'JVxeTextareaCell',
     mixins: [JVxeCellMixins],
     components: {JInputPop},
-    // 【组件增强】注释详见：JVxeCellMixins.js
     enhanced: {
       installOptions: {
         autofocus: '.ant-input',

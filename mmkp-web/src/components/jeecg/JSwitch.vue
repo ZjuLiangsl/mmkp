@@ -61,8 +61,8 @@
     computed:{
       queryOption(){
         let arr = []
-        arr.push({value:this.options[0],text:'是'})
-        arr.push({value:this.options[1],text:'否'})
+        arr.push({value:this.options[0],text:'yes'})
+        arr.push({value:this.options[1],text:'no'})
         return arr;
       }
     },

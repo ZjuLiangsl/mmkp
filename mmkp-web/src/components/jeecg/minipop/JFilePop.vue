@@ -1,11 +1,11 @@
 <template>
   <div>
     <a-modal
-      :title="fileType === 'image' ? '图片上传' : '文件上传'"
+      :title="fileType === 'image' ? 'image' : 'file'"
       :width="width"
       :visible="visible"
       @ok="ok"
-      cancelText="取消"
+      cancelText="cancel"
       @cancel="close">
       <!--style="top: 20px;"-->
       <j-upload :file-type="fileType" :value="filePath" @change="handleChange" :disabled="disabled"
@@ -92,7 +92,7 @@ export default {
     },
     ok() {
       if (!this.filePath) {
-        this.$message.error('未上传任何文件')
+        this.$message.error('No files have been uploaded')
         return false
       }
       let arr = this.filePath.split(',')
