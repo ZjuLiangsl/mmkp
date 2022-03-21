@@ -68,11 +68,11 @@ public class DataQueryEditContorller {
             List<String> conditions = new ArrayList<>();
             listFieldsVO.forEach(vo -> {
                 if (vo.getFieldType().indexOf("time") > -1) {
-                    fields.add("date_format(" + vo.getFieldName() + ",'" + (StrUtil.isNotBlank(vo.getExtField2()) ? vo.getExtField2() : "%Y-%m-%d %H:%i:%S") + "') as " + vo.getFieldName());
+                    fields.add("date_format(`" + vo.getFieldName() + "`,'" + (StrUtil.isNotBlank(vo.getExtField2()) ? vo.getExtField2() : "%Y-%m-%d %H:%i:%S") + "') as " + vo.getFieldName());
                 } else if (vo.getFieldType().indexOf("date") > -1) {
-                    fields.add("date_format(" + vo.getFieldName() + ",'" + (StrUtil.isNotBlank(vo.getExtField2()) ? vo.getExtField2() : "%Y-%m-%d") + "') as " + vo.getFieldName());
+                    fields.add("date_format(`" + vo.getFieldName() + "`,'" + (StrUtil.isNotBlank(vo.getExtField2()) ? vo.getExtField2() : "%Y-%m-%d") + "') as " + vo.getFieldName());
                 } else {
-                    fields.add(vo.getFieldName());
+                    fields.add("`"+vo.getFieldName()+"`");
                 }
                 if ("1".equals(vo.getIsSearchField())) {
                     searchFields.add(vo);
